@@ -8,11 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */; };
-		0C385DA91FD0938F008FB5D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DA81FD0938F008FB5D7 /* ViewController.swift */; };
 		0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */; };
 		0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */; };
 		0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C385DAF1FD0938F008FB5D7 /* Main.storyboard */; };
 		0C385DBD1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DBC1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift */; };
+		0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */; };
+		0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFD1FD09E1B008FB5D7 /* Parser.swift */; };
+		0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFF1FD09FB1008FB5D7 /* Signal.swift */; };
+		0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */; };
+		0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */; };
+		0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E051FD0A210008FB5D7 /* CombinationalModule.swift */; };
+		0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E071FD0A21B008FB5D7 /* Module.swift */; };
+		0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */; };
+		0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */; };
+		0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +37,6 @@
 /* Begin PBXFileReference section */
 		0C385DA31FD0938F008FB5D7 /* CircuitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0C385DA81FD0938F008FB5D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0C385DAB1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CircuitPlayground.xcdatamodel; sourceTree = "<group>"; };
 		0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C385DB01FD0938F008FB5D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -37,6 +45,16 @@
 		0C385DB81FD0938F008FB5D7 /* CircuitPlaygroundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CircuitPlaygroundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C385DBC1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundTests.swift; sourceTree = "<group>"; };
 		0C385DBE1FD0938F008FB5D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		0C385DFD1FD09E1B008FB5D7 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		0C385DFF1FD09FB1008FB5D7 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicFunction.swift; sourceTree = "<group>"; };
+		0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescription.swift; sourceTree = "<group>"; };
+		0C385E051FD0A210008FB5D7 /* CombinationalModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinationalModule.swift; sourceTree = "<group>"; };
+		0C385E071FD0A21B008FB5D7 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialModule.swift; sourceTree = "<group>"; };
+		0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBitSignal.swift; sourceTree = "<group>"; };
+		0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBitSignal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,13 +96,11 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
-				0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */,
-				0C385DA81FD0938F008FB5D7 /* ViewController.swift */,
+				0C385DF51FD09648008FB5D7 /* Core */,
+				0C385DFA1FD0974B008FB5D7 /* Controllers */,
+				0C385DF61FD09650008FB5D7 /* Storyboard */,
+				0C385DF41FD0960B008FB5D7 /* Support */,
 				0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */,
-				0C385DAF1FD0938F008FB5D7 /* Main.storyboard */,
-				0C385DB21FD0938F008FB5D7 /* Info.plist */,
-				0C385DB31FD0938F008FB5D7 /* CircuitPlayground.entitlements */,
-				0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */,
 			);
 			path = CircuitPlayground;
 			sourceTree = "<group>";
@@ -96,6 +112,65 @@
 				0C385DBE1FD0938F008FB5D7 /* Info.plist */,
 			);
 			path = CircuitPlaygroundTests;
+			sourceTree = "<group>";
+		};
+		0C385DF41FD0960B008FB5D7 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */,
+				0C385DB21FD0938F008FB5D7 /* Info.plist */,
+				0C385DB31FD0938F008FB5D7 /* CircuitPlayground.entitlements */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		0C385DF51FD09648008FB5D7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
+				0C385DF81FD0971E008FB5D7 /* Model */,
+				0C385DF71FD0967D008FB5D7 /* Persistence */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0C385DF61FD09650008FB5D7 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DAF1FD0938F008FB5D7 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		0C385DF71FD0967D008FB5D7 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		0C385DF81FD0971E008FB5D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFF1FD09FB1008FB5D7 /* Signal.swift */,
+				0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */,
+				0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */,
+				0C385E071FD0A21B008FB5D7 /* Module.swift */,
+				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
+				0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */,
+				0C385E051FD0A210008FB5D7 /* CombinationalModule.swift */,
+				0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0C385DFA1FD0974B008FB5D7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +275,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */,
+				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
+				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,
+				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
+				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
+				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
+				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
-				0C385DA91FD0938F008FB5D7 /* ViewController.swift in Sources */,
+				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
+				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
+				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,14 +430,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/CircuitPlayground.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/Support/CircuitPlayground.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = U5ZZWN44AH;
-				INFOPLIST_FILE = CircuitPlayground/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CircuitPlayground/Support/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasnascimento.CircuitPlayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -362,14 +448,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/CircuitPlayground.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/Support/CircuitPlayground.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = U5ZZWN44AH;
-				INFOPLIST_FILE = CircuitPlayground/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CircuitPlayground/Support/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasnascimento.CircuitPlayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
