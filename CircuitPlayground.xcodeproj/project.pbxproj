@@ -22,6 +22,7 @@
 		0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */; };
 		0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */; };
 		0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */; };
+		0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialModule.swift; sourceTree = "<group>"; };
 		0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBitSignal.swift; sourceTree = "<group>"; };
 		0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBitSignal.swift; sourceTree = "<group>"; };
+		0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleConnection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,10 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
-				0C385DF51FD09648008FB5D7 /* Core */,
+				0C385DF71FD0967D008FB5D7 /* Persistence */,
+				0C385E181FD1D018008FB5D7 /* Util */,
+				0C385DF81FD0971E008FB5D7 /* Model */,
+				0C385E171FD1D005008FB5D7 /* View */,
 				0C385DFA1FD0974B008FB5D7 /* Controllers */,
 				0C385DF61FD09650008FB5D7 /* Storyboard */,
 				0C385DF41FD0960B008FB5D7 /* Support */,
@@ -124,16 +129,6 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		0C385DF51FD09648008FB5D7 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
-				0C385DF81FD0971E008FB5D7 /* Model */,
-				0C385DF71FD0967D008FB5D7 /* Persistence */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		0C385DF61FD09650008FB5D7 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,14 +148,9 @@
 		0C385DF81FD0971E008FB5D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0C385DFF1FD09FB1008FB5D7 /* Signal.swift */,
-				0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */,
-				0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */,
-				0C385E071FD0A21B008FB5D7 /* Module.swift */,
-				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
 				0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */,
-				0C385E051FD0A210008FB5D7 /* CombinationalModule.swift */,
-				0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */,
+				0C385E101FD1B13B008FB5D7 /* Signal */,
+				0C385E111FD1B147008FB5D7 /* Module */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +161,43 @@
 				0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0C385E101FD1B13B008FB5D7 /* Signal */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFF1FD09FB1008FB5D7 /* Signal.swift */,
+				0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */,
+				0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */,
+			);
+			path = Signal;
+			sourceTree = "<group>";
+		};
+		0C385E111FD1B147008FB5D7 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				0C385E071FD0A21B008FB5D7 /* Module.swift */,
+				0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */,
+				0C385E051FD0A210008FB5D7 /* CombinationalModule.swift */,
+				0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		0C385E171FD1D005008FB5D7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0C385E181FD1D018008FB5D7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
+				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */,
 				0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */,
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,

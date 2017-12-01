@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Parser {
     
     var fileName: String
@@ -22,8 +21,6 @@ class Parser {
         print("TODO")
         print(#function)
     }
-    
     // MARK: - Private
-    
     
 }

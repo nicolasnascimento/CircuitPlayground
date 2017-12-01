@@ -10,13 +10,12 @@ import Foundation
 
 struct SingleBitSignal: Signal {
     let numberOfBits: Int = 1
-    
     var associatedId: String
     var bits: [StandardLogicValue] = []
 
-    
     init(associatedId: String, value: StandardLogicValue) {
         self.associatedId = associatedId
         self.bits = [value]
     }
 }
+

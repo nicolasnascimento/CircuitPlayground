@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CircuitDescription {
-    
-    
+struct CircuitDescription {
+    var modules: [Module]
+    var connections: [ModuleConnection]
 }

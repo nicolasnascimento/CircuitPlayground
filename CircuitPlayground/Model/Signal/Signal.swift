@@ -8,12 +8,14 @@
 
 import Foundation
 
-enum StandardLogicValue: Int {
-    case positive
-    case negative
-    case unknown
+// Enumerate possible logic values
+enum StandardLogicValue: String {
+    case positive = "1"
+    case negative = "0"
+    case unknown = "X"
 }
 
+// Describes the necessary properties for a Signal
 protocol Signal {
     var numberOfBits: Int { get }
     var associatedId: String { get set }
