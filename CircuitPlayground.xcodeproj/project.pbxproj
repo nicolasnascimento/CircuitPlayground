@@ -23,6 +23,7 @@
 		0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */; };
 		0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */; };
 		0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */; };
+		0C385E1B1FD1D844008FB5D7 /* base.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C385E1A1FD1D844008FB5D7 /* base.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		0C385E0B1FD0A7F4008FB5D7 /* SingleBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBitSignal.swift; sourceTree = "<group>"; };
 		0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBitSignal.swift; sourceTree = "<group>"; };
 		0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleConnection.swift; sourceTree = "<group>"; };
+		0C385E1A1FD1D844008FB5D7 /* base.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = base.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				0C385E191FD1D1BF008FB5D7 /* Example-Files */,
 				0C385DF71FD0967D008FB5D7 /* Persistence */,
 				0C385E181FD1D018008FB5D7 /* Util */,
 				0C385DF81FD0971E008FB5D7 /* Model */,
@@ -200,6 +203,14 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		0C385E191FD1D1BF008FB5D7 /* Example-Files */ = {
+			isa = PBXGroup;
+			children = (
+				0C385E1A1FD1D844008FB5D7 /* base.json */,
+			);
+			path = "Example-Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -283,6 +294,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
 				0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */,
 			);

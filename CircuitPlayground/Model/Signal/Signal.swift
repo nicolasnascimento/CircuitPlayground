@@ -12,7 +12,6 @@ import Foundation
 enum StandardLogicValue: String {
     case positive = "1"
     case negative = "0"
-    case unknown = "X"
 }
 
 // Describes the necessary properties for a Signal
