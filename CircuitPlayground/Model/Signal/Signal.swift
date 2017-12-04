@@ -8,10 +8,26 @@
 
 import Foundation
 
+
+
 // Enumerate possible logic values
-enum StandardLogicValue: String {
+enum StandardLogicValue: String, Equatable {
     case positive = "1"
     case negative = "0"
+    
+    // MARK: - Operators
+    static public func &(lhs: StandardLogicValue, rhs: StandardLogicValue) -> StandardLogicValue {
+        switch lhs {
+        case .positive: return rhs
+        case .negative: return .negative
+        }
+    }
+    static public func |(lhs: StandardLogicValue, rhs: StandardLogicValue) -> StandardLogicValue {
+        switch lhs {
+        case .positive: return .positive
+        case .negative: return rhs
+        }
+    }
 }
 
 // Describes the necessary properties for a Signal
@@ -20,4 +36,3 @@ protocol Signal {
     var associatedId: String { get set }
     var bits: [StandardLogicValue] { get set }
 }
-

@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE511FD57BFD0029BB42 /* Entity.swift */; };
+		0C29FE541FD57C150029BB42 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE531FD57C150029BB42 /* Port.swift */; };
+		0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */; };
+		0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE571FD57CCA0029BB42 /* Input.swift */; };
+		0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE591FD57CEB0029BB42 /* Output.swift */; };
+		0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */; };
+		0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */; };
+		0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */; };
 		0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */; };
 		0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */; };
 		0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */; };
@@ -37,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C29FE511FD57BFD0029BB42 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		0C29FE531FD57C150029BB42 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
+		0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicDescriptor.swift; sourceTree = "<group>"; };
+		0C29FE571FD57CCA0029BB42 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		0C29FE591FD57CEB0029BB42 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
+		0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSignal.swift; sourceTree = "<group>"; };
+		0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Architecture.swift; sourceTree = "<group>"; };
+		0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicSpecification.swift; sourceTree = "<group>"; };
 		0C385DA31FD0938F008FB5D7 /* CircuitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C385DAB1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CircuitPlayground.xcdatamodel; sourceTree = "<group>"; };
@@ -79,6 +95,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C29FE501FD57BE90029BB42 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
+				0C29FE511FD57BFD0029BB42 /* Entity.swift */,
+				0C29FE531FD57C150029BB42 /* Port.swift */,
+				0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */,
+				0C29FE591FD57CEB0029BB42 /* Output.swift */,
+				0C29FE571FD57CCA0029BB42 /* Input.swift */,
+				0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */,
+				0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */,
+				0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
 		0C385D9A1FD0938F008FB5D7 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +132,7 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				0C29FE501FD57BE90029BB42 /* Parser */,
 				0C385E191FD1D1BF008FB5D7 /* Example-Files */,
 				0C385DF71FD0967D008FB5D7 /* Persistence */,
 				0C385E181FD1D018008FB5D7 /* Util */,
@@ -197,7 +230,6 @@
 		0C385E181FD1D018008FB5D7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
 				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
 			);
 			path = Util;
@@ -316,15 +348,23 @@
 			files = (
 				0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */,
 				0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */,
+				0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */,
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
+				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
+				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,
+				0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
 				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
+				0C29FE541FD57C150029BB42 /* Port.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
+				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,
+				0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */,
+				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
 				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
 			);

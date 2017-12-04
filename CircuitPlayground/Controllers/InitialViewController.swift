@@ -14,5 +14,8 @@ class InitialViewController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
         
+        let parser = Parser(fileNamed: "base")
+        parser.parseCurrentFile()
+        
     }
 }
