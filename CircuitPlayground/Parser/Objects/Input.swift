@@ -6,7 +6,7 @@
 //  Copyright © 2017 Nicolas Nascimento. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 struct Input: Codable {
     var name: String

@@ -8,10 +8,8 @@
 
 import Foundation
 
-
-
 // Enumerate possible logic values
-enum StandardLogicValue: String, Equatable {
+enum StandardLogicValue: String {
     case positive = "1"
     case negative = "0"
     
@@ -26,6 +24,12 @@ enum StandardLogicValue: String, Equatable {
         switch lhs {
         case .positive: return .positive
         case .negative: return rhs
+        }
+    }
+    static public prefix func !(rhs: StandardLogicValue) -> StandardLogicValue {
+        switch rhs {
+        case .negative: return .positive
+        case .positive: return .negative
         }
     }
 }

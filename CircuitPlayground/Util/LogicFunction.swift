@@ -26,30 +26,46 @@ extension Collection where Element == Signal {
     var allSignalsContainOnlyNegativeBits: Bool { return self.filter{ $0.bits.contains(.positive) }.isEmpty }
     
     // MARK: - Logic Operations
-    var perfomingAndOfSignals: [StandardLogicValue] {
+    var performingAndOfSignals: [StandardLogicValue] {
         return self.reduce([StandardLogicValue](), {
             var storage = $0
-            for (index, bit) in $1.bits.enumerated() {
-                storage.append($0[index] & bit)
+            if( storage.isEmpty ) {
+                storage.append(contentsOf: $1.bits)
+            } else {
+                var newStorage = [StandardLogicValue]()
+                for (index, bit) in $1.bits.enumerated() {
+                    newStorage.append(storage[index] & bit)
+                }
+                storage = newStorage
             }
             return storage
         })
     }
-    var perfomingOrOfSignals: [StandardLogicValue] {
+    var performingOrOfSignals: [StandardLogicValue] {
         return self.reduce([StandardLogicValue](), {
             var storage = $0
-            for (index, bit) in $1.bits.enumerated() {
-                storage.append($0[index] | bit)
+            if( storage.isEmpty ) {
+                storage.append(contentsOf: $1.bits)
+            } else {
+                var newStorage = [StandardLogicValue]()
+                for (index, bit) in $1.bits.enumerated() {
+                    newStorage.append(storage[index] | bit)
+                }
+                storage = newStorage
             }
             return storage
         })
     }
-    
+    var performingNotOfSignals: [StandardLogicValue] {
+        return self.first?.bits.map{ return !$0 } ?? []
+    }
 }
 
 
 // List of builtin logic functions
 struct LogicFunctions {
+    
+    // MARK: - Standard Logic Operation
     static let and: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
         if( inputs.isEmpty ) {
             print("Warning - Perfoming operation (and) without inputs")
@@ -61,16 +77,16 @@ struct LogicFunctions {
             if( inputs.allSignalsContainOnlyPositiveBits ) {
                 return [.positive]
             } else {
-                return [.negative]
+                return inputs.performingAndOfSignals
             }
         } else if( inputs.containsSameLengthSignalsOnly ) {
             if( inputs.allSignalsContainOnlyPositiveBits ) {
                 return [StandardLogicValue](repeating: .positive, count: inputs.first!.numberOfBits)
             } else {
-                return inputs.perfomingAndOfSignals
+                return inputs.performingAndOfSignals
             }
         }
-        return [.negative]
+        return []
     }
     static let or: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
         if( inputs.isEmpty ) {
@@ -83,25 +99,26 @@ struct LogicFunctions {
             if( inputs.allSignalsContainOnlyPositiveBits ) {
                 return [.positive]
             } else {
-                return [.negative]
+                return inputs.performingOrOfSignals
             }
         } else if( inputs.containsSameLengthSignalsOnly ) {
             if( inputs.allSignalsContainOnlyPositiveBits ) {
                 return [StandardLogicValue](repeating: .positive, count: inputs.first!.numberOfBits)
             } else {
-                return inputs.perfomingOrOfSignals
+                return inputs.performingOrOfSignals
             }
         }
-        return [.negative]
+        return []
     }
-    
-//    static let or: LogicFunctions = { (_ inputs: [Signal]) -> StandardLogicValue in
-//        if( inputs.count == 1 ) {
-//            print("Warning - Perfoming Single Signal Operation")
-//            return inputs.allSignalsContainOnlyPositiveBits ? .positive : .negative
-//        } else if( inputs.contaisSingleBitSignalsOnly ) {
-//            i
-//        }
-//    }
-    
+    static let not: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
+        if( inputs.isEmpty ) {
+            print("Warning - Perfoming operation (not) without inputs")
+            return []
+        } else if( inputs.count == 1 && inputs.first!.numberOfBits != 0 ) {
+            print("Warning - Perfoming single signal operation (not)")
+            return inputs.performingNotOfSignals
+        }
+        print("Error - Cannot perform multi entry signal operation (not)")
+        return []
+    }
 }

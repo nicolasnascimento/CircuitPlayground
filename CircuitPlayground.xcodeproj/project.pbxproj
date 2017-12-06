@@ -15,13 +15,15 @@
 		0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */; };
 		0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */; };
 		0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */; };
+		0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C34D71A1FD84BD9005147E7 /* DTO.swift */; };
+		0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C34D71C1FD85C0B005147E7 /* CoreDataManager.swift */; };
 		0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */; };
 		0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */; };
 		0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */; };
 		0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C385DAF1FD0938F008FB5D7 /* Main.storyboard */; };
 		0C385DBD1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DBC1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift */; };
 		0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */; };
-		0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFD1FD09E1B008FB5D7 /* Parser.swift */; };
+		0C385DFE1FD09E1B008FB5D7 /* ObjectParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFD1FD09E1B008FB5D7 /* ObjectParser.swift */; };
 		0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DFF1FD09FB1008FB5D7 /* Signal.swift */; };
 		0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */; };
 		0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */; };
@@ -53,6 +55,8 @@
 		0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSignal.swift; sourceTree = "<group>"; };
 		0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Architecture.swift; sourceTree = "<group>"; };
 		0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicSpecification.swift; sourceTree = "<group>"; };
+		0C34D71A1FD84BD9005147E7 /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
+		0C34D71C1FD85C0B005147E7 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0C385DA31FD0938F008FB5D7 /* CircuitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C385DAB1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CircuitPlayground.xcdatamodel; sourceTree = "<group>"; };
@@ -64,7 +68,7 @@
 		0C385DBC1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundTests.swift; sourceTree = "<group>"; };
 		0C385DBE1FD0938F008FB5D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C385DFB1FD09772008FB5D7 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
-		0C385DFD1FD09E1B008FB5D7 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		0C385DFD1FD09E1B008FB5D7 /* ObjectParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectParser.swift; sourceTree = "<group>"; };
 		0C385DFF1FD09FB1008FB5D7 /* Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
 		0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicFunction.swift; sourceTree = "<group>"; };
 		0C385E031FD0A1D4008FB5D7 /* CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescription.swift; sourceTree = "<group>"; };
@@ -98,7 +102,15 @@
 		0C29FE501FD57BE90029BB42 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				0C385DFD1FD09E1B008FB5D7 /* Parser.swift */,
+				0C385DFD1FD09E1B008FB5D7 /* ObjectParser.swift */,
+				0C29FE611FD5D0F40029BB42 /* Objects */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		0C29FE611FD5D0F40029BB42 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
 				0C29FE511FD57BFD0029BB42 /* Entity.swift */,
 				0C29FE531FD57C150029BB42 /* Port.swift */,
 				0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */,
@@ -108,7 +120,7 @@
 				0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */,
 				0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */,
 			);
-			path = Parser;
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		0C385D9A1FD0938F008FB5D7 = {
@@ -176,7 +188,9 @@
 		0C385DF71FD0967D008FB5D7 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				0C34D71C1FD85C0B005147E7 /* CoreDataManager.swift */,
 				0C385DAA1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld */,
+				0C34D71A1FD84BD9005147E7 /* DTO.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -347,13 +361,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */,
-				0C385DFE1FD09E1B008FB5D7 /* Parser.swift in Sources */,
+				0C385DFE1FD09E1B008FB5D7 /* ObjectParser.swift in Sources */,
 				0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */,
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
 				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
 				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,
 				0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */,
+				0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
@@ -362,6 +377,7 @@
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
+				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
 				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,
 				0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */,
 				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
