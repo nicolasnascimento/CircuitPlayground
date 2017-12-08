@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C116CDD1FDAA4A6004B8999 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */; };
 		0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE511FD57BFD0029BB42 /* Entity.swift */; };
 		0C29FE541FD57C150029BB42 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE531FD57C150029BB42 /* Port.swift */; };
 		0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C29FE511FD57BFD0029BB42 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		0C29FE531FD57C150029BB42 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicDescriptor.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C116CDD1FDAA4A6004B8999 /* SpriteKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C116CDB1FDAA4A6004B8999 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0C29FE501FD57BE90029BB42 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +140,7 @@
 				0C385DA51FD0938F008FB5D7 /* CircuitPlayground */,
 				0C385DBB1FD0938F008FB5D7 /* CircuitPlaygroundTests */,
 				0C385DA41FD0938F008FB5D7 /* Products */,
+				0C116CDB1FDAA4A6004B8999 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,7 +161,6 @@
 				0C385DF71FD0967D008FB5D7 /* Persistence */,
 				0C385E181FD1D018008FB5D7 /* Util */,
 				0C385DF81FD0971E008FB5D7 /* Model */,
-				0C385E171FD1D005008FB5D7 /* View */,
 				0C385DFA1FD0974B008FB5D7 /* Controllers */,
 				0C385DF61FD09650008FB5D7 /* Storyboard */,
 				0C385DF41FD0960B008FB5D7 /* Support */,
@@ -232,13 +243,6 @@
 				0C385E091FD0A38C008FB5D7 /* SequentialModule.swift */,
 			);
 			path = Module;
-			sourceTree = "<group>";
-		};
-		0C385E171FD1D005008FB5D7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		0C385E181FD1D018008FB5D7 /* Util */ = {
