@@ -709,7 +709,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wv7-KR-UcI">
+                            <splitView canDrawConcurrently="YES" arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wv7-KR-UcI">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                                 <subviews>
                                     <customView id="1RI-Yb-IuM">
@@ -727,7 +727,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <size key="minSize" width="235" height="268"/>
-                                                            <size key="maxSize" width="463" height="10000000"/>
+                                                            <size key="maxSize" width="480" height="10000000"/>
                                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                         </textView>
                                                     </subviews>
@@ -744,17 +744,20 @@
                                             </scrollView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="LC2-Rc-rdZ" secondAttribute="bottom" id="AIn-Ne-GB2"/>
-                                            <constraint firstItem="LC2-Rc-rdZ" firstAttribute="leading" secondItem="1RI-Yb-IuM" secondAttribute="leading" id="BH5-YX-FgX"/>
-                                            <constraint firstAttribute="trailing" secondItem="LC2-Rc-rdZ" secondAttribute="trailing" id="ZqP-SI-bkd"/>
-                                            <constraint firstItem="LC2-Rc-rdZ" firstAttribute="top" secondItem="1RI-Yb-IuM" secondAttribute="top" id="td9-ja-Rk4"/>
+                                            <constraint firstItem="LC2-Rc-rdZ" firstAttribute="top" secondItem="1RI-Yb-IuM" secondAttribute="top" id="3q3-ZM-vU7"/>
+                                            <constraint firstItem="LC2-Rc-rdZ" firstAttribute="leading" secondItem="1RI-Yb-IuM" secondAttribute="leading" id="mnI-me-79c"/>
+                                            <constraint firstAttribute="bottom" secondItem="LC2-Rc-rdZ" secondAttribute="bottom" id="zi6-pI-vIN"/>
+                                            <constraint firstAttribute="trailing" secondItem="LC2-Rc-rdZ" secondAttribute="trailing" id="zio-Pf-vab"/>
                                         </constraints>
                                     </customView>
-                                    <customView fixedFrame="YES" id="Z9h-4d-uu1" customClass="SKView">
-                                        <rect key="frame" x="247" y="0.0" width="233" height="270"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                    <customView id="Iw4-EX-yNN" customClass="SKView">
+                                        <rect key="frame" x="238" y="0.0" width="242" height="270"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </customView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Iw4-EX-yNN" firstAttribute="height" secondItem="1RI-Yb-IuM" secondAttribute="height" id="6CZ-7L-HJ0"/>
+                                </constraints>
                                 <holdingPriorities>
                                     <real value="250"/>
                                     <real value="250"/>
@@ -762,12 +765,16 @@
                             </splitView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Wv7-KR-UcI" secondAttribute="trailing" id="UgF-Ki-mVP"/>
-                            <constraint firstAttribute="bottom" secondItem="Wv7-KR-UcI" secondAttribute="bottom" id="e3d-tQ-VUh"/>
-                            <constraint firstItem="Wv7-KR-UcI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="exN-VL-a6C"/>
-                            <constraint firstItem="Wv7-KR-UcI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="sRB-hT-WCW"/>
+                            <constraint firstAttribute="trailing" secondItem="Wv7-KR-UcI" secondAttribute="trailing" id="EWf-eN-b1F"/>
+                            <constraint firstItem="Wv7-KR-UcI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Gzx-UO-v9V"/>
+                            <constraint firstAttribute="bottom" secondItem="Wv7-KR-UcI" secondAttribute="bottom" id="mJZ-ke-4RX"/>
+                            <constraint firstItem="Wv7-KR-UcI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="otv-LN-kaN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="editorTextView" destination="qjS-pS-amR" id="CjT-EK-VRs"/>
+                        <outlet property="skView" destination="Iw4-EX-yNN" id="8p7-Ed-WDn"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
