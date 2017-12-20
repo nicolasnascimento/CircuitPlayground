@@ -18,7 +18,6 @@ class InitialViewController: NSViewController {
         super.viewDidLoad()
     
         self.setupEditorTextView()
-        
     }
     
     override func viewDidLayout() {
@@ -30,12 +29,14 @@ class InitialViewController: NSViewController {
     // MARK: - Private
     private func handleViewSizeUpdate() {
         if let _ = self.skView.scene {
-            print("resizing...")
+//            print(self.view.frame)
+            self.skView.scene?.size = CGSize(width: self.view.frame.width*0.5, height: self.view.frame.height)
         } else {
             self.setupSKView()
             self.setupScene()
         }
     }
+    
 }
 
 extension InitialViewController: NSTextViewDelegate {
@@ -52,7 +53,6 @@ extension InitialViewController: NSTextViewDelegate {
 extension InitialViewController: SKViewDelegate {
     
     private func setupSKView() {
-        
         // Set SKView
         self.skView.delegate = self
     }
@@ -61,8 +61,9 @@ extension InitialViewController: SKViewDelegate {
         let side = 1024.0 as CGFloat
         let scene = CircuitScene(size: CGSize(side: side))
         
-        // Perform configuration
-        scene.scaleMode = .resizeFill
+        // Here, we'll be using aspectFill because all drawing will happen inside a `drawable` node, not directly to the scene.
+        // This will display the SKView if the user decides to pinch to zoom
+        scene.scaleMode = .aspectFill
         
         // Present scene
         self.skView.presentScene(scene)

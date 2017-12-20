@@ -8,21 +8,31 @@
 
 import SpriteKit
 
+// A node that encapsulates a logic port
 class LogicPortAndNode: SKSpriteNode {
-    
+    var operation: LogicDescriptor.LogicOperation = .none {
+        didSet {
+            self.draw()
+        }
+    }
 }
 
-extension LogicPortAndNode: LogicPortDrawer {
+extension LogicPortAndNode: LogicPortDrawable {
+    
+    /// Sets operation and size of SpriteNode. Calls draw() afterwards
     func draw(with operation: LogicDescriptor.LogicOperation, in size: CGSize) {
-        
-        switch operation {
-        case .and:
-            
-        case .or:s
-            
-        case .none:
-            
+        // No matter what we do, always redraw at the end
+        defer {
+            self.draw()
         }
         
+        // Set drawing parameters
+        self.operation = operation
+        self.size = size
+    }
+    
+    func draw() {
+        let texture = SKTexture(imageNamed: Environment.Images.image(for: self.operation))
+        self.run(SKAction.setTexture(texture))
     }
 }

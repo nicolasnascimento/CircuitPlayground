@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0585331FEACB36007E07FB /* CanvasNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0585321FEACB36007E07FB /* CanvasNode.swift */; };
+		0C0F8D821FEAEF0B006CC411 /* SKViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */; };
 		0C116CDD1FDAA4A6004B8999 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */; };
 		0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CDF1FDABF45004B8999 /* CircuitScene.swift */; };
-		0C116CE31FDABFAD004B8999 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CE21FDABFAD004B8999 /* Configuration.swift */; };
-		0C116CE51FDAC097004B8999 /* CGSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CE41FDAC097004B8999 /* CGSizeExtension.swift */; };
-		0C116CEB1FDAE0CC004B8999 /* LogicPortDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CEA1FDAE0CC004B8999 /* LogicPortDrawer.swift */; };
+		0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CE21FDABFAD004B8999 /* Environment.swift */; };
+		0C116CE51FDAC097004B8999 /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CE41FDAC097004B8999 /* CoreGraphicsExtensions.swift */; };
+		0C116CEB1FDAE0CC004B8999 /* LogicPortDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CEA1FDAE0CC004B8999 /* LogicPortDrawable.swift */; };
 		0C116CED1FDAE2D6004B8999 /* LogicPortAndNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CEC1FDAE2D6004B8999 /* LogicPortAndNode.swift */; };
 		0C116CEF1FDAE393004B8999 /* SKSpriteNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */; };
 		0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE511FD57BFD0029BB42 /* Entity.swift */; };
@@ -41,6 +43,7 @@
 		0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */; };
 		0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */; };
 		0C385E1B1FD1D844008FB5D7 /* base.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C385E1A1FD1D844008FB5D7 /* base.json */; };
+		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,11 +57,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C0585321FEACB36007E07FB /* CanvasNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasNode.swift; sourceTree = "<group>"; };
+		0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewExtensions.swift; sourceTree = "<group>"; };
 		0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C116CDF1FDABF45004B8999 /* CircuitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitScene.swift; sourceTree = "<group>"; };
-		0C116CE21FDABFAD004B8999 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		0C116CE41FDAC097004B8999 /* CGSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtension.swift; sourceTree = "<group>"; };
-		0C116CEA1FDAE0CC004B8999 /* LogicPortDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPortDrawer.swift; sourceTree = "<group>"; };
+		0C116CE21FDABFAD004B8999 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		0C116CE41FDAC097004B8999 /* CoreGraphicsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensions.swift; sourceTree = "<group>"; };
+		0C116CEA1FDAE0CC004B8999 /* LogicPortDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPortDrawable.swift; sourceTree = "<group>"; };
 		0C116CEC1FDAE2D6004B8999 /* LogicPortAndNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPortAndNode.swift; sourceTree = "<group>"; };
 		0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSpriteNodeExtensions.swift; sourceTree = "<group>"; };
 		0C29FE511FD57BFD0029BB42 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
@@ -93,6 +98,7 @@
 		0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBitSignal.swift; sourceTree = "<group>"; };
 		0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleConnection.swift; sourceTree = "<group>"; };
 		0C385E1A1FD1D844008FB5D7 /* base.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = base.json; sourceTree = "<group>"; };
+		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C05852F1FEAC654007E07FB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0C116CE41FDAC097004B8999 /* CoreGraphicsExtensions.swift */,
+				0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */,
+				0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */,
+				0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		0C116CDB1FDAA4A6004B8999 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,19 +147,12 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		0C116CE11FDABF95004B8999 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				0C116CE21FDABFAD004B8999 /* Configuration.swift */,
-			);
-			path = Configuration;
-			sourceTree = "<group>";
-		};
 		0C116CE61FDACA0C004B8999 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				0C116CEA1FDAE0CC004B8999 /* LogicPortDrawer.swift */,
+				0C116CEA1FDAE0CC004B8999 /* LogicPortDrawable.swift */,
 				0C116CEC1FDAE2D6004B8999 /* LogicPortAndNode.swift */,
+				0C0585321FEACB36007E07FB /* CanvasNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -167,7 +177,6 @@
 				0C116CE81FDADFC8004B8999 /* Components */,
 				0C116CE71FDADFBF004B8999 /* Entities */,
 				0C116CE61FDACA0C004B8999 /* Nodes */,
-				0C116CE11FDABF95004B8999 /* Configuration */,
 				0C116CDE1FDABF06004B8999 /* Scenes */,
 			);
 			path = View;
@@ -310,11 +319,11 @@
 		0C385E181FD1D018008FB5D7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
+				0C116CE21FDABFAD004B8999 /* Environment.swift */,
 				0C385E191FD1D1BF008FB5D7 /* Example-Files */,
 				0C29FE501FD57BE90029BB42 /* Parser */,
-				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
-				0C116CE41FDAC097004B8999 /* CGSizeExtension.swift */,
-				0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */,
+				0C05852F1FEAC654007E07FB /* Extensions */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -430,12 +439,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C0F8D821FEAEF0B006CC411 /* SKViewExtensions.swift in Sources */,
 				0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */,
 				0C385DFE1FD09E1B008FB5D7 /* ObjectParser.swift in Sources */,
 				0C116CEF1FDAE393004B8999 /* SKSpriteNodeExtensions.swift in Sources */,
 				0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */,
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
-				0C116CEB1FDAE0CC004B8999 /* LogicPortDrawer.swift in Sources */,
+				0C116CEB1FDAE0CC004B8999 /* LogicPortDrawable.swift in Sources */,
 				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
 				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,
@@ -443,15 +453,16 @@
 				0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
-				0C116CE31FDABFAD004B8999 /* Configuration.swift in Sources */,
+				0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
 				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
-				0C116CE51FDAC097004B8999 /* CGSizeExtension.swift in Sources */,
+				0C116CE51FDAC097004B8999 /* CoreGraphicsExtensions.swift in Sources */,
 				0C29FE541FD57C150029BB42 /* Port.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
+				0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */,
 				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,
 				0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */,
 				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
@@ -459,6 +470,7 @@
 				0C116CED1FDAE2D6004B8999 /* LogicPortAndNode.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
 				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
+				0C0585331FEACB36007E07FB /* CanvasNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
