@@ -92,12 +92,13 @@ extension CircuitDescription {
         descriptors.forEach {
             switch $0.elementType {
             case .combinational:
-                switch $0.logicOperation {
-                case .and:
-                    for input
-                case .or:
-                case .none:
-                }
+                break
+//                switch $0.logicOperation {
+//                case .and:
+//                    for input
+//                case .or:
+//                case .none:
+//                }
             case .sequential:
                 fatalError("Sequential Module Extraction not Implemented Yet")
             case .connection:
