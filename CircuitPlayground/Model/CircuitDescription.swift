@@ -13,9 +13,8 @@ struct CircuitDescription {
     var connections: [ModuleConnection]
 }
 
-
 extension CircuitDescription {
-    init(specification: LogicSpecification) {
+    init(singleCircuitSpecification specification: LogicSpecification) {
         // Perform Initialization with empty description
         self.init(modules: [], connections: [])
         
@@ -24,8 +23,8 @@ extension CircuitDescription {
         self.modules.append(entityModule)
     }
     
-    fileprivate func extractModule(from specification: LogicSpecification) -> Module {
-        var module = CombinationalModule(inputs: [], outputs: [], internalSignals: [], functions: [:], auxiliarModules: [])
+    private func extractModule(from specification: LogicSpecification) -> Module {
+        var module = CombinationalModule(inputs: [], outputs: [], internalSignals: [], functions: [], auxiliarModules: [])
         
         // Extract Input and Output Ports
         let portTranslation = self.extractInputsAndOutputs(from: specification.entity.ports)
@@ -41,7 +40,7 @@ extension CircuitDescription {
         return module
         
     }
-    fileprivate func extractInputsAndOutputs(from ports: [Port]) -> (inputs: [Signal], outputs: [Signal]) {
+    private func extractInputsAndOutputs(from ports: [Port]) -> (inputs: [Signal], outputs: [Signal]) {
         var inputs: [Signal] = []
         var outputs: [Signal] = []
         ports.forEach {
@@ -70,7 +69,7 @@ extension CircuitDescription {
         }
         return (inputs: inputs, outputs: outputs)
     }
-    fileprivate func extractInternalSignals(from globalSignals: [GlobalSignal]) -> [Signal] {
+    private func extractInternalSignals(from globalSignals: [GlobalSignal]) -> [Signal] {
         var signals: [Signal] = []
         globalSignals.forEach {
             switch $0.type {
@@ -86,23 +85,24 @@ extension CircuitDescription {
         
         return signals
     }
-    fileprivate func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [SignalKey: LogicFunction] {
+    private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], logicFunction: LogicFunction)] {
     
-        var mapping = [SignalKey: LogicFunction]()
+        var mapping: [(inputs: [Signal], logicFunction: LogicFunction)] = []
         descriptors.forEach {
             switch $0.elementType {
-            case .combinational:
-                break
-//                switch $0.logicOperation {
-//                case .and:
-//                    for input
-//                case .or:
-//                case .none:
-//                }
             case .sequential:
                 fatalError("Sequential Module Extraction not Implemented Yet")
-            case .connection:
-                break
+            default:
+                var inputs: [Signal] = []
+                for input in $0.inputs {
+                    guard let associatedSignal = inputs.filter({ $0.associatedId == input.name }).first else { continue }
+                    inputs.append(associatedSignal)
+                }
+                switch $0.logicOperation {
+                case .and: mapping.append((inputs: inputs, logicFunction: LogicFunctions.and))
+                case .or: mapping.append((inputs: inputs, logicFunction: LogicFunctions.or))
+                case .none: mapping.append((inputs: inputs, logicFunction: LogicFunctions.none))
+                }
             }
         }
         

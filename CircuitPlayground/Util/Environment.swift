@@ -13,7 +13,7 @@ enum Environment {
     
     // This tells wheter the app is runnnig in debug mode
     static var debugMode: Bool {
-        #if DEBUG
+        #if iOS
             return true
         #else
             return false

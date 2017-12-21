@@ -39,9 +39,5 @@ protocol Signal {
     var numberOfBits: Int { get }
     var associatedId: String { get set }
     var bits: [StandardLogicValue] { get set }
-    var key: SignalKey { get }
 }
 
-extension Signal {
-    var key: SignalKey { return SignalKey(numberOfBits: self.numberOfBits, associatedId: self.associatedId, bits: self.bits) }
-}

@@ -90,14 +90,14 @@ extension InitialViewController {
     
     func readBaseFile() {
 
-        ObjectParser.parse(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
-            if let error = error {
-                print(error)
-            } else if let specification = specification {
-                
-                
-            }
-        }
+//        ObjectParser.parse(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
+//            if let error = error {
+//                print(error)
+//            } else if let specification = specification {
+//
+//
+//            }
+//        }
         
     }
 }

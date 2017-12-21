@@ -15,7 +15,6 @@ class LogicPortNodeComponent: GKComponent {
     var logicPortNode: LogicPortNode
     
     // MARK: - Initialization
-    
     init(operation: LogicDescriptor.LogicOperation) {
         self.logicPortNode = LogicPortNode(operation: operation)
         super.init()
@@ -24,7 +23,6 @@ class LogicPortNodeComponent: GKComponent {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension LogicPortNodeComponent: RenderableComponent {
