@@ -1,5 +1,5 @@
 //
-//  LogicPortAndNode.swift
+//  LogicPortNode.swift
 //  CircuitPlayground
 //
 //  Created by Nicolas Nascimento on 08/12/17.
@@ -9,15 +9,25 @@
 import SpriteKit
 
 // A node that encapsulates a logic port
-class LogicPortAndNode: SKSpriteNode {
+class LogicPortNode: SKSpriteNode {
     var operation: LogicDescriptor.LogicOperation = .none {
         didSet {
             self.draw()
         }
     }
+    
+    // MARK: - Initialization
+    init(operation: LogicDescriptor.LogicOperation) {
+        let texture = SKTexture(imageNamed: Environment.Images.image(for: self.operation))
+        super.init(texture: texture, color: .clear, size: texture.size())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
-extension LogicPortAndNode: LogicPortDrawable {
+extension LogicPortNode: LogicPortDrawable {
     
     /// Sets operation and size of SpriteNode. Calls draw() afterwards
     func draw(with operation: LogicDescriptor.LogicOperation, in size: CGSize) {

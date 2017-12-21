@@ -38,4 +38,10 @@ extension Environment {
     }
 }
 
+extension Environment {
+    enum JSONFiles {
+        static let baseFileName:    String = "base"
+    }
+}
+
 

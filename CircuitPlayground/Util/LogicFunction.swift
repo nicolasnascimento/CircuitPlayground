@@ -88,6 +88,14 @@ struct LogicFunctions {
         }
         return []
     }
+    static let none: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
+        if( inputs.isEmpty ) {
+            print("Warning - Perfoming operation (none) without inputs")
+            return []
+        } else {
+            return inputs.first!.bits
+        }
+    }
     static let or: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
         if( inputs.isEmpty ) {
             print("Warning - Perfoming operation (or) without inputs")

@@ -13,5 +13,4 @@ struct LogicSpecification: Codable {
     var description: String
     var entity: Entity
     var architecture: Architecture
-    
 }

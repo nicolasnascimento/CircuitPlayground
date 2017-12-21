@@ -16,6 +16,7 @@ class CircuitScene: SKScene {
     
     // MARK: - Private
     var previousScale: CGFloat = 1.0
+    var handlingMomentum: Bool = false
     
     // MARK: - SKScene life cycle
     override func didMove(to view: SKView) {
@@ -97,9 +98,6 @@ extension CircuitScene {
     func setGestureRecognizers() {
         let pinchRecognizer = NSMagnificationGestureRecognizer(target: self, action: #selector(self.handleMagnification(for:)))
         self.view?.addGestureRecognizer(pinchRecognizer)
-        
-        let moveRecognizer = NSPanGestureRecognizer(target: self, action: #selector(self.handlePan(for:)))
-        self.view?.addGestureRecognizer(moveRecognizer)
     }
     
     func removeGestureRecognizers() {
@@ -107,10 +105,42 @@ extension CircuitScene {
             self.view?.removeGestureRecognizer(recognizer)
         }
     }
+    
     override func scrollWheel(with event: NSEvent) {
         super.scrollWheel(with: event)
-        self.canvasNode?.position.x += event.deltaX
-        self.canvasNode?.position.y -= event.deltaY
+        guard let canvasNode = self.canvasNode else { return }
+        
+        // Set correct canvas node position
+        canvasNode.position.x += event.deltaX
+        canvasNode.position.y -= event.deltaY
+        
+        if( self.handlingMomentum ) {
+            switch event.momentumPhase {
+            case .ended:
+                self.handlingMomentum = false
+                canvasNode.center()
+            default:
+                break
+            }
+        }
+        
+        
+        // If we're in the ended phase, perform correcting action if needed
+        if( event.phase == .ended ) {
+        
+            let nextEvent = NSApp.nextEvent(matching: .scrollWheel, until: Date.init(timeIntervalSinceNow: 1.0/60.0), inMode: .defaultRunLoopMode, dequeue: false)
+            if let next = nextEvent {
+                if( next.momentumPhase != .began ) {
+                    self.handlingMomentum = false
+                    canvasNode.center()
+                } else {
+                    self.handlingMomentum = true
+                }
+            } else {
+                self.handlingMomentum = false
+                canvasNode.center()
+            }
+        }
     }
     
     @objc func handleMagnification(for gesture: NSGestureRecognizer) {
@@ -126,11 +156,5 @@ extension CircuitScene {
         default:
             return
         }
-    }
-    
-    @objc func handlePan(for gesture: NSGestureRecognizer) {
-        guard let panRecognizer = (gesture as? NSPanGestureRecognizer) else { return }
-        let location = panRecognizer.location(in: self.view!)
-        print(location)
     }
 }

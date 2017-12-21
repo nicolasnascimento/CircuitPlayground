@@ -17,24 +17,35 @@ class InitialViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.setupEditorTextView()
+        self.initialize()
     }
     
     override func viewDidLayout() {
         super.viewDidLayout()
-
+        
         self.handleViewSizeUpdate()
     }
     
     // MARK: - Private
     private func handleViewSizeUpdate() {
-        if let _ = self.skView.scene {
-//            print(self.view.frame)
-            self.skView.scene?.size = CGSize(width: self.view.frame.width*0.5, height: self.view.frame.height)
+        if let scene = self.skView.scene {
+            scene.size = CGSize(width: self.view.frame.width*0.5, height: self.view.frame.height)
         } else {
             self.setupSKView()
             self.setupScene()
         }
+    }
+    
+    private func initialize() {
+        
+        // Set Editor View
+        self.setupEditorTextView()
+        
+        // Set SpriteKit View
+        self.setupSKView()
+        
+        // TEMPORARY - Read file containing specs of circuit
+        self.readBaseFile()
     }
     
 }
@@ -73,5 +84,20 @@ extension InitialViewController: SKViewDelegate {
     func view(_ view: SKView, shouldRenderAtTime time: TimeInterval) -> Bool {
         return true
     }
+}
+
+extension InitialViewController {
     
+    func readBaseFile() {
+
+        ObjectParser.parse(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
+            if let error = error {
+                print(error)
+            } else if let specification = specification {
+                
+                
+            }
+        }
+        
+    }
 }
