@@ -18,6 +18,16 @@ class InitialViewController: NSViewController {
         super.viewDidLoad()
     
         self.initialize()
+        
+        // TEMPORARY - Read file containing specs of circuit
+        self.read(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
+            if let error = error {
+                fatalError(error.localizedDescription)
+            } else if let spec = specification {
+                let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
+                print(circuitDescription)
+            }
+        }
     }
     
     override func viewDidLayout() {
@@ -43,9 +53,6 @@ class InitialViewController: NSViewController {
         
         // Set SpriteKit View
         self.setupSKView()
-        
-        // TEMPORARY - Read file containing specs of circuit
-        self.readBaseFile()
     }
     
 }
@@ -88,16 +95,15 @@ extension InitialViewController: SKViewDelegate {
 
 extension InitialViewController {
     
-    func readBaseFile() {
-
-//        ObjectParser.parse(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
-//            if let error = error {
-//                print(error)
-//            } else if let specification = specification {
-//
-//
-//            }
-//        }
+    func read(fileNamed fileName: String, with completion: @escaping (_ specification: LogicSpecification?, _ error: Error?) -> Void) {
+        
+        ObjectParser.parse(fileNamed: fileName) { (specification, error) in
+            if let error = error {
+                completion(nil, error)
+            } else if let specification = specification {
+                completion(specification, nil)
+            }
+        }
         
     }
 }

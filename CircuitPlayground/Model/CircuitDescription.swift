@@ -37,6 +37,7 @@ extension CircuitDescription {
         // Extract Functions
         module.functions = self.extractLogicFunctions(from: specification.architecture.logicDescriptors, availableInputSignals: module.inputs + module.internalSignals, availableOutputSignals: module.outputs + module.internalSignals)
         
+        // Return module
         return module
         
     }
@@ -93,15 +94,15 @@ extension CircuitDescription {
             case .sequential:
                 fatalError("Sequential Module Extraction not Implemented Yet")
             default:
-                var inputs: [Signal] = []
+                var associatedInputs: [Signal] = []
                 for input in $0.inputs {
                     guard let associatedSignal = inputs.filter({ $0.associatedId == input.name }).first else { continue }
-                    inputs.append(associatedSignal)
+                    associatedInputs.append(associatedSignal)
                 }
                 switch $0.logicOperation {
-                case .and: mapping.append((inputs: inputs, logicFunction: LogicFunctions.and))
-                case .or: mapping.append((inputs: inputs, logicFunction: LogicFunctions.or))
-                case .none: mapping.append((inputs: inputs, logicFunction: LogicFunctions.none))
+                case .and: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.and))
+                case .or: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.or))
+                case .none: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.none))
                 }
             }
         }
