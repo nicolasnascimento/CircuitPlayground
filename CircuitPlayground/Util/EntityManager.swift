@@ -60,3 +60,29 @@ class EntityManager {
         }
     }
 }
+
+// Adds a function to perform
+extension EntityManager {
+    
+    /// Extract Entities from a given circuit description
+    func populate(with singleModuleCircuitDescription: CircuitDescription) {
+        
+        switch singleModuleCircuitDescription.modules.count {
+        case 1:
+            for function in singleModuleCircuitDescription.modules.first?.functions ?? [] {
+//                switch function.logicFunction {
+//                case LogicFunctions.and:
+//                    print("AND")
+//                case LogicFunctions.or:
+//                    print("OR")
+//                case LogicFunctions.not:
+//                    print("NOT")
+//                case LogicFunctions.none:
+//                    print("NONE")
+//                }
+            }
+        default:
+            fatalError("Multiple Module Populate function not implemented yet")
+        }
+    }
+}
