@@ -60,7 +60,7 @@ extension CircuitScene {
     
     /// The node where all drawing is performed
     private var canvasNodeName: String { return "CanvasNode" }
-    private var canvasNode: CanvasNode? {
+    var canvasNode: CanvasNode? {
         get {
             return self.childNode(withName: canvasNodeName) as? CanvasNode
         }

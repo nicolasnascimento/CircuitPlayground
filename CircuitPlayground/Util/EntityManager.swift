@@ -73,15 +73,15 @@ extension EntityManager {
                 switch function.logicFunction.logicDescriptor {
                 case .and:
                     print("and")
-                    let logicPort = LogicPort(with: .and, coordinate: Coordinate(x: 0, y: 0 ))
+                    let logicPort = LogicPort(with: .and, coordinate: Coordinate(x: 0, y: 0))
                     self.add(entity: logicPort)
                 case .none:
                     print("none")
-                    let logicPort = LogicPort(with: .none, coordinate: Coordinate(x: 0, y: 0 ))
+                    let logicPort = LogicPort(with: .none, coordinate: Coordinate(x: 0, y: 0))
                     self.add(entity: logicPort)
                 case .or:
                     print("or")
-                    let logicPort = LogicPort(with: .or, coordinate: Coordinate(x: 0, y: 0 ))
+                    let logicPort = LogicPort(with: .or, coordinate: Coordinate(x: 0, y: 0))
                     self.add(entity: logicPort)
                 }
             }

@@ -19,8 +19,8 @@ class InitialViewController: NSViewController {
     // MARK: - Properties
     var entityManager: EntityManager!
     
+    // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
-        
         super.viewDidLoad()
     
         self.initialize()
@@ -30,15 +30,15 @@ class InitialViewController: NSViewController {
             if let error = error {
                 fatalError(error.localizedDescription)
             } else if let spec = specification {
+                // Extract the circuit description
                 let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
-                print(circuitDescription)
                 
+                // Populate entities from circuit description
                 self.entityManager.populate(with: circuitDescription)
-                
             }
         }
     }
-    
+
     override func viewDidLayout() {
         super.viewDidLayout()
         
@@ -66,7 +66,6 @@ class InitialViewController: NSViewController {
         // Set Entity Manager
         self.setupEntityManager()
     }
-    
 }
 
 extension InitialViewController: NSTextViewDelegate {
@@ -86,6 +85,7 @@ extension InitialViewController: SKViewDelegate {
         // Set SKView
         self.skView.delegate = self
         
+        // Perform Initial Setup Scene
         self.setupScene()
     }
     fileprivate func setupScene() {
@@ -132,7 +132,7 @@ extension InitialViewController: EntityManagerDelegate {
     // MARK: - Entity Manager Delegate
     func entityManager(_ entityManager: EntityManager, didAdd entity: GKEntity) {
         if let node = (entity as? RenderableEntity)?.nodeComponent.node {
-            (self.skView.scene as? CircuitScene)?.addChildNode(node)
+            (self.skView.scene as? CircuitScene)?.canvasNode?.addChildNode(node)
         }
     }
     func entityManager(_ entityManager: EntityManager, didRemove entity: GKEntity) {
@@ -143,5 +143,4 @@ extension InitialViewController: EntityManagerDelegate {
     func entityManager(_ entityManager: EntityManager, didFailToRemove entity: GKEntity) {
         fatalError("Attemping to Remove Entity '\(entity)' Failed")
     }
-    
 }
