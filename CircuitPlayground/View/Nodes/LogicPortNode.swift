@@ -18,7 +18,7 @@ class LogicPortNode: SKSpriteNode {
     
     // MARK: - Initialization
     init(operation: LogicDescriptor.LogicOperation) {
-        let texture = SKTexture(imageNamed: Environment.Images.image(for: self.operation))
+        let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
     }
     

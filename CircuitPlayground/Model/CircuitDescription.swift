@@ -86,9 +86,10 @@ extension CircuitDescription {
         
         return signals
     }
-    private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], logicFunction: LogicFunction)] {
+    private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)] {
     
-        var mapping: [(inputs: [Signal], logicFunction: LogicFunction)] = []
+//        var mapping: [(inputs: [Signal], logicFunction: LogicFunction)] = []
+        var mapping:  [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]  = []
         descriptors.forEach {
             switch $0.elementType {
             case .sequential:
@@ -100,9 +101,18 @@ extension CircuitDescription {
                     associatedInputs.append(associatedSignal)
                 }
                 switch $0.logicOperation {
-                case .and: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.and))
-                case .or: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.or))
-                case .none: mapping.append((inputs: associatedInputs, logicFunction: LogicFunctions.none))
+                case .and:
+                    let function: LogicFunction = LogicFunctions.and
+                    let value = LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: function)
+                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                case .or:
+                    let function: LogicFunction = LogicFunctions.or
+                    let value = LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: function)
+                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                case .none:
+                    let function: LogicFunction = LogicFunctions.none
+                    let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: function)
+                    mapping.append((inputs: associatedInputs, logicFunction: value))
                 }
             }
         }

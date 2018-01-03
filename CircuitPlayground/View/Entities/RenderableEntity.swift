@@ -16,18 +16,23 @@ class RenderableEntity: GKEntity {
     }
     
     // MARK: - Initialization
-    override init() {
+    init(at coordinate: Coordinate) {
         super.init()
         
         let component = NodeComponent(node: SKNode())
         self.addComponent(component)
+        
+        let coordinateComponent = GridComponent(with: coordinate)
+        self.addComponent(coordinateComponent)
+        
+        component.node.position = coordinateComponent.cgPoint
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Override
+    // MARK: - Public
     
     override func addComponent(_ component: GKComponent) {
         super.addComponent(component)

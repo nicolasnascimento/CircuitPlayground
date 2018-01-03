@@ -12,7 +12,6 @@
 		0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D831FEBE923006CC411 /* LogicPort.swift */; };
 		0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D851FEBEA10006CC411 /* EntityManager.swift */; };
 		0C0F8D881FEBEB87006CC411 /* NodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D871FEBEB87006CC411 /* NodeComponent.swift */; };
-		0C0F8D8A1FEBEB92006CC411 /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D891FEBEB92006CC411 /* RenderableEntity.swift */; };
 		0C0F8D8C1FEBEBCF006CC411 /* LogicPortNodeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D8B1FEBEBCF006CC411 /* LogicPortNodeComponent.swift */; };
 		0C116CDD1FDAA4A6004B8999 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */; };
 		0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CDF1FDABF45004B8999 /* CircuitScene.swift */; };
@@ -48,6 +47,8 @@
 		0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */; };
 		0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */; };
 		0C385E1B1FD1D844008FB5D7 /* base.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C385E1A1FD1D844008FB5D7 /* base.json */; };
+		0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */; };
+		0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */; };
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +68,6 @@
 		0C0F8D831FEBE923006CC411 /* LogicPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPort.swift; sourceTree = "<group>"; };
 		0C0F8D851FEBEA10006CC411 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		0C0F8D871FEBEB87006CC411 /* NodeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeComponent.swift; sourceTree = "<group>"; };
-		0C0F8D891FEBEB92006CC411 /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C0F8D8B1FEBEBCF006CC411 /* LogicPortNodeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPortNodeComponent.swift; sourceTree = "<group>"; };
 		0C116CDC1FDAA4A6004B8999 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C116CDF1FDABF45004B8999 /* CircuitScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitScene.swift; sourceTree = "<group>"; };
@@ -108,6 +108,8 @@
 		0C385E0D1FD0AA78008FB5D7 /* MultiBitSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBitSignal.swift; sourceTree = "<group>"; };
 		0C385E131FD1C839008FB5D7 /* ModuleConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleConnection.swift; sourceTree = "<group>"; };
 		0C385E1A1FD1D844008FB5D7 /* base.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = base.json; sourceTree = "<group>"; };
+		0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridComponent.swift; sourceTree = "<group>"; };
+		0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,7 +172,7 @@
 		0C116CE71FDADFBF004B8999 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0C0F8D891FEBEB92006CC411 /* RenderableEntity.swift */,
+				0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */,
 				0C0F8D831FEBE923006CC411 /* LogicPort.swift */,
 			);
 			path = Entities;
@@ -179,6 +181,7 @@
 		0C116CE81FDADFC8004B8999 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */,
 				0C0F8D871FEBEB87006CC411 /* NodeComponent.swift */,
 				0C0F8D8B1FEBEBCF006CC411 /* LogicPortNodeComponent.swift */,
 			);
@@ -460,6 +463,7 @@
 				0C116CEF1FDAE393004B8999 /* SKSpriteNodeExtensions.swift in Sources */,
 				0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */,
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
+				0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */,
 				0C116CEB1FDAE0CC004B8999 /* LogicPortDrawable.swift in Sources */,
 				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
 				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
@@ -473,11 +477,11 @@
 				0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
 				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
+				0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */,
 				0C0F8D8C1FEBEBCF006CC411 /* LogicPortNodeComponent.swift in Sources */,
 				0C116CE51FDAC097004B8999 /* CoreGraphicsExtensions.swift in Sources */,
 				0C29FE541FD57C150029BB42 /* Port.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
-				0C0F8D8A1FEBEB92006CC411 /* RenderableEntity.swift in Sources */,
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */,

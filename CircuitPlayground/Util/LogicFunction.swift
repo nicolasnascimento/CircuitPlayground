@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct LogicFunctionDescriptor {
+    var logicDescriptor: LogicDescriptor.LogicOperation
+    var logicFunction: LogicFunction
+}
+
 // Simple definition of a logic function
 typealias LogicFunction = ((_ inputs: [Signal]) -> [StandardLogicValue])
 
@@ -63,7 +68,7 @@ extension Collection where Element == Signal {
 
 
 // List of builtin logic functions
-struct LogicFunctions {
+enum LogicFunctions {
     
     // MARK: - Standard Logic Operation
     static let and: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
@@ -129,4 +134,6 @@ struct LogicFunctions {
         print("Error - Cannot perform multi entry signal operation (not)")
         return []
     }
+
+    
 }

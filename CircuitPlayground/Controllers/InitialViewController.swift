@@ -8,13 +8,19 @@
 
 import Cocoa
 import SpriteKit
+import GameplayKit
 
 class InitialViewController: NSViewController {
 
+    // MARK: - Outlets
     @IBOutlet private var editorTextView: NSTextView!
     @IBOutlet private weak var skView: SKView!
     
+    // MARK: - Properties
+    var entityManager: EntityManager!
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
     
         self.initialize()
@@ -25,7 +31,10 @@ class InitialViewController: NSViewController {
                 fatalError(error.localizedDescription)
             } else if let spec = specification {
                 let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
-                print(circuitDescription)
+//                print(circuitDescription)
+                
+                self.entityManager.populate(with: circuitDescription)
+                
             }
         }
     }
@@ -53,6 +62,9 @@ class InitialViewController: NSViewController {
         
         // Set SpriteKit View
         self.setupSKView()
+        
+        // Set Entity Manager
+        self.setupEntityManager()
     }
     
 }
@@ -104,6 +116,30 @@ extension InitialViewController {
                 completion(specification, nil)
             }
         }
-        
     }
+}
+
+extension InitialViewController: EntityManagerDelegate {
+    
+    func setupEntityManager() {
+        
+        self.entityManager = EntityManager()
+        self.entityManager.delegate = self
+    }
+    
+    // MARK: - Entity Manager Delegate
+    func entityManager(_ entityManager: EntityManager, didAdd entity: GKEntity) {
+        if let node = (entity as? RenderableEntity)?.nodeComponent.node {
+            self.skView.scene?.addChild(node)
+        }
+    }
+    func entityManager(_ entityManager: EntityManager, didRemove entity: GKEntity) {
+        if let node = (entity as? RenderableEntity)?.nodeComponent.node {
+            node.removeFromParent()
+        }
+    }
+    func entityManager(_ entityManager: EntityManager, didFailToRemove entity: GKEntity) {
+        fatalError("Attemping to Remove Entity '\(entity)' Failed")
+    }
+    
 }

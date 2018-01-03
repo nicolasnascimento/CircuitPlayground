@@ -15,7 +15,7 @@ struct SequentialModule: Module {
     var inputs: [Signal]
     var outputs: [Signal]
     var internalSignals: [Signal]
-    var functions: [(inputs: [Signal], logicFunction: LogicFunction)]
+    var functions: [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]
     var auxiliarModules: [Module]
     
     // MARK: - Specific

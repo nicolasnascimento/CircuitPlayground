@@ -10,8 +10,8 @@ import GameplayKit
 
 class LogicPort: RenderableEntity {
     
-    init(with operation: LogicDescriptor.LogicOperation) {
-        super.init()
+    init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate) {
+        super.init(at: coordinate)
         
         let logicPortNodeComponent = LogicPortNodeComponent(operation: operation)
         self.addComponent(logicPortNodeComponent)
@@ -20,7 +20,6 @@ class LogicPort: RenderableEntity {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     // MARK: - Public
 }
