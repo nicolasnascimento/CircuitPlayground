@@ -31,7 +31,7 @@ class InitialViewController: NSViewController {
                 fatalError(error.localizedDescription)
             } else if let spec = specification {
                 let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
-//                print(circuitDescription)
+                print(circuitDescription)
                 
                 self.entityManager.populate(with: circuitDescription)
                 
@@ -85,6 +85,8 @@ extension InitialViewController: SKViewDelegate {
     private func setupSKView() {
         // Set SKView
         self.skView.delegate = self
+        
+        self.setupScene()
     }
     fileprivate func setupScene() {
         // Instatiante the Scene using the bounds from the view
@@ -130,7 +132,7 @@ extension InitialViewController: EntityManagerDelegate {
     // MARK: - Entity Manager Delegate
     func entityManager(_ entityManager: EntityManager, didAdd entity: GKEntity) {
         if let node = (entity as? RenderableEntity)?.nodeComponent.node {
-            self.skView.scene?.addChild(node)
+            (self.skView.scene as? CircuitScene)?.addChildNode(node)
         }
     }
     func entityManager(_ entityManager: EntityManager, didRemove entity: GKEntity) {

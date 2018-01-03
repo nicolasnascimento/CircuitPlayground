@@ -15,6 +15,7 @@ class LogicPort: RenderableEntity {
         
         let logicPortNodeComponent = LogicPortNodeComponent(operation: operation)
         self.addComponent(logicPortNodeComponent)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
