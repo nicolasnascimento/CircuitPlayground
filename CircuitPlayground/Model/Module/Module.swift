@@ -16,6 +16,6 @@ protocol Module {
     
     // Behaviour description
     var internalSignals: [Signal] { get set }
-    var functions: [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)] { get set }
+    var functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)] { get set }
     var auxiliarModules: [Module] { get set }
 }

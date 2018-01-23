@@ -12,14 +12,18 @@ class LogicPort: RenderableEntity {
     
     /// The inputs of the logic port
     var inputs: [Signal] {
-        set { self.component(ofType: LogicPortNodeComponent.self)?.inputs = inputs }
+        set { self.component(ofType: LogicPortNodeComponent.self)?.inputs = newValue }
         get { return self.component(ofType: LogicPortNodeComponent.self)?.inputs ?? [] }
     }
     
-    init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate, inputs: [Signal] = []) {
+    var output: Signal {
+        return self.component(ofType: LogicPortNodeComponent.self)!.output
+    }
+    
+    init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate, inputs: [Signal] = [], output: Signal) {
         super.init(at: coordinate)
         
-        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation, inputs: inputs)
+        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation, inputs: inputs, output: output)
         self.addComponent(logicPortNodeComponent)
         
     }
@@ -27,6 +31,11 @@ class LogicPort: RenderableEntity {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - Public
+}
+
+extension LogicPort {
+    override var description: String {
+        
+        return "LogicPort - inputs(\(self.inputs) outputs(\(self.output)"
+    }
 }

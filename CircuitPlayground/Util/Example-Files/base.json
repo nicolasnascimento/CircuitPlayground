@@ -35,7 +35,7 @@
             "logicDescriptors": [
                 {
                     "elementType" : "combinational",
-                    "logicOperation" : "not",
+                    "logicOperation" : "and",
                     "inputs" : [
                         {
                             "name" : "A"

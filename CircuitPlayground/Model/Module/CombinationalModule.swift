@@ -15,7 +15,7 @@ struct CombinationalModule: Module {
     var inputs: [Signal]
     var outputs: [Signal]
     var internalSignals: [Signal]
-    var functions: [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]
+    var functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]
     var auxiliarModules: [Module]
     
     // MARK: - Public Properties    

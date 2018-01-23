@@ -74,37 +74,40 @@ extension EntityManager {
         
             // [Function] -> [LogicPort]
             // Extract entities and add to list of entities
-            let ports = self.entities(from: module.functions)
+            let ports = self.ports(from: module.functions)
             ports.forEach(self.add)
             
             // [Signal] -> [Entry]
-            let entries = self.entities(from: module.inputs + module.outputs + module.internalSignals)
+            let entries = self.entries(from: module.inputs + module.outputs + module.internalSignals)
             entries.forEach(self.add)
             
+            // ([Entry], [LogicPort] -> [Wire]
+            let wires = self.wires(from: ports, entries: entries)
+            wires.forEach(self.add)
             
         default:
             fatalError("Multiple Module Populate function not implemented yet")
         }
     }
     
-    private func entities(from functions: [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]) -> [RenderableEntity] {
+    private func ports(from functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]) -> [LogicPort] {
         
-        return functions.map { function -> RenderableEntity in
+        return functions.map { function -> LogicPort in
             
             let port: LogicPort
             switch function.logicFunction.logicDescriptor {
             case .and:
                 print("and")
-                port = LogicPort(with: .and, coordinate: .zero)
+                port = LogicPort(with: .and, coordinate: .zero, output: function.output)
             case .none:
                 print("none")
-                port = LogicPort(with: .none, coordinate: .zero)
+                port = LogicPort(with: .none, coordinate: .zero, output: function.output)
             case .or:
                 print("or")
-                port = LogicPort(with: .or, coordinate: .zero)
+                port = LogicPort(with: .or, coordinate: .zero, output: function.output)
             case .not:
                 print("not")
-                port = LogicPort(with: .not, coordinate: .zero)
+                port = LogicPort(with: .not, coordinate: .zero, output: function.output)
             }
             
             // Set inputs of the node
@@ -116,8 +119,50 @@ extension EntityManager {
         }
     }
     
-    private func entities(from signals: [Signal]) -> [RenderableEntity] {
-        
+    private func entries(from signals: [Signal]) -> [Entry] {
         return signals.map{ Entry(at: .zero, signal: $0) }
+    }
+    private func wires(from ports: [LogicPort], entries: [Entry]) -> [Wire] {
+        
+        var wires: [Wire] = []
+        
+        // Uses entries as starting points first
+        for entry in entries {
+            
+            // Check which ports are using the current entry as input
+            let portConnections = ports.filter{ port in
+                return port.inputs.filter({ signal in
+                    return signal.associatedId == entry.signal.associatedId
+                }).isEmpty ? false : true
+            }
+            
+            // Get input and output entity for each connection
+            for portConnection in portConnections {
+                let outputEntity = entries.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
+                let inputEntities = entries.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
+                
+                // Create Wire
+                for inputEntity in inputEntities {
+                    let inputCoordinate = inputEntity.component(ofType: GridComponent.self)!.coordinate
+                    let outputCoordinate = outputEntity.component(ofType: GridComponent.self)!.coordinate
+                    
+                    wires.append(Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: outputCoordinate))
+                }
+            }
+        }
+        
+        return wires
+    }
+}
+
+extension EntityManager: CustomStringConvertible {
+    var description: String {
+        var entitiesDescription = ""
+        
+        for entity in self.entities {
+            entitiesDescription += entity.description + "\n"
+        }
+        
+        return "CircuitPlayer.EntityManager - " + entitiesDescription
     }
 }

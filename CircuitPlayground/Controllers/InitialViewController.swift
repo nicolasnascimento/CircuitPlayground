@@ -35,6 +35,8 @@ class InitialViewController: NSViewController {
                 
                 // Populate entities from circuit description
                 self.entityManager.populate(with: circuitDescription)
+                
+                print(self.entityManager)
             }
         }
     }

@@ -86,36 +86,46 @@ extension CircuitDescription {
         
         return signals
     }
-    private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)] {
+    private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)] {
     
-        var mapping:  [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]  = []
+        var mapping:  [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]  = []
         descriptors.forEach {
             switch $0.elementType {
             case .sequential:
                 fatalError("Sequential Module Extraction not Implemented Yet")
             default:
+                // Get Inputs
                 var associatedInputs: [Signal] = []
                 for input in $0.inputs {
                     guard let associatedSignal = inputs.filter({ $0.associatedId == input.name }).first else { continue }
                     associatedInputs.append(associatedSignal)
                 }
+                
+                var associatedOutput: Signal!
+                for input in $0.outputs {
+                    guard let associatedSignal = outputs.filter({ $0.associatedId == input.name }).first else { continue }
+                    associatedOutput = associatedSignal
+                    // Break as we only need 1 signal
+                    break
+                }
+                
                 switch $0.logicOperation {
                 case .and:
                     let function: LogicFunction = LogicFunctions.and
                     let value = LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: function)
-                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .or:
                     let function: LogicFunction = LogicFunctions.or
                     let value = LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: function)
-                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .none:
                     let function: LogicFunction = LogicFunctions.none
                     let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: function)
-                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .not:
                     let function: LogicFunction = LogicFunctions.not
                     let value = LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: function)
-                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 }
             }
         }
