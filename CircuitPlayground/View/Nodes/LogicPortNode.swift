@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-// A node that encapsulates a logic port
+// A node that encapsulates the drawing of a logic port
 class LogicPortNode: SKSpriteNode {
     var operation: LogicDescriptor.LogicOperation = .none {
         didSet {

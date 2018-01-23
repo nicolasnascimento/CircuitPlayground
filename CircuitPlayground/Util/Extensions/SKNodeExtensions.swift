@@ -12,8 +12,17 @@ extension SKNode {
 
     /// Adds a node correcting zPosition
     func addChildNode(_ node: SKNode) {
-        if( node.zPosition == 0.0 ) {
+        
+        // Check zPosition
+        if( node.zPosition <= 0.0 ) {
             node.zPosition = CGFloat(self.children.count + 1.0)
+        }
+        
+        // Check if already has a parent
+        if let parent = node.parent, parent != self {
+            print("\(node) already has a parent, \(parent), will remove from parent")
+            node.move(toParent: self)
+        } else {
             self.addChild(node)
         }
     }

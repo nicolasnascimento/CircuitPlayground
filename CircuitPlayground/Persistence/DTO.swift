@@ -32,18 +32,29 @@ class DTO {
     // MARK: - Public
     class func create<T: DTOObject>(object: T, completion: @escaping (_ status: Status) -> Void) {
         
+        print("'create' not implemented")
+        
         completion(.failure)
     }
     class func fetch<T: DTOObject>(with id: String, completion: @escaping (_ status: Status, _ result: T?) -> Void) {
+        
+        print("'fetchWithId' not implemented")
+        
         completion(.failure, nil)
     }
     class func update<T: DTOObject>(object: T, completion: @escaping (_ status: Status) -> Void) {
+        print("'update' not implemented")
+        
         completion(.failure)
     }
     class func delete<T: DTOObject>(object: T, completion: @escaping (_ status: Status) -> Void) {
+        print("'deleteObject' not implemented")
+        
         completion(.failure)
     }
     class func delete(with id: String, completion: @escaping (_ status: Status) -> Void) {
+        print("'deleteWithId' not implemented")
+        
         completion(.failure)
     }
     

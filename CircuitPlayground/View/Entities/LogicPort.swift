@@ -10,10 +10,16 @@ import GameplayKit
 
 class LogicPort: RenderableEntity {
     
-    init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate) {
+    /// The inputs of the logic port
+    var inputs: [Signal] {
+        set { self.component(ofType: LogicPortNodeComponent.self)?.inputs = inputs }
+        get { return self.component(ofType: LogicPortNodeComponent.self)?.inputs ?? [] }
+    }
+    
+    init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate, inputs: [Signal] = []) {
         super.init(at: coordinate)
         
-        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation)
+        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation, inputs: inputs)
         self.addComponent(logicPortNodeComponent)
         
     }

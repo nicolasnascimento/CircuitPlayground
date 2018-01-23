@@ -11,11 +11,12 @@ import GameplayKit
 class LogicPortNodeComponent: GKComponent {
     
     // MARK: - Public
-    
     var logicPortNode: LogicPortNode
+    var inputs: [Signal]
     
     // MARK: - Initialization
-    init(operation: LogicDescriptor.LogicOperation) {
+    init(operation: LogicDescriptor.LogicOperation, inputs: [Signal] = []) {
+        self.inputs = inputs
         self.logicPortNode = LogicPortNode(operation: operation)
         super.init()
     }

@@ -11,6 +11,9 @@ import GameplayKit
 struct Coordinate: Decodable {
     var x: Int
     var y: Int
+    
+    // A coordinated centered in the origin
+    static let zero: Coordinate = Coordinate(x: 0, y: 0)
 }
 
 class GridComponent: GKComponent {

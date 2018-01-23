@@ -47,13 +47,11 @@ class CoreDataManager {
         return container
     }()
     
-//    func windowWillReturnUndoManager(window: NSWindow) -> UndoManager? {
     static var undoManager: UndoManager? {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
         return CoreDataManager.persistentContainer.viewContext.undoManager
     }
-
-//    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+    
     static func save(completion: (_ status: Status) -> Void) {
         // Save changes in the application's managed object context before the application terminates.
         let context = CoreDataManager.persistentContainer.viewContext

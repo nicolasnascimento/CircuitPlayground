@@ -69,24 +69,55 @@ extension EntityManager {
         
         switch singleModuleCircuitDescription.modules.count {
         case 1:
-            for function in singleModuleCircuitDescription.modules.first?.functions ?? [] {
-                switch function.logicFunction.logicDescriptor {
-                case .and:
-                    print("and")
-                    let logicPort = LogicPort(with: .and, coordinate: Coordinate(x: 0, y: 0))
-                    self.add(entity: logicPort)
-                case .none:
-                    print("none")
-                    let logicPort = LogicPort(with: .none, coordinate: Coordinate(x: 0, y: 0))
-                    self.add(entity: logicPort)
-                case .or:
-                    print("or")
-                    let logicPort = LogicPort(with: .or, coordinate: Coordinate(x: 0, y: 0))
-                    self.add(entity: logicPort)
-                }
-            }
+            // Get Module
+            guard let module = singleModuleCircuitDescription.modules.first else { return }
+        
+            // [Function] -> [LogicPort]
+            // Extract entities and add to list of entities
+            let ports = self.entities(from: module.functions)
+            ports.forEach(self.add)
+            
+            // [Signal] -> [Entry]
+            let entries = self.entities(from: module.inputs + module.outputs + module.internalSignals)
+            entries.forEach(self.add)
+            
+            
         default:
             fatalError("Multiple Module Populate function not implemented yet")
         }
+    }
+    
+    private func entities(from functions: [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]) -> [RenderableEntity] {
+        
+        return functions.map { function -> RenderableEntity in
+            
+            let port: LogicPort
+            switch function.logicFunction.logicDescriptor {
+            case .and:
+                print("and")
+                port = LogicPort(with: .and, coordinate: .zero)
+            case .none:
+                print("none")
+                port = LogicPort(with: .none, coordinate: .zero)
+            case .or:
+                print("or")
+                port = LogicPort(with: .or, coordinate: .zero)
+            case .not:
+                print("not")
+                port = LogicPort(with: .not, coordinate: .zero)
+            }
+            
+            // Set inputs of the node
+            // We'll use this afterwards to perform wiring of ports
+            port.inputs = function.inputs
+            
+            
+            return port
+        }
+    }
+    
+    private func entities(from signals: [Signal]) -> [RenderableEntity] {
+        
+        return signals.map{ Entry(at: .zero, signal: $0) }
     }
 }

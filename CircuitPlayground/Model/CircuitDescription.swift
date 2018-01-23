@@ -88,7 +88,6 @@ extension CircuitDescription {
     }
     private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)] {
     
-//        var mapping: [(inputs: [Signal], logicFunction: LogicFunction)] = []
         var mapping:  [(inputs: [Signal], logicFunction: LogicFunctionDescriptor)]  = []
         descriptors.forEach {
             switch $0.elementType {
@@ -112,6 +111,10 @@ extension CircuitDescription {
                 case .none:
                     let function: LogicFunction = LogicFunctions.none
                     let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: function)
+                    mapping.append((inputs: associatedInputs, logicFunction: value))
+                case .not:
+                    let function: LogicFunction = LogicFunctions.not
+                    let value = LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: function)
                     mapping.append((inputs: associatedInputs, logicFunction: value))
                 }
             }
