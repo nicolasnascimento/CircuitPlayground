@@ -33,9 +33,4 @@ class LogicPort: RenderableEntity {
     }
 }
 
-extension LogicPort {
-    override var description: String {
-        
-        return "LogicPort - inputs(\(self.inputs) outputs(\(self.output)"
-    }
-}
+

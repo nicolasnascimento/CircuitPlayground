@@ -16,6 +16,13 @@ struct Coordinate: Decodable {
     static let zero: Coordinate = Coordinate(x: 0, y: 0)
 }
 
+extension Coordinate: Equatable {
+    static func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+    
+}
+
 class GridComponent: GKComponent {
     
     // MARK: - Static

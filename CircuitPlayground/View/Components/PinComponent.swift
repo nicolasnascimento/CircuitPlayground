@@ -8,17 +8,17 @@
 
 import GameplayKit
 
-class EntryComponent: GKComponent {
+class PinComponent: GKComponent {
     
     var signal: Signal
     
-    var entryNode: EntryNode
+    var entryNode: PinNode
     
     // MARK: - Initialization
     init(signal: Signal) {
         
         self.signal = signal
-        self.entryNode = EntryNode(signal: signal)
+        self.entryNode = PinNode(signal: signal)
         super.init()
     }
     
@@ -27,7 +27,7 @@ class EntryComponent: GKComponent {
     }
 }
 
-extension EntryComponent: RenderableComponent {
+extension PinComponent: RenderableComponent {
     var node: SKNode {
         return self.entryNode
     }

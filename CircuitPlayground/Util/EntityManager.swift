@@ -77,17 +77,71 @@ extension EntityManager {
             let ports = self.ports(from: module.functions)
             ports.forEach(self.add)
             
-            // [Signal] -> [Entry]
-            let entries = self.entries(from: module.inputs + module.outputs + module.internalSignals)
+            // [Signal] -> [EntryPin]
+            let entries: [EntryPin] = self.pins(from: module.inputs)
             entries.forEach(self.add)
             
-            // ([Entry], [LogicPort] -> [Wire]
-            let wires = self.wires(from: ports, entries: entries)
+            // [Signal] -> [ExitPin]
+            let exits: [ExitPin] = self.pins(from: module.outputs)
+            exits.forEach(self.add)
+            
+            // [Signal] -> [InternalPin]
+            let internalPins: [InternalPin] = self.pins(from: module.internalSignals)
+            internalPins.forEach(self.add)
+            
+            // Before Adding wires, properly place node
+            self.placeEntriesAndPorts()
+            
+            // ([Pin], [LogicPort] -> [Wire]
+            let pins = (entries as [Pin]) + (internalPins as [Pin]) + (exits as [Pin])
+            let pinEntities = (entries as [RenderableEntity & Pin]) + (internalPins as [RenderableEntity & Pin]) + (exits as [RenderableEntity & Pin])
+            let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities)
             wires.forEach(self.add)
             
         default:
             fatalError("Multiple Module Populate function not implemented yet")
         }
+    }
+    
+    private func placeEntriesAndPorts() {
+        
+        // A matrix which will be used to control positions which are already taken
+        var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
+        
+        self.entities.filter({ !($0 is Wire) }).forEach {
+            
+            // Get minimum required components
+            guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
+            
+            // Iteration Bounds
+            let initialRow = 0
+            let finalRow = spots.height - 1
+            let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 1 : 1
+            let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
+            
+            // Get Spot for item
+            var shouldBreak = false
+            for column in initialColumn...finalColumn {
+                for row in initialRow...finalRow {
+                    
+                    if( !spots.at(row: row, column: column) ) {
+                        coordinateComponent.coordinate = Coordinate(x: column, y: row)
+                        spots.set(row: row, column: column)
+                        
+                        shouldBreak = true
+                        break
+                    }
+                }
+                if( shouldBreak ) {
+                    break
+                }
+            }
+           
+            // Set Correct Position
+            nodeComponent.position = coordinateComponent.cgPoint
+            print("\(coordinateComponent.coordinate)")
+        }
+        
     }
     
     private func ports(from functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]) -> [LogicPort] {
@@ -119,32 +173,34 @@ extension EntityManager {
         }
     }
     
-    private func entries(from signals: [Signal]) -> [Entry] {
-        return signals.map{ Entry(at: .zero, signal: $0) }
+    private func pins<T: Pin>(from signals: [Signal]) -> [T] {
+        return signals.map{ T(signal: $0) }
     }
-    private func wires(from ports: [LogicPort], entries: [Entry]) -> [Wire] {
+    private func wires(from ports: [LogicPort], pins: [Pin], entities: [RenderableEntity & Pin]) -> [Wire] {
         
         var wires: [Wire] = []
         
         // Uses entries as starting points first
-        for entry in entries {
+        for pin in pins {
             
             // Check which ports are using the current entry as input
             let portConnections = ports.filter{ port in
                 return port.inputs.filter({ signal in
-                    return signal.associatedId == entry.signal.associatedId
+                    return signal.associatedId == pin.signal.associatedId
                 }).isEmpty ? false : true
             }
             
             // Get input and output entity for each connection
             for portConnection in portConnections {
-                let outputEntity = entries.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
-                let inputEntities = entries.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
+                let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
+                let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
                 
                 // Create Wire
                 for inputEntity in inputEntities {
                     let inputCoordinate = inputEntity.component(ofType: GridComponent.self)!.coordinate
                     let outputCoordinate = outputEntity.component(ofType: GridComponent.self)!.coordinate
+                    
+                    print(inputCoordinate, outputCoordinate)
                     
                     wires.append(Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: outputCoordinate))
                 }

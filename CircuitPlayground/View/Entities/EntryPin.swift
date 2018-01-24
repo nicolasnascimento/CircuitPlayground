@@ -8,15 +8,16 @@
 
 import GameplayKit
 
-class Entry: RenderableEntity {
+class EntryPin: RenderableEntity, Pin {
 
+    // MARK: - Public
     let signal: Signal
-    
-    init(at coordinate: Coordinate, signal: Signal) {
+ 
+    required init(signal: Signal) {
         self.signal = signal
-        super.init(at: coordinate)
-        
-        let entryComponent = EntryComponent(signal: signal)
+        super.init(at: .zero)
+
+        let entryComponent = PinComponent(signal: signal)
         self.addComponent(entryComponent)
     }
     
@@ -25,8 +26,3 @@ class Entry: RenderableEntity {
     }
 }
 
-extension Entry {
-    override var description: String {
-        return "Entry - signal:(\(self.signal)"
-    }
-}

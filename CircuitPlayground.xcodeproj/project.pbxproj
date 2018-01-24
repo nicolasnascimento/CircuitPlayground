@@ -50,10 +50,14 @@
 		0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */; };
 		0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */; };
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
+		0CB72A032018C71C00CED264 /* AvailabilityMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */; };
+		0CB72A05201902BD00CED264 /* ExitPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A04201902BD00CED264 /* ExitPin.swift */; };
+		0CB72A072019049600CED264 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A062019049600CED264 /* Pin.swift */; };
+		0CB72A092019061900CED264 /* InternalPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A082019061900CED264 /* InternalPin.swift */; };
 		0CE748FE2017906200A21A2B /* Wire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE748FD2017906200A21A2B /* Wire.swift */; };
-		0CE74900201790DC00A21A2B /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE748FF201790DC00A21A2B /* Entry.swift */; };
-		0CE749022017933500A21A2B /* EntryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE749012017933500A21A2B /* EntryComponent.swift */; };
-		0CE749042017940A00A21A2B /* EntryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE749032017940A00A21A2B /* EntryNode.swift */; };
+		0CE74900201790DC00A21A2B /* EntryPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE748FF201790DC00A21A2B /* EntryPin.swift */; };
+		0CE749022017933500A21A2B /* PinComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE749012017933500A21A2B /* PinComponent.swift */; };
+		0CE749042017940A00A21A2B /* PinNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE749032017940A00A21A2B /* PinNode.swift */; };
 		0CE7490620179E2B00A21A2B /* WireNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7490520179E2B00A21A2B /* WireNode.swift */; };
 		0CE7490820179FE500A21A2B /* WireComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE7490720179FE500A21A2B /* WireComponent.swift */; };
 /* End PBXBuildFile section */
@@ -117,10 +121,14 @@
 		0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridComponent.swift; sourceTree = "<group>"; };
 		0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
+		0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityMatrix.swift; sourceTree = "<group>"; };
+		0CB72A04201902BD00CED264 /* ExitPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitPin.swift; sourceTree = "<group>"; };
+		0CB72A062019049600CED264 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
+		0CB72A082019061900CED264 /* InternalPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalPin.swift; sourceTree = "<group>"; };
 		0CE748FD2017906200A21A2B /* Wire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wire.swift; sourceTree = "<group>"; };
-		0CE748FF201790DC00A21A2B /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
-		0CE749012017933500A21A2B /* EntryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryComponent.swift; sourceTree = "<group>"; };
-		0CE749032017940A00A21A2B /* EntryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryNode.swift; sourceTree = "<group>"; };
+		0CE748FF201790DC00A21A2B /* EntryPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryPin.swift; sourceTree = "<group>"; };
+		0CE749012017933500A21A2B /* PinComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinComponent.swift; sourceTree = "<group>"; };
+		0CE749032017940A00A21A2B /* PinNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinNode.swift; sourceTree = "<group>"; };
 		0CE7490520179E2B00A21A2B /* WireNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WireNode.swift; sourceTree = "<group>"; };
 		0CE7490720179FE500A21A2B /* WireComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WireComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,7 +185,7 @@
 				0C0585321FEACB36007E07FB /* CanvasNode.swift */,
 				0C116CEA1FDAE0CC004B8999 /* LogicPortDrawable.swift */,
 				0C116CEC1FDAE2D6004B8999 /* LogicPortNode.swift */,
-				0CE749032017940A00A21A2B /* EntryNode.swift */,
+				0CE749032017940A00A21A2B /* PinNode.swift */,
 				0CE7490520179E2B00A21A2B /* WireNode.swift */,
 			);
 			path = Nodes;
@@ -187,9 +195,12 @@
 			isa = PBXGroup;
 			children = (
 				0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */,
+				0CB72A062019049600CED264 /* Pin.swift */,
 				0C0F8D831FEBE923006CC411 /* LogicPort.swift */,
 				0CE748FD2017906200A21A2B /* Wire.swift */,
-				0CE748FF201790DC00A21A2B /* Entry.swift */,
+				0CE748FF201790DC00A21A2B /* EntryPin.swift */,
+				0CB72A04201902BD00CED264 /* ExitPin.swift */,
+				0CB72A082019061900CED264 /* InternalPin.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -200,7 +211,7 @@
 				0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */,
 				0C0F8D871FEBEB87006CC411 /* NodeComponent.swift */,
 				0C0F8D8B1FEBEBCF006CC411 /* LogicPortNodeComponent.swift */,
-				0CE749012017933500A21A2B /* EntryComponent.swift */,
+				0CE749012017933500A21A2B /* PinComponent.swift */,
 				0CE7490720179FE500A21A2B /* WireComponent.swift */,
 			);
 			path = Components;
@@ -354,6 +365,7 @@
 		0C385E181FD1D018008FB5D7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */,
 				0C0F8D851FEBEA10006CC411 /* EntityManager.swift */,
 				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
 				0C116CE21FDABFAD004B8999 /* Environment.swift */,
@@ -475,7 +487,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CE74900201790DC00A21A2B /* Entry.swift in Sources */,
+				0CE74900201790DC00A21A2B /* EntryPin.swift in Sources */,
 				0C0F8D821FEAEF0B006CC411 /* SKViewExtensions.swift in Sources */,
 				0C385E141FD1C839008FB5D7 /* ModuleConnection.swift in Sources */,
 				0C385DFE1FD09E1B008FB5D7 /* ObjectParser.swift in Sources */,
@@ -491,23 +503,27 @@
 				0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */,
 				0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
+				0CB72A092019061900CED264 /* InternalPin.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
 				0C0F8D881FEBEB87006CC411 /* NodeComponent.swift in Sources */,
 				0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
-				0CE749042017940A00A21A2B /* EntryNode.swift in Sources */,
+				0CE749042017940A00A21A2B /* PinNode.swift in Sources */,
 				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
 				0CE748FE2017906200A21A2B /* Wire.swift in Sources */,
+				0CB72A032018C71C00CED264 /* AvailabilityMatrix.swift in Sources */,
 				0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */,
 				0C0F8D8C1FEBEBCF006CC411 /* LogicPortNodeComponent.swift in Sources */,
 				0C116CE51FDAC097004B8999 /* CoreGraphicsExtensions.swift in Sources */,
-				0CE749022017933500A21A2B /* EntryComponent.swift in Sources */,
+				0CE749022017933500A21A2B /* PinComponent.swift in Sources */,
 				0C29FE541FD57C150029BB42 /* Port.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
+				0CB72A05201902BD00CED264 /* ExitPin.swift in Sources */,
 				0CE7490620179E2B00A21A2B /* WireNode.swift in Sources */,
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */,
+				0CB72A072019049600CED264 /* Pin.swift in Sources */,
 				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
 				0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */,
 				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,

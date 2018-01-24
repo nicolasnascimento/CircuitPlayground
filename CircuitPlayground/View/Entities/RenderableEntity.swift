@@ -15,7 +15,6 @@ class RenderableEntity: GKEntity {
         return self.component(ofType: NodeComponent.self)!
     }
     
-    
     // MARK: - Initialization
     init(at coordinate: Coordinate) {
         super.init()

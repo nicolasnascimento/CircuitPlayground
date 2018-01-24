@@ -20,6 +20,8 @@ class LogicPortNode: SKSpriteNode {
     init(operation: LogicDescriptor.LogicOperation) {
         let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
+        
+        self.anchorPoint = CGPoint(x: 0, y: 0)
     }
     
     required init?(coder aDecoder: NSCoder) {

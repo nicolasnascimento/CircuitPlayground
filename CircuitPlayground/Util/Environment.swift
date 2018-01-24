@@ -13,7 +13,7 @@ enum Environment {
     
     // This tells wheter the app is runnnig in debug mode
     static var debugMode: Bool {
-        #if iOS
+        #if DEBUG
             return true
         #else
             return false
@@ -40,9 +40,13 @@ extension Environment {
     }
 }
 
+// MARK: - Files
 extension Environment {
-    enum JSONFiles {
-        static let baseFileName:    String = "base"
+    enum Files {
+        enum JSON {
+            static let `extension`: String = "json"
+            static let baseFile:    String = "base"
+        }
     }
 }
 

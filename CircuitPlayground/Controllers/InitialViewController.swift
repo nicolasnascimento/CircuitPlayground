@@ -26,7 +26,7 @@ class InitialViewController: NSViewController {
         self.initialize()
         
         // TEMPORARY - Read file containing specs of circuit
-        self.read(fileNamed: Environment.JSONFiles.baseFileName) { (specification, error) in
+        self.read(fileNamed: Environment.Files.JSON.baseFile) { (specification, error) in
             if let error = error {
                 fatalError(error.localizedDescription)
             } else if let spec = specification {
@@ -35,8 +35,6 @@ class InitialViewController: NSViewController {
                 
                 // Populate entities from circuit description
                 self.entityManager.populate(with: circuitDescription)
-                
-                print(self.entityManager)
             }
         }
     }
@@ -86,6 +84,12 @@ extension InitialViewController: SKViewDelegate {
     private func setupSKView() {
         // Set SKView
         self.skView.delegate = self
+        
+        // Set Debug Mode
+        if( Environment.debugMode ) {
+            self.skView.showsFPS = true
+            self.skView.showsNodeCount = true
+        }
         
         // Perform Initial Setup Scene
         self.setupScene()

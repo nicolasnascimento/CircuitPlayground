@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class EntryNode: SKSpriteNode {
+class PinNode: SKSpriteNode {
 
     // MARK: - Public
     
@@ -19,12 +19,16 @@ class EntryNode: SKSpriteNode {
     init(signal: Signal) {
         self.signal = signal
         
-        super.init(texture: nil, color: SKColor.lightGray, size: GridComponent.maximumIndividualSize)
+        super.init(texture: nil, color: SKColor.darkGray, size: GridComponent.maximumIndividualSize)
+        
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         
         // Create Label
         let labelNode = SKLabelNode(text: signal.associatedId)
         self.addChildNode(labelNode)
         
+        labelNode.position.x = (self.size.width)*0.5
+        labelNode.position.y = (self.size.height - labelNode.frame.size.height)*0.5
     }
     
     required init?(coder aDecoder: NSCoder) {

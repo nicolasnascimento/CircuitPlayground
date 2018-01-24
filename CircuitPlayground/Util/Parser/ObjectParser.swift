@@ -21,7 +21,7 @@ class ObjectParser {
     
     // MARK: - Public
     class func parse(fileNamed fileName: String, completionHandler handler: @escaping (_ specification: LogicSpecification?,_ error: Error?) -> Void)  {
-        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+        if let url = Bundle.main.url(forResource: fileName, withExtension: Environment.Files.JSON.extension) {
             do {
                 let file = try Data.init(contentsOf: url)
                 do {
