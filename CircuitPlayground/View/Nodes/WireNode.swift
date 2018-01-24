@@ -21,12 +21,13 @@ class WireNode: SKShapeNode {
         
         // Create Path
         let linePath = NSBezierPath()
+        
         linePath.move(to: source)
         linePath.line(to: destination)
         
         // Set drawing parameters
         self.lineWidth = 1.0
-        self.strokeColor = .lightGray
+        self.strokeColor = .red
         self.path = linePath.cgPath
     }
     

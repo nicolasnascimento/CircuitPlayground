@@ -25,10 +25,12 @@ extension Coordinate: Equatable {
 
 class GridComponent: GKComponent {
     
+    static let gridDimensions: CGSize = Environment.Dimensions.size
+    
     // MARK: - Static
     static let maxDimension = CGPoint(x: 11, y: 22)
     static var maximumIndividualSize: CGSize {
-        let size = NSScreen.main!.visibleFrame.size
+        let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
         let minimumWidth = size.width/GridComponent.maxDimension.x
         return CGSize(width: minimumWidth, height: minimumHeight)
@@ -36,7 +38,7 @@ class GridComponent: GKComponent {
     
     class func position(for coordinate: Coordinate) -> CGPoint {
         
-        let size = NSScreen.main!.visibleFrame.size
+        let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
         let minimumWidth = size.width/GridComponent.maxDimension.x
         

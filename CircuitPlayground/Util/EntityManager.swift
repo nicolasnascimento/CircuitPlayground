@@ -96,7 +96,10 @@ extension EntityManager {
             let pins = (entries as [Pin]) + (internalPins as [Pin]) + (exits as [Pin])
             let pinEntities = (entries as [RenderableEntity & Pin]) + (internalPins as [RenderableEntity & Pin]) + (exits as [RenderableEntity & Pin])
             let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities)
-            wires.forEach(self.add)
+            wires.forEach { [weak self] in
+                self?.add(entity: $0)
+                $0.nodeComponent.position = $0.nodeComponent.position
+            }
             
         default:
             fatalError("Multiple Module Populate function not implemented yet")
@@ -139,7 +142,7 @@ extension EntityManager {
            
             // Set Correct Position
             nodeComponent.position = coordinateComponent.cgPoint
-            print("\(coordinateComponent.coordinate)")
+            print("\(coordinateComponent.coordinate): \(coordinateComponent.cgPoint)")
         }
         
     }

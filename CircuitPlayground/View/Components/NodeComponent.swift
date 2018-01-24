@@ -21,6 +21,10 @@ protocol Anchorable {
 
 extension SKSpriteNode: Anchorable {}
 extension SKScene: Anchorable {}
+extension SKShapeNode: Anchorable {
+    var size: CGSize { return self.frame.size }
+    var anchorPoint: CGPoint { return CGPoint(x: 0.5, y: 0.5) }
+}
 
 extension NodeComponent {
     var position: CGPoint {
