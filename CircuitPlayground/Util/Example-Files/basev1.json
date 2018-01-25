@@ -1,0 +1,69 @@
+{
+    "version": 1.0,
+    "description" : "Base File",
+    "entity" : {
+        "ports" : [
+            {
+                "name" : "A",
+                "type" : "standardLogic",
+                "numberOfBits" : 1,
+                "direction" : "input" 
+            },
+            {
+                "name" : "B",
+                "type" : "standardLogic",
+                "numberOfBits": 1,
+                "direction" : "input"
+            },
+            {
+                "name" : "C",
+                "type" : "standardLogic",
+                "numberOfBits": 1,
+                "direction" : "output"
+            }
+        ]
+    },
+    "architecture": {
+            "name" : "behaviour",
+            "globalSignals" : [
+                {
+                    "name" : "Temporary",
+                    "type" : "standardLogic",
+                    "numberOfBits" : 1
+                }
+            ],
+            "logicDescriptors": [
+                {
+                    "elementType" : "combinational",
+                    "logicOperation" : "and",
+                    "inputs" : [
+                        {
+                            "name" : "A"
+                        },
+                        {
+                            "name": "B"
+                        }
+                    ],
+                    "outputs" : [
+                        {
+                            "name" : "Temporary"
+                        }
+                    ]
+                },
+                {
+                    "elementType" : "connection",
+                    "logicOperation": "none",
+                    "inputs" : [
+                        {
+                            "name" : "Temporary"
+                        }
+                    ],
+                    "outputs" : [
+                        {
+                            "name" : "C"
+                        }
+                    ]
+                }
+            ]
+    }
+}

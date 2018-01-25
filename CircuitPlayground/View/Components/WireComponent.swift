@@ -42,7 +42,7 @@ class WireComponent: GKComponent {
             guard let node2D = node as? GKGraphNode2D else { continue }
             
             // Connect all edges of node
-            let pointsToConnect = [
+            let pointsToConnect: Set<vector_float2> = [
                 vector_float2(node2D.position.x - 1, node2D.position.y - 1),
                 vector_float2(node2D.position.x + 0, node2D.position.y - 1),
                 vector_float2(node2D.position.x + 1, node2D.position.y - 1),
@@ -54,13 +54,15 @@ class WireComponent: GKComponent {
             ]
             
             // [Point] -> [Node]
-            let nodesToConnect = pointsToConnect.flatMap{ point in
-                return graph.nodes?.filter{ theNode in
-                    
-                    guard let theNode2D = theNode as? GKGraphNode2D else { return false }
-                    return pointsToConnect.index(of: theNode2D.position) != nil
-                    
-                }.first
+            var nodesToConnect: [GKGraphNode2D] = []
+            
+            for aNode in graph.nodes ?? [] {
+                if let aNode2D = aNode as? GKGraphNode2D {
+                    let position = aNode2D.position
+                    if let _ = pointsToConnect.index(of: position) {
+                        nodesToConnect.append(aNode2D)
+                    }
+                }
             }
             
             // Create Edges
@@ -92,5 +94,11 @@ class WireComponent: GKComponent {
 extension WireComponent: RenderableComponent {
     var node: SKNode {
         return self.wireNode
+    }
+}
+
+extension vector_float2: Hashable {
+    public var hashValue: Int {
+        return self.x.hashValue + self.y.hashValue
     }
 }

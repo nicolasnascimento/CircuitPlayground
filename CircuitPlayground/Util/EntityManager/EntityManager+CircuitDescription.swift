@@ -91,10 +91,7 @@ extension EntityManager {
             
             // Set Correct Position
             nodeComponent.position = coordinateComponent.cgPoint
-            print("\(coordinateComponent.coordinate): \(coordinateComponent.cgPoint)")
         }
-        
-        print(spots)
         
         return spots
         

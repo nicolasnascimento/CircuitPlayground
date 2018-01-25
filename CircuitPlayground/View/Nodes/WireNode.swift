@@ -46,8 +46,6 @@ final class WireNode: SKShapeNode {
         self.lineWidth = 3.0
         self.strokeColor = .random
         
-//        print(points)
-        
         // Draw
         self.path = linePath.cgPath
     }
