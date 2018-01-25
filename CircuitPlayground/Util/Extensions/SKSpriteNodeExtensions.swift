@@ -27,7 +27,7 @@ extension Resizable {
     }
 }
 
-extension Resizable where Self == SKSpriteNode {
+extension Resizable where Self: SKSpriteNode {
     /// This will call resizeToFitSize mainting image aspectRatio
     func resize(toFitHeight height: CGFloat, propagatesChange: Bool = false, animated: Bool = false) {
         if( self.size.height == 0 ) {

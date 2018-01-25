@@ -24,10 +24,11 @@ enum Environment {
 // MARK: - Images
 extension Environment {
     enum Images {
-        static let andPortImageName:    String = "LogicAndPort"
+        static let andPortImageName:    String = "And-Gate"
         static let orPortImageName:     String = "LogicOrPort"
         static let nonePortImageName:   String = "LogicNonePort"
         static let notPortImageName:    String = "LogicNotPort"
+        static let pinImageName:        String = "Pin"
         
         static func image(for operation: LogicDescriptor.LogicOperation) -> String {
             switch operation {
@@ -52,7 +53,14 @@ extension Environment {
 
 extension Environment {
     enum Dimensions {
-        static let size: CGSize = CGSize(width: 1024, height: 1024)
+        static let size: CGSize = CGSize(side: 1024)
+    }
+}
+
+extension Environment {
+    enum Text {
+        static let fontName = "Multicolore"
+        static let fontSize = CGFloat(12.0)
     }
 }
 

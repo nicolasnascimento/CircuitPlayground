@@ -50,6 +50,8 @@
 		0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */; };
 		0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */; };
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
+		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
+		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CB72A032018C71C00CED264 /* AvailabilityMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */; };
 		0CB72A05201902BD00CED264 /* ExitPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A04201902BD00CED264 /* ExitPin.swift */; };
 		0CB72A072019049600CED264 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A062019049600CED264 /* Pin.swift */; };
@@ -121,6 +123,8 @@
 		0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridComponent.swift; sourceTree = "<group>"; };
 		0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
+		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
+		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityMatrix.swift; sourceTree = "<group>"; };
 		0CB72A04201902BD00CED264 /* ExitPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitPin.swift; sourceTree = "<group>"; };
 		0CB72A062019049600CED264 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				0C116CEC1FDAE2D6004B8999 /* LogicPortNode.swift */,
 				0CE749032017940A00A21A2B /* PinNode.swift */,
 				0CE7490520179E2B00A21A2B /* WireNode.swift */,
+				0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -281,7 +286,7 @@
 				0C385DFA1FD0974B008FB5D7 /* Controllers */,
 				0C385DF61FD09650008FB5D7 /* Storyboard */,
 				0C385DF41FD0960B008FB5D7 /* Support */,
-				0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */,
+				0CAD43F5201A38FF003AB5F1 /* Resources */,
 			);
 			path = CircuitPlayground;
 			sourceTree = "<group>";
@@ -366,7 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */,
-				0C0F8D851FEBEA10006CC411 /* EntityManager.swift */,
+				0CAD4407201A45C3003AB5F1 /* EntityManager */,
 				0C385E011FD0A0D2008FB5D7 /* LogicFunction.swift */,
 				0C116CE21FDABFAD004B8999 /* Environment.swift */,
 				0C385E191FD1D1BF008FB5D7 /* Example-Files */,
@@ -382,6 +387,23 @@
 				0C385E1A1FD1D844008FB5D7 /* base.json */,
 			);
 			path = "Example-Files";
+			sourceTree = "<group>";
+		};
+		0CAD43F5201A38FF003AB5F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0C385DAD1FD0938F008FB5D7 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0CAD4407201A45C3003AB5F1 /* EntityManager */ = {
+			isa = PBXGroup;
+			children = (
+				0C0F8D851FEBEA10006CC411 /* EntityManager.swift */,
+				0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */,
+			);
+			path = EntityManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -533,8 +555,10 @@
 				0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */,
 				0C116CED1FDAE2D6004B8999 /* LogicPortNode.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
+				0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */,
 				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
 				0C0585331FEACB36007E07FB /* CanvasNode.swift in Sources */,
+				0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

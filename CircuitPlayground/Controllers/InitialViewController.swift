@@ -96,8 +96,8 @@ extension InitialViewController: SKViewDelegate {
     }
     fileprivate func setupScene() {
         // Instatiante the Scene using the bounds from the view
-        let side = 1024.0 as CGFloat
-        let scene = CircuitScene(size: CGSize(side: side))
+        let size = Environment.Dimensions.size
+        let scene = CircuitScene(size: size)
         
         // Here, we'll be using aspectFill because all drawing will happen inside a `drawable` node, not directly to the scene.
         // This will display the SKView if the user decides to pinch to zoom

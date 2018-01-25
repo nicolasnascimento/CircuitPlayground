@@ -11,14 +11,27 @@ import GameplayKit
 class PinComponent: GKComponent {
     
     var signal: Signal
+    var pinNode: PinNode
+    var type: PinType
     
-    var entryNode: PinNode
+    enum PinType {
+        case entry
+        case exit
+        case `internal`
+    }
     
     // MARK: - Initialization
-    init(signal: Signal) {
+    init(signal: Signal, type: PinType) {
         
         self.signal = signal
-        self.entryNode = PinNode(signal: signal)
+        self.type = type
+        
+        let imageName: String
+        switch type {
+        default: imageName = Environment.Images.pinImageName
+        }
+        
+        self.pinNode = PinNode(imageNamed: imageName, associatedId: signal.associatedId)
         super.init()
     }
     
@@ -29,6 +42,6 @@ class PinComponent: GKComponent {
 
 extension PinComponent: RenderableComponent {
     var node: SKNode {
-        return self.entryNode
+        return self.pinNode
     }
 }

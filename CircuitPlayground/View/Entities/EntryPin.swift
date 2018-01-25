@@ -17,7 +17,7 @@ class EntryPin: RenderableEntity, Pin {
         self.signal = signal
         super.init(at: .zero)
 
-        let entryComponent = PinComponent(signal: signal)
+        let entryComponent = PinComponent(signal: signal, type: .entry)
         self.addComponent(entryComponent)
     }
     

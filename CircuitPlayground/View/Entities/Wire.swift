@@ -14,16 +14,18 @@ class Wire: RenderableEntity {
     let source: Coordinate
     let destination: Coordinate
     
+    let usedCoordinates: [Coordinate] = []
+    
+    
     // MARK: - Initialization
-    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate) {
+    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate, availabilityMatrix: AvailabilityMatrix) {
         self.source = sourceCoordinate
         self.destination = destinationCoordinate
         super.init(at: .zero)
         
         // Wire
-        let wireComponent = WireComponent(source: sourceCoordinate, destination: destinationCoordinate)
+        let wireComponent = WireComponent(source: sourceCoordinate, destination: destinationCoordinate, availabilityMatrix: availabilityMatrix)
         self.addComponent(wireComponent)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

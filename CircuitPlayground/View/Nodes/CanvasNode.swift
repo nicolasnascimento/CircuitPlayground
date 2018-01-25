@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class CanvasNode: SKSpriteNode {
+final class CanvasNode: SKSpriteNode {
     
     /// The default background color for the Canvas Node
     static let defaultBackgroundColor: SKColor = .lightGray

@@ -1,67 +1,14 @@
 //
-//  EntityManager.swift
+//  EntityManager+CircuitDescription.swift
 //  CircuitPlayground
 //
-//  Created by Nicolas Nascimento on 07/12/17.
-//  Copyright © 2017 Nicolas Nascimento. All rights reserved.
+//  Created by Nicolas Nascimento on 25/01/18.
+//  Copyright © 2018 Nicolas Nascimento. All rights reserved.
 //
 
 import GameplayKit
 
-protocol EntityManagerDelegate: class {
-    func entityManager(_ entityManager: EntityManager, didAdd entity: GKEntity)
-    func entityManager(_ entityManager: EntityManager, didRemove entity: GKEntity)
-    func entityManager(_ entityManager: EntityManager, didFailToRemove entity: GKEntity)
-}
-
-class EntityManager {
-    
-    // MARK: - Public Properties
-    weak var delegate: EntityManagerDelegate?
-    
-    // MARK: - Private
-    private var entities: [GKEntity]
-    
-    // MARK: - Initialization
-    init() {
-        self.entities = []
-    }
-    
-    // MARK: - Public
-    func add(entity: GKEntity) {
-        // Append entity to list of entities
-        self.entities.append(entity)
-        
-        // Notify the delegate
-        self.delegate?.entityManager(self, didAdd: entity)
-    }
-    func remove(entity: GKEntity) {
-        // Assure entity is in array
-        guard let index = self.entities.index(of: entity) else {
-            self.delegate?.entityManager(self, didFailToRemove: entity)
-            return
-        }
-        // Remove all components from entity before removing it.
-        // This allows the components to perform custom behaviour on removal
-        let entity = self.entities[index]
-        for componentType in entity.components.map({ return type(of: $0) }) {
-            entity.removeComponent(ofType: componentType)
-        }
-        // Remove from list of entities
-        self.entities.remove(at: index)
-        
-        // Notify the delegate
-        self.delegate?.entityManager(self, didRemove: entity)
-    }
-    func removeAllEntities() {
-        
-        for entity in self.entities {
-            self.remove(entity: entity)
-        }
-    }
-}
-
-// Adds a function to perform
+// Adds a function to perform extraction of entities from a circuit descriptoin
 extension EntityManager {
     
     /// Extract Entities from a given circuit description
@@ -71,7 +18,7 @@ extension EntityManager {
         case 1:
             // Get Module
             guard let module = singleModuleCircuitDescription.modules.first else { return }
-        
+            
             // [Function] -> [LogicPort]
             // Extract entities and add to list of entities
             let ports = self.ports(from: module.functions)
@@ -90,12 +37,12 @@ extension EntityManager {
             internalPins.forEach(self.add)
             
             // Before Adding wires, properly place node
-            self.placeEntriesAndPorts()
+            let availabilityMatrix = self.placeEntriesAndPorts()
             
             // ([Pin], [LogicPort] -> [Wire]
             let pins = (entries as [Pin]) + (internalPins as [Pin]) + (exits as [Pin])
             let pinEntities = (entries as [RenderableEntity & Pin]) + (internalPins as [RenderableEntity & Pin]) + (exits as [RenderableEntity & Pin])
-            let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities)
+            let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities, availabilityMatrix: availabilityMatrix)
             wires.forEach { [weak self] in
                 self?.add(entity: $0)
                 $0.nodeComponent.position = $0.nodeComponent.position
@@ -106,7 +53,7 @@ extension EntityManager {
         }
     }
     
-    private func placeEntriesAndPorts() {
+    private func placeEntriesAndPorts() -> AvailabilityMatrix {
         
         // A matrix which will be used to control positions which are already taken
         var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
@@ -117,17 +64,19 @@ extension EntityManager {
             guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
             
             // Iteration Bounds
-            let initialRow = 0
+            let initialRow = $0 is ExitPin ? 2 : 0
             let finalRow = spots.height - 1
             let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 1 : 1
             let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
+            
+            // Should adjust
             
             // Get Spot for item
             var shouldBreak = false
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
                     
-                    if( !spots.at(row: row, column: column) ) {
+                    if(  column % 2 == 0 && row % 2 == 0 && !spots.at(row: row, column: column) ) {
                         coordinateComponent.coordinate = Coordinate(x: column, y: row)
                         spots.set(row: row, column: column)
                         
@@ -139,11 +88,15 @@ extension EntityManager {
                     break
                 }
             }
-           
+            
             // Set Correct Position
             nodeComponent.position = coordinateComponent.cgPoint
             print("\(coordinateComponent.coordinate): \(coordinateComponent.cgPoint)")
         }
+        
+        print(spots)
+        
+        return spots
         
     }
     
@@ -179,9 +132,12 @@ extension EntityManager {
     private func pins<T: Pin>(from signals: [Signal]) -> [T] {
         return signals.map{ T(signal: $0) }
     }
-    private func wires(from ports: [LogicPort], pins: [Pin], entities: [RenderableEntity & Pin]) -> [Wire] {
+    private func wires(from ports: [LogicPort], pins: [Pin], entities: [RenderableEntity & Pin], availabilityMatrix: AvailabilityMatrix) -> [Wire] {
         
         var wires: [Wire] = []
+        
+        // We we'll modify this, so use a local instance
+        var availabilityMatrix = availabilityMatrix
         
         // Uses entries as starting points first
         for pin in pins {
@@ -193,19 +149,40 @@ extension EntityManager {
                 }).isEmpty ? false : true
             }
             
+            // Because there will be multiple input and a single output, We'll use a flag to indicate wheter the port has already been connected to its output
+            var outputConnected: Bool = false
+            
             // Get input and output entity for each connection
             for portConnection in portConnections {
                 let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
                 let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
                 
-                // Create Wire
+                // Create Wire ( Pin -> Port & Port -> Output
                 for inputEntity in inputEntities {
+                    // Gather 3 connection coordinates
                     let inputCoordinate = inputEntity.component(ofType: GridComponent.self)!.coordinate
                     let outputCoordinate = outputEntity.component(ofType: GridComponent.self)!.coordinate
+                    let portCoordinate = portConnection.component(ofType: GridComponent.self)!.coordinate
                     
-                    print(inputCoordinate, outputCoordinate)
+                    print(inputCoordinate, portCoordinate, outputCoordinate)
                     
-                    wires.append(Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: outputCoordinate))
+                    // Input Pin -> Port
+                    let inputWire = Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: portCoordinate, availabilityMatrix: availabilityMatrix)
+                    wires.append(inputWire)
+                   
+                    // Update availability Matrix
+                    inputWire.usedCoordinates.forEach{ availabilityMatrix.set(row: $0.y, column: $0.x) }
+                    
+                    // Port -> Output Pin
+                    if( !outputConnected ) {
+                        let outputWire = Wire(sourceCoordinate: portCoordinate, destinationCoordinate: outputCoordinate, availabilityMatrix: availabilityMatrix)
+                        wires.append(outputWire)
+                        
+                        // Update availability Matrix
+                        outputWire.usedCoordinates.forEach{ availabilityMatrix.set(row: $0.y, column: $0.x) }
+                        
+                        outputConnected = true
+                    }
                 }
             }
         }
@@ -214,14 +191,3 @@ extension EntityManager {
     }
 }
 
-extension EntityManager: CustomStringConvertible {
-    var description: String {
-        var entitiesDescription = ""
-        
-        for entity in self.entities {
-            entitiesDescription += entity.description + "\n"
-        }
-        
-        return "CircuitPlayer.EntityManager - " + entitiesDescription
-    }
-}

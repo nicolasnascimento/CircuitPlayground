@@ -9,7 +9,7 @@
 import SpriteKit
 
 // A node that encapsulates the drawing of a logic port
-class LogicPortNode: SKSpriteNode {
+final class LogicPortNode: SKSpriteNode {
     var operation: LogicDescriptor.LogicOperation = .none {
         didSet {
             self.draw()
@@ -20,6 +20,7 @@ class LogicPortNode: SKSpriteNode {
     init(operation: LogicDescriptor.LogicOperation) {
         let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
+        self.resize(toFitHeight: GridComponent.maximumIndividualSize.height)
         
         self.anchorPoint = CGPoint(x: 0, y: 0)
     }

@@ -8,26 +8,47 @@
 
 import SpriteKit
 
-class WireNode: SKShapeNode {
+extension NSColor {
+    
+    static var random: NSColor {
+        let red = CGFloat(drand48())
+        let green = CGFloat(drand48())
+        let blue = CGFloat(drand48())
+        return NSColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+    
+}
+
+final class WireNode: SKShapeNode {
 
     var source: CGPoint
     var destination: CGPoint
     
-    init(source: CGPoint, destination: CGPoint) {
-        self.source = source
-        self.destination = destination
+    init(points: [CGPoint]) {
+        self.source = points.first!
+        self.destination = points.last!
         
         super.init()
         
         // Create Path
         let linePath = NSBezierPath()
         
-        linePath.move(to: source)
-        linePath.line(to: destination)
+        // Move to Initial Point
+        linePath.move(to: self.source)
+        
+        // Create Connections between points
+        for i in 1..<points.count {
+         
+            linePath.line(to: points[i])
+        }
         
         // Set drawing parameters
-        self.lineWidth = 1.0
-        self.strokeColor = .red
+        self.lineWidth = 3.0
+        self.strokeColor = .random
+        
+//        print(points)
+        
+        // Draw
         self.path = linePath.cgPath
     }
     

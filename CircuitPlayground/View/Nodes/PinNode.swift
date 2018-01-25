@@ -8,27 +8,26 @@
 
 import SpriteKit
 
-class PinNode: SKSpriteNode {
-
-    // MARK: - Public
-    
-    // The signal this entry node represents
-    var signal: Signal
+final class PinNode: SKSpriteNode {
     
     // MARK: - Initialization
-    init(signal: Signal) {
-        self.signal = signal
+    init(imageNamed: String, associatedId: String) {
         
-        super.init(texture: nil, color: SKColor.darkGray, size: GridComponent.maximumIndividualSize)
+        let texture = SKTexture(imageNamed: imageNamed)
+        let textureSize = texture.size()
+        super.init(texture: texture, color: SKColor.darkGray, size: textureSize)
+        self.resize(toFitHeight: GridComponent.maximumIndividualSize.height)
         
+        // Set anchor point of node
         self.anchorPoint = CGPoint(x: 0, y: 0)
         
         // Create Label
-        let labelNode = SKLabelNode(text: signal.associatedId)
+        let labelNode = LabelNode(text: associatedId)
         self.addChildNode(labelNode)
         
         labelNode.position.x = (self.size.width)*0.5
-        labelNode.position.y = (self.size.height - labelNode.frame.size.height)*0.5
+        labelNode.position.y = (self.size.height*2.5 - labelNode.frame.size.height)*0.5
+        labelNode.zPosition += 1
     }
     
     required init?(coder aDecoder: NSCoder) {
