@@ -52,6 +52,7 @@
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
+		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
 		0CB72A032018C71C00CED264 /* AvailabilityMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */; };
 		0CB72A05201902BD00CED264 /* ExitPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A04201902BD00CED264 /* ExitPin.swift */; };
 		0CB72A072019049600CED264 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB72A062019049600CED264 /* Pin.swift */; };
@@ -125,6 +126,7 @@
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
+		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
 		0CB72A022018C71C00CED264 /* AvailabilityMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityMatrix.swift; sourceTree = "<group>"; };
 		0CB72A04201902BD00CED264 /* ExitPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitPin.swift; sourceTree = "<group>"; };
 		0CB72A062019049600CED264 /* Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */,
 				0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */,
 				0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */,
+				0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */,
 				0CB72A072019049600CED264 /* Pin.swift in Sources */,
 				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
+				0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */,
 				0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */,
 				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,
 				0CE7490820179FE500A21A2B /* WireComponent.swift in Sources */,

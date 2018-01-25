@@ -43,6 +43,7 @@ extension EntityManager {
             let pins = (entries as [Pin]) + (internalPins as [Pin]) + (exits as [Pin])
             let pinEntities = (entries as [RenderableEntity & Pin]) + (internalPins as [RenderableEntity & Pin]) + (exits as [RenderableEntity & Pin])
             let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities, availabilityMatrix: availabilityMatrix)
+            print(wires)
             wires.forEach { [weak self] in
                 self?.add(entity: $0)
                 $0.nodeComponent.position = $0.nodeComponent.position
@@ -69,19 +70,19 @@ extension EntityManager {
             let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 1 : 1
             let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
             
-            // Should adjust
-            
             // Get Spot for item
             var shouldBreak = false
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
                     
-                    if(  column % 2 == 0 && row % 2 == 0 && !spots.at(row: row, column: column) ) {
-                        coordinateComponent.coordinate = Coordinate(x: column, y: row)
-                        spots.set(row: row, column: column)
-                        
-                        shouldBreak = true
-                        break
+                    if( !($0 is LogicPort) ||  (row == column && row > 2) ) {
+                        if( !spots.at(row: row, column: column) ) {
+                            coordinateComponent.coordinate = Coordinate(x: column, y: row)
+                            spots.set(row: row, column: column)
+                            
+                            shouldBreak = true
+                            break
+                        }
                     }
                 }
                 if( shouldBreak ) {
