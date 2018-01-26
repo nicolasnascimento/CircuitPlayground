@@ -20,8 +20,14 @@ final class LogicPortNode: SKSpriteNode {
     init(operation: LogicDescriptor.LogicOperation) {
         let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
-        self.resize(toFitHeight: GridComponent.maximumIndividualSize.height)
-        
+     
+        switch operation {
+        case .none:
+            self.resize(toFitHeight: GridComponent.maximumIndividualSize.height*0.5)
+        default:
+            self.resize(toFitHeight: GridComponent.maximumIndividualSize.height)
+            
+        }
         self.anchorPoint = CGPoint(x: 0, y: 0)
     }
     

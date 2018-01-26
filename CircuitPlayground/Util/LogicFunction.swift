@@ -134,6 +134,4 @@ enum LogicFunctions {
         print("Error - Cannot perform multi entry signal operation (not)")
         return []
     }
-
-    
 }

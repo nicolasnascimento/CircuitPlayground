@@ -16,5 +16,4 @@ extension NSColor {
         let blue = CGFloat(drand48())
         return NSColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
-    
 }

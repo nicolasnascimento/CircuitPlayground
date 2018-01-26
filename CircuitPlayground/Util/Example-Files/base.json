@@ -7,7 +7,7 @@
                    "name" : "A",
                    "type" : "standardLogic",
                    "numberOfBits" : 1,
-                   "direction" : "input"
+                   "direction" : "input" 
                    },
                    {
                    "name" : "B",
@@ -26,6 +26,11 @@
     "architecture": {
         "name" : "behaviour",
         "globalSignals" : [
+                           {
+                           "name" : "Temporary",
+                           "type" : "standardLogic",
+                           "numberOfBits" : 1
+                           }
                            ],
         "logicDescriptors": [
                              {
@@ -41,6 +46,20 @@
                                          ],
                              "outputs" : [
                                           {
+                                          "name" : "Temporary"
+                                          }
+                                          ]
+                             },
+                             {
+                             "elementType" : "connection",
+                             "logicOperation": "none",
+                             "inputs" : [
+                                         {
+                                         "name" : "Temporary"
+                                         }
+                                         ],
+                             "outputs" : [
+                                          {
                                           "name" : "C"
                                           }
                                           ]
@@ -48,4 +67,3 @@
                              ]
     }
 }
-
