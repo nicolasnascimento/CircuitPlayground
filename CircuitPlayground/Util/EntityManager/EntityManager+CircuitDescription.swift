@@ -34,7 +34,9 @@ extension EntityManager {
             
             // [Signal] -> [InternalPin]
             let internalPins: [InternalPin] = self.pins(from: module.internalSignals)
-            internalPins.forEach(self.add)
+            
+            // We don't add the interal pin otherwise they will be placed as an input/output pin
+//            internalPins.forEach(self.add)
             
             // Before Adding wires, properly place node
             let availabilityMatrix = self.placeEntriesAndPorts()
