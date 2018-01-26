@@ -76,10 +76,10 @@ extension EntityManager {
             var shouldBreak = false
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
-                    
-                    if( spots.at(row: row, column: column) == nil ) {
-                        coordinateComponent.coordinate = Coordinate(x: column, y: row)
-                        spots.set(value: $0 as? RenderableEntity,row: row, column: column)
+                    let multiplier = $0 is ExitPin ? 1 : 2
+                    if( spots.at(row: row*multiplier, column: column*multiplier) == nil ) {
+                        coordinateComponent.coordinate = Coordinate(x: column*multiplier, y: row*multiplier)
+                        spots.set(value: $0 as? RenderableEntity,row: row*multiplier, column: column*multiplier)
                         
                         shouldBreak = true
                         break

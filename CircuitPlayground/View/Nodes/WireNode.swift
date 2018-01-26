@@ -29,8 +29,8 @@ final class WireNode: SKShapeNode {
         if( !points.isEmpty ) {
             for i in 1..<points.count {
                 
-                let xNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
-                let yNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
+                let xNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 8)
+                let yNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 8)
                 let point = CGPoint(x: points[i].x + xNoise, y: points[i].y + yNoise)
              
                 linePath.line(to: point)

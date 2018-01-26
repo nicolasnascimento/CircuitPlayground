@@ -26,11 +26,6 @@
     "architecture": {
         "name" : "behaviour",
         "globalSignals" : [
-                           {
-                           "name" : "Temporary1",
-                           "type" : "standardLogic",
-                           "numberOfBits" : 1
-                           }
                            ],
         "logicDescriptors": [
                              {
@@ -42,20 +37,6 @@
                                          },
                                          {
                                          "name": "B"
-                                         }
-                                         ],
-                             "outputs" : [
-                                          {
-                                          "name" : "Temporary1"
-                                          }
-                                          ]
-                             },
-                             {
-                             "elementType" : "connection",
-                             "logicOperation": "none",
-                             "inputs" : [
-                                         {
-                                         "name" : "Temporary1"
                                          }
                                          ],
                              "outputs" : [
