@@ -7,7 +7,7 @@
                    "name" : "A",
                    "type" : "standardLogic",
                    "numberOfBits" : 1,
-                   "direction" : "input" 
+                   "direction" : "input"
                    },
                    {
                    "name" : "B",
@@ -27,7 +27,7 @@
         "name" : "behaviour",
         "globalSignals" : [
                            {
-                           "name" : "Temporary",
+                           "name" : "Temporary1",
                            "type" : "standardLogic",
                            "numberOfBits" : 1
                            }
@@ -46,7 +46,7 @@
                                          ],
                              "outputs" : [
                                           {
-                                          "name" : "Temporary"
+                                          "name" : "Temporary1"
                                           }
                                           ]
                              },
@@ -55,7 +55,7 @@
                              "logicOperation": "none",
                              "inputs" : [
                                          {
-                                         "name" : "Temporary"
+                                         "name" : "Temporary1"
                                          }
                                          ],
                              "outputs" : [

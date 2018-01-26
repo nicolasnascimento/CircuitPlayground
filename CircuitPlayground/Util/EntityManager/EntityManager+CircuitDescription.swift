@@ -35,7 +35,8 @@ extension EntityManager {
             // [Signal] -> [InternalPin]
             let internalPins: [InternalPin] = self.pins(from: module.internalSignals)
             
-            // We don't add the interal pin otherwise they will be placed as an input/output pin
+            // We don't add the interal pin otherwise they will be placed as an input/output pin.
+            // Also, there's no need to add them as they will already be placed during port extraction
 //            internalPins.forEach(self.add)
             
             // Before Adding wires, properly place node
@@ -45,7 +46,6 @@ extension EntityManager {
             let pins = (entries as [Pin]) + (internalPins as [Pin]) + (exits as [Pin])
             let pinEntities = (entries as [RenderableEntity & Pin]) + (internalPins as [RenderableEntity & Pin]) + (exits as [RenderableEntity & Pin])
             let wires: [Wire] = self.wires(from: ports, pins: pins, entities: pinEntities, availabilityMatrix: availabilityMatrix)
-            print(wires)
             wires.forEach { [weak self] in
                 self?.add(entity: $0)
                 $0.nodeComponent.position = $0.nodeComponent.position
@@ -61,13 +61,13 @@ extension EntityManager {
         // A matrix which will be used to control positions which are already taken
         var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
         
-        self.entities.filter({ !($0 is Wire) }).forEach {
+        self.entities.forEach {
             
             // Get minimum required components
             guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
             
             // Iteration Bounds
-            let initialRow = $0 is ExitPin ? 2 : 0
+            let initialRow = $0 is ExitPin ? spots.height/2 : 0
             let finalRow = spots.height - 1
             let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 1 : 1
             let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
@@ -77,14 +77,12 @@ extension EntityManager {
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
                     
-                    if( !($0 is LogicPort) ||  (row == column && row > 2) ) {
-                        if( !spots.at(row: row, column: column) ) {
-                            coordinateComponent.coordinate = Coordinate(x: column, y: row)
-                            spots.set(row: row, column: column)
-                            
-                            shouldBreak = true
-                            break
-                        }
+                    if( spots.at(row: row, column: column) == nil ) {
+                        coordinateComponent.coordinate = Coordinate(x: column, y: row)
+                        spots.set(value: $0 as? RenderableEntity,row: row, column: column)
+                        
+                        shouldBreak = true
+                        break
                     }
                 }
                 if( shouldBreak ) {
@@ -96,8 +94,8 @@ extension EntityManager {
             nodeComponent.position = coordinateComponent.cgPoint
         }
         
-        return spots
         
+        return spots
     }
     
     private func ports(from functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]) -> [LogicPort] {
@@ -157,7 +155,8 @@ extension EntityManager {
                 let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
                 let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
                 
-                // Create Wire ( Pin -> Port & Port -> Output
+                
+                // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {
                     // Gather 3 connection coordinates
                     let inputCoordinate = inputEntity.component(ofType: GridComponent.self)!.coordinate
@@ -165,21 +164,26 @@ extension EntityManager {
                     let portCoordinate = portConnection.component(ofType: GridComponent.self)!.coordinate
                     
                     print(inputCoordinate, portCoordinate, outputCoordinate)
+
+                    if( !(inputEntity is InternalPin) ) {
                     
-                    // Input Pin -> Port
-                    let inputWire = Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: portCoordinate, availabilityMatrix: availabilityMatrix)
-                    wires.append(inputWire)
-                   
-                    // Update availability Matrix
-                    inputWire.usedCoordinates.forEach{ availabilityMatrix.set(row: $0.y, column: $0.x) }
+                        // Input Pin -> Port
+                        let inputWire = Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: portCoordinate)
+                        inputWire.connect(avoiding: availabilityMatrix)
+                        wires.append(inputWire)
+                       
+                        // Update availability Matrix
+                        inputWire.usedCoordinates.forEach{ availabilityMatrix.set(value: inputWire,row: $0.y, column: $0.x) }
+                    }
                     
                     // Port -> Output Pin
                     if( !outputConnected ) {
-                        let outputWire = Wire(sourceCoordinate: portCoordinate, destinationCoordinate: outputCoordinate, availabilityMatrix: availabilityMatrix)
+                        let outputWire = Wire(sourceCoordinate: portCoordinate, destinationCoordinate: outputCoordinate)
+                        outputWire.connect(avoiding: availabilityMatrix) 
                         wires.append(outputWire)
                         
                         // Update availability Matrix
-                        outputWire.usedCoordinates.forEach{ availabilityMatrix.set(row: $0.y, column: $0.x) }
+                        outputWire.usedCoordinates.forEach{ availabilityMatrix.set(value: outputWire, row: $0.y, column: $0.x) }
                         
                         outputConnected = true
                     }

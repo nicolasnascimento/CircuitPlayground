@@ -35,3 +35,26 @@ extension SKNode {
         self.position = CGPoint(x: parentSize.width*0.5, y: parentSize.height*0.5)
     }
 }
+
+extension Anchorable where Self: SKNode {
+    
+    func addLabel(for text: String, xOffsetRatio: CGFloat = 0.5, yOffsetRatio: CGFloat = 2.5) {
+        
+        let labelNodeName = "Anchorable.LabelNode"
+        if let labelNode = self.childNode(withName: labelNodeName) as? LabelNode  {
+            labelNode.text = text
+        } else {
+        
+            // Create Label
+            let labelNode = LabelNode(text: text)
+            self.addChildNode(labelNode)
+            
+            labelNode.name = labelNodeName
+            labelNode.position.x = (self.size.width)*xOffsetRatio
+            labelNode.position.y = (self.size.height*yOffsetRatio - labelNode.frame.size.height)*xOffsetRatio
+            labelNode.zPosition += 1
+        }
+        
+    }
+    
+}

@@ -15,7 +15,7 @@ struct AvailabilityMatrix {
     let width: Int
     
     // MARK: - Private
-    private var spots: [[Bool]]
+    var spots: [[RenderableEntity?]]
     
     
     // MARK: - Inititalization
@@ -29,26 +29,26 @@ struct AvailabilityMatrix {
             self.spots.append([])
             // Columns
             for _ in 0..<Int(width) {
-                self.spots[row].append(false)
+                self.spots[row].append(nil)
             }
         }
     }
     
     // MARK: - Public
-    func at(row: Int, column: Int) -> Bool {
+    func at(row: Int, column: Int) -> RenderableEntity? {
         if( self.valid(row: row, column: column) ) {
             return self.spots[row][column]
         }
-        return false
+        return nil
     }
-    mutating func set(row: Int, column: Int) {
+    mutating func set(value: RenderableEntity?,row: Int, column: Int) {
         if( self.valid(row: row, column: column) ) {
-            self.spots[row][column] = true
+            self.spots[row][column] = value
         }
     }
     mutating func untake(row: Int, column: Int) {
         if( self.valid(row: row, column: column) ) {
-            self.spots[row][column] = false
+            self.spots[row][column] = nil
         }
     }
     private func valid(row: Int, column: Int) -> Bool {

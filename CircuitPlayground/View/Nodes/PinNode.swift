@@ -21,13 +21,7 @@ final class PinNode: SKSpriteNode {
         // Set anchor point of node
         self.anchorPoint = CGPoint(x: 0, y: 0)
         
-        // Create Label
-        let labelNode = LabelNode(text: associatedId)
-        self.addChildNode(labelNode)
-        
-        labelNode.position.x = (self.size.width)*0.5
-        labelNode.position.y = (self.size.height*2.5 - labelNode.frame.size.height)*0.5
-        labelNode.zPosition += 1
+        self.addLabel(for: associatedId)
     }
     
     required init?(coder aDecoder: NSCoder) {

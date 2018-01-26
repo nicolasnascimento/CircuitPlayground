@@ -20,7 +20,7 @@ final class LogicPortNode: SKSpriteNode {
     init(operation: LogicDescriptor.LogicOperation) {
         let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
-     
+        
         switch operation {
         case .none:
             self.resize(toFitHeight: GridComponent.maximumIndividualSize.height*0.5)
@@ -29,6 +29,9 @@ final class LogicPortNode: SKSpriteNode {
             
         }
         self.anchorPoint = CGPoint(x: 0, y: 0)
+        
+        let text = operation == .none ? "Connection" : operation.rawValue.uppercased()
+        self.addLabel(for: text)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -14,21 +14,35 @@ class Wire: RenderableEntity {
     let source: Coordinate
     let destination: Coordinate
     
-    let usedCoordinates: [Coordinate] = []
-    
+    var usedCoordinates: [Coordinate] {
+        return self.component(ofType: WireComponent.self)?.path ?? []
+    }
     
     // MARK: - Initialization
-    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate, availabilityMatrix: AvailabilityMatrix) {
+    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate) {
         self.source = sourceCoordinate
         self.destination = destinationCoordinate
         super.init(at: .zero)
         
         // Wire
-        let wireComponent = WireComponent(source: sourceCoordinate, destination: destinationCoordinate, availabilityMatrix: availabilityMatrix)
+        let wireComponent = WireComponent(source: sourceCoordinate, destination: destinationCoordinate)
         self.addComponent(wireComponent)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func connect(avoiding availabilityMatrix: AvailabilityMatrix) {
+     
+        self.component(ofType: WireComponent.self)?.connect(avoiding: availabilityMatrix)
+        
+    }
+}
+
+extension Wire {
+    override var debugDescription: String {
+        return "Wire - source:\(self.source), destination:\(self.destination)"
+        
     }
 }

@@ -14,8 +14,8 @@ final class WireNode: SKShapeNode {
     var destination: CGPoint
     
     init(points: [CGPoint]) {
-        self.source = points.first!
-        self.destination = points.last!
+        self.source = points.first ?? .zero
+        self.destination = points.last ?? .zero
         
         super.init()
         
@@ -26,14 +26,15 @@ final class WireNode: SKShapeNode {
         linePath.move(to: self.source)
         
         // Create Connections between points
-        for i in 1..<points.count {
-            
-            let xNoise = CGFloat(0)//i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
-            let yNoise = CGFloat(0)//i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
-            let point = CGPoint(x: points[i].x + xNoise, y: points[i].y + yNoise)
-         
-            
-            linePath.line(to: point)
+        if( !points.isEmpty ) {
+            for i in 1..<points.count {
+                
+                let xNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
+                let yNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 20)
+                let point = CGPoint(x: points[i].x + xNoise, y: points[i].y + yNoise)
+             
+                linePath.line(to: point)
+            }
         }
         
         // Set drawing parameters
