@@ -10,6 +10,10 @@ import SpriteKit
 
 final class WireNode: SKShapeNode {
 
+    // A boolean that indicates wheter or not we should add some noise when performing wiring of nodes
+    private let hasNoise = true
+    
+    // The source and destination points to create the WireNode from
     var source: CGPoint
     var destination: CGPoint
     
@@ -29,8 +33,8 @@ final class WireNode: SKShapeNode {
         if( !points.isEmpty ) {
             for i in 1..<points.count {
                 
-                let xNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 8)
-                let yNoise = i + 1 == points.count ? CGFloat(0) : CGFloat(drand48() * 8)
+                let xNoise = i + 1 == points.count ? CGFloat(0) : self.hasNoise ?  CGFloat(drand48() * 8) : 0
+                let yNoise = i + 1 == points.count ? CGFloat(0) : self.hasNoise ?  CGFloat(drand48() * 8) : 0
                 let point = CGPoint(x: points[i].x + xNoise, y: points[i].y + yNoise)
              
                 linePath.line(to: point)

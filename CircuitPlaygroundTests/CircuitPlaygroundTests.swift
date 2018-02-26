@@ -25,7 +25,7 @@ class CircuitPlaygroundTests: XCTestCase {
         
         // Test value inequality
         XCTAssert(LogicFunctions.and([bit1, bit3]) == [.negative])
-    
+        
         // Test multiple bit inequality
         XCTAssert(LogicFunctions.and([bit1, bit2, bit3]) == [.negative])
     }

@@ -282,6 +282,7 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				0C687A4B204387B700BB7E33 /* Compiler */,
 				0C116CE91FDADFEC004B8999 /* View */,
 				0C385DF71FD0967D008FB5D7 /* Persistence */,
 				0C385E181FD1D018008FB5D7 /* Util */,
@@ -390,6 +391,13 @@
 				0C385E1A1FD1D844008FB5D7 /* base.json */,
 			);
 			path = "Example-Files";
+			sourceTree = "<group>";
+		};
+		0C687A4B204387B700BB7E33 /* Compiler */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Compiler;
 			sourceTree = "<group>";
 		};
 		0CAD43F5201A38FF003AB5F1 /* Resources */ = {

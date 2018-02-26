@@ -15,7 +15,7 @@ extension SKNode {
         
         // Check zPosition
         if( node.zPosition <= 0.0 ) {
-            node.zPosition = CGFloat(self.children.count + 1.0)
+            node.zPosition += 1.0
         }
         
         // Check if already has a parent

@@ -39,7 +39,7 @@ class RenderableEntity: GKEntity {
         
         // Add node to root
         if let node = (component as? RenderableComponent)?.node, node != nodeComponent.node {
-            self.nodeComponent.node.addChild(node)
+            self.nodeComponent.node.addChildNode(node)
         }
     }
     

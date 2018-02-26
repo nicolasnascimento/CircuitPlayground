@@ -67,7 +67,7 @@ extension EntityManager {
             guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
             
             // Iteration Bounds
-            let initialRow = $0 is ExitPin ? spots.height/2 : 0
+            let initialRow = $0 is ExitPin ? spots.height/4 : 0
             let finalRow = spots.height - 1
             let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 1 : 1
             let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
