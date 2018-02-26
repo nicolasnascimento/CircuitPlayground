@@ -50,6 +50,9 @@
 		0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */; };
 		0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */; };
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
+		0C687A4D2043889600BB7E33 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A4C2043889600BB7E33 /* Lexer.swift */; };
+		0C687A4F2043891A00BB7E33 /* Syntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A4E2043891A00BB7E33 /* Syntax.swift */; };
+		0C687A512043892F00BB7E33 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A502043892F00BB7E33 /* Context.swift */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
@@ -124,6 +127,9 @@
 		0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridComponent.swift; sourceTree = "<group>"; };
 		0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
+		0C687A4C2043889600BB7E33 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		0C687A4E2043891A00BB7E33 /* Syntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syntax.swift; sourceTree = "<group>"; };
+		0C687A502043892F00BB7E33 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
@@ -396,6 +402,9 @@
 		0C687A4B204387B700BB7E33 /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
+				0C687A4C2043889600BB7E33 /* Lexer.swift */,
+				0C687A4E2043891A00BB7E33 /* Syntax.swift */,
+				0C687A502043892F00BB7E33 /* Context.swift */,
 			);
 			path = Compiler;
 			sourceTree = "<group>";
@@ -535,6 +544,7 @@
 				0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */,
 				0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */,
 				0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */,
+				0C687A512043892F00BB7E33 /* Context.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
 				0CB72A092019061900CED264 /* InternalPin.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
@@ -556,6 +566,7 @@
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */,
+				0C687A4F2043891A00BB7E33 /* Syntax.swift in Sources */,
 				0CB72A072019049600CED264 /* Pin.swift in Sources */,
 				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
 				0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */,
@@ -566,6 +577,7 @@
 				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
 				0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */,
 				0C116CED1FDAE2D6004B8999 /* LogicPortNode.swift in Sources */,
+				0C687A4D2043889600BB7E33 /* Lexer.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
 				0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */,
 				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
