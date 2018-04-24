@@ -50,9 +50,15 @@
 		0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */; };
 		0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */; };
 		0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */; };
-		0C687A4D2043889600BB7E33 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A4C2043889600BB7E33 /* Lexer.swift */; };
-		0C687A4F2043891A00BB7E33 /* Syntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A4E2043891A00BB7E33 /* Syntax.swift */; };
-		0C687A512043892F00BB7E33 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C687A502043892F00BB7E33 /* Context.swift */; };
+		0C3F7996208F5F20004AB6D4 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7994208F5F20004AB6D4 /* Lexer.swift */; };
+		0C3F7997208F5F20004AB6D4 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7995208F5F20004AB6D4 /* Token.swift */; };
+		0C3F799A208F5F3F004AB6D4 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7998208F5F3E004AB6D4 /* Expression.swift */; };
+		0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7999208F5F3E004AB6D4 /* Parser.swift */; };
+		0C3F79A1208F5F7A004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and.vhd */; };
+		0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A2208F5F82004AB6D4 /* assignment.vhd */; };
+		0C3F79A6208F5F82004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
+		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
+		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
@@ -127,9 +133,15 @@
 		0C3C6B501FFD077D00AC7EFF /* GridComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridComponent.swift; sourceTree = "<group>"; };
 		0C3C6B521FFD0DB200AC7EFF /* RenderableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderableEntity.swift; sourceTree = "<group>"; };
 		0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
-		0C687A4C2043889600BB7E33 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
-		0C687A4E2043891A00BB7E33 /* Syntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syntax.swift; sourceTree = "<group>"; };
-		0C687A502043892F00BB7E33 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		0C3F7994208F5F20004AB6D4 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		0C3F7995208F5F20004AB6D4 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		0C3F7998208F5F3E004AB6D4 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
+		0C3F7999208F5F3E004AB6D4 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		0C3F79A0208F5F7A004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
+		0C3F79A2208F5F82004AB6D4 /* assignment.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = assignment.vhd; sourceTree = "<group>"; };
+		0C3F79A3208F5F82004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
+		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
+		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
@@ -288,7 +300,7 @@
 		0C385DA51FD0938F008FB5D7 /* CircuitPlayground */ = {
 			isa = PBXGroup;
 			children = (
-				0C687A4B204387B700BB7E33 /* Compiler */,
+				0C3F7991208F5EFA004AB6D4 /* Compiler */,
 				0C116CE91FDADFEC004B8999 /* View */,
 				0C385DF71FD0967D008FB5D7 /* Persistence */,
 				0C385E181FD1D018008FB5D7 /* Util */,
@@ -305,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				0C385DBC1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift */,
+				0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */,
 				0C385DBE1FD0938F008FB5D7 /* Info.plist */,
 			);
 			path = CircuitPlaygroundTests;
@@ -399,14 +412,67 @@
 			path = "Example-Files";
 			sourceTree = "<group>";
 		};
-		0C687A4B204387B700BB7E33 /* Compiler */ = {
+		0C3F7991208F5EFA004AB6D4 /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				0C687A4C2043889600BB7E33 /* Lexer.swift */,
-				0C687A4E2043891A00BB7E33 /* Syntax.swift */,
-				0C687A502043892F00BB7E33 /* Context.swift */,
+				0C3F799C208F5F4D004AB6D4 /* Sample */,
+				0C3F7993208F5F14004AB6D4 /* Lexer */,
+				0C3F7992208F5F0C004AB6D4 /* Syntax */,
 			);
 			path = Compiler;
+			sourceTree = "<group>";
+		};
+		0C3F7992208F5F0C004AB6D4 /* Syntax */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F7998208F5F3E004AB6D4 /* Expression.swift */,
+				0C3F7999208F5F3E004AB6D4 /* Parser.swift */,
+			);
+			path = Syntax;
+			sourceTree = "<group>";
+		};
+		0C3F7993208F5F14004AB6D4 /* Lexer */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F7994208F5F20004AB6D4 /* Lexer.swift */,
+				0C3F7995208F5F20004AB6D4 /* Token.swift */,
+			);
+			path = Lexer;
+			sourceTree = "<group>";
+		};
+		0C3F799C208F5F4D004AB6D4 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F799D208F5F58004AB6D4 /* SingleBit */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		0C3F799D208F5F58004AB6D4 /* SingleBit */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F799F208F5F6B004AB6D4 /* Combinational */,
+				0C3F799E208F5F64004AB6D4 /* Sequential */,
+			);
+			path = SingleBit;
+			sourceTree = "<group>";
+		};
+		0C3F799E208F5F64004AB6D4 /* Sequential */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F79A0208F5F7A004AB6D4 /* and.vhd */,
+			);
+			path = Sequential;
+			sourceTree = "<group>";
+		};
+		0C3F799F208F5F6B004AB6D4 /* Combinational */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F79A3208F5F82004AB6D4 /* and.vhd */,
+				0C3F79A2208F5F82004AB6D4 /* assignment.vhd */,
+				0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */,
+			);
+			path = Combinational;
 			sourceTree = "<group>";
 		};
 		0CAD43F5201A38FF003AB5F1 /* Resources */ = {
@@ -471,11 +537,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Nicolas Nascimento";
 				TargetAttributes = {
 					0C385DA21FD0938F008FB5D7 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					0C385DB71FD0938F008FB5D7 = {
@@ -509,8 +576,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */,
+				0C3F79A6208F5F82004AB6D4 /* and.vhd in Resources */,
+				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,
 				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
+				0C3F79A1208F5F7A004AB6D4 /* and.vhd in Resources */,
 				0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,10 +612,11 @@
 				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
 				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,
+				0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */,
 				0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */,
+				0C3F7997208F5F20004AB6D4 /* Token.swift in Sources */,
 				0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */,
 				0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */,
-				0C687A512043892F00BB7E33 /* Context.swift in Sources */,
 				0C385E0C1FD0A7F4008FB5D7 /* SingleBitSignal.swift in Sources */,
 				0CB72A092019061900CED264 /* InternalPin.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
@@ -558,6 +630,7 @@
 				0C3C6B511FFD077D00AC7EFF /* GridComponent.swift in Sources */,
 				0C0F8D8C1FEBEBCF006CC411 /* LogicPortNodeComponent.swift in Sources */,
 				0C116CE51FDAC097004B8999 /* CoreGraphicsExtensions.swift in Sources */,
+				0C3F799A208F5F3F004AB6D4 /* Expression.swift in Sources */,
 				0CE749022017933500A21A2B /* PinComponent.swift in Sources */,
 				0C29FE541FD57C150029BB42 /* Port.swift in Sources */,
 				0C385DAC1FD0938F008FB5D7 /* CircuitPlayground.xcdatamodeld in Sources */,
@@ -566,7 +639,6 @@
 				0C385E021FD0A0D2008FB5D7 /* LogicFunction.swift in Sources */,
 				0C385E0A1FD0A38C008FB5D7 /* SequentialModule.swift in Sources */,
 				0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */,
-				0C687A4F2043891A00BB7E33 /* Syntax.swift in Sources */,
 				0CB72A072019049600CED264 /* Pin.swift in Sources */,
 				0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */,
 				0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */,
@@ -577,7 +649,7 @@
 				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
 				0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */,
 				0C116CED1FDAE2D6004B8999 /* LogicPortNode.swift in Sources */,
-				0C687A4D2043889600BB7E33 /* Lexer.swift in Sources */,
+				0C3F7996208F5F20004AB6D4 /* Lexer.swift in Sources */,
 				0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */,
 				0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */,
 				0C385E0E1FD0AA78008FB5D7 /* MultiBitSignal.swift in Sources */,
@@ -591,6 +663,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C385DBD1FD0938F008FB5D7 /* CircuitPlaygroundTests.swift in Sources */,
+				0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +703,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -637,6 +711,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -687,6 +762,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -694,6 +770,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -726,6 +803,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/Support/CircuitPlayground.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -736,6 +814,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasnascimento.CircuitPlayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -744,6 +823,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CircuitPlayground/Support/CircuitPlayground.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;

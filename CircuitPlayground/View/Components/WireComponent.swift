@@ -78,7 +78,7 @@ class WireComponent: GKComponent {
                 nodes2D.closestNode(to: .southwest, from: node2D),
                 ]
             
-            let pointsToConnectArray = pointsToConnectArrayNullable.flatMap{ $0?.position }
+            let pointsToConnectArray = pointsToConnectArrayNullable.compactMap{ $0?.position }
             let pointsToConnect = Set<vector_float2>(pointsToConnectArray)
 //            [
             
