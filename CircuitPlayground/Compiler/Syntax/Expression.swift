@@ -13,10 +13,20 @@ protocol Expression {
     var numberOfTokens: Int { get }
 }
 
+
+
 // MARK: - Default Implementation
 extension Expression {
     var numberOfTokens: Int {
         return 1
+    }
+}
+
+extension Expression {
+    
+    // Shortcut for extracting list of expressions from a compound expression
+    var list: [Expression] {
+        return self as? [Expression] ?? [self]
     }
 }
 

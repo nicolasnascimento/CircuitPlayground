@@ -27,6 +27,12 @@ class CircuitPlaygroundCompilerTests: XCTestCase {
         XCTAssert(self.tokens.count == vhdlDescription.numberOfTokens)
     }
 
+    func testSyntax() throws {
+        
+//        let syntax
+        
+    }
+
 //    func testCompiler() throws {
 //
 //        let circuitFile = "/Users/nicolasnascimento/Dropbox (Personal)/TCC/CircuitPlayground/CircuitPlayground/Compiler/Sample/SingleBit/Combinational/and.vhd"

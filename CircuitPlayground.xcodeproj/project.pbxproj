@@ -59,6 +59,7 @@
 		0C3F79A6208F5F82004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
 		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
+		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
@@ -142,6 +143,7 @@
 		0C3F79A3208F5F82004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
 		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
 		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
+		0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisPerformer.swift; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				0C3F799C208F5F4D004AB6D4 /* Sample */,
 				0C3F7993208F5F14004AB6D4 /* Lexer */,
 				0C3F7992208F5F0C004AB6D4 /* Syntax */,
+				0C3F79AB208FB039004AB6D4 /* Synthesis */,
 			);
 			path = Compiler;
 			sourceTree = "<group>";
@@ -473,6 +476,14 @@
 				0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */,
 			);
 			path = Combinational;
+			sourceTree = "<group>";
+		};
+		0C3F79AB208FB039004AB6D4 /* Synthesis */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */,
+			);
+			path = Synthesis;
 			sourceTree = "<group>";
 		};
 		0CAD43F5201A38FF003AB5F1 /* Resources */ = {
@@ -623,6 +634,7 @@
 				0C0F8D881FEBEB87006CC411 /* NodeComponent.swift in Sources */,
 				0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
+				0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */,
 				0CE749042017940A00A21A2B /* PinNode.swift in Sources */,
 				0C385E041FD0A1D4008FB5D7 /* CircuitDescription.swift in Sources */,
 				0CE748FE2017906200A21A2B /* Wire.swift in Sources */,
