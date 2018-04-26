@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0C0585331FEACB36007E07FB /* CanvasNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0585321FEACB36007E07FB /* CanvasNode.swift */; };
+		0C08549E20924E7E00DE1EFC /* LogicDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C08549D20924E7E00DE1EFC /* LogicDescriptor.swift */; };
+		0C08549F2092505200DE1EFC /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
 		0C0F8D821FEAEF0B006CC411 /* SKViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */; };
 		0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D831FEBE923006CC411 /* LogicPort.swift */; };
 		0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D851FEBEA10006CC411 /* EntityManager.swift */; };
@@ -22,7 +24,6 @@
 		0C116CEF1FDAE393004B8999 /* SKSpriteNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */; };
 		0C29FE521FD57BFD0029BB42 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE511FD57BFD0029BB42 /* Entity.swift */; };
 		0C29FE541FD57C150029BB42 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE531FD57C150029BB42 /* Port.swift */; };
-		0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */; };
 		0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE571FD57CCA0029BB42 /* Input.swift */; };
 		0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE591FD57CEB0029BB42 /* Output.swift */; };
 		0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */; };
@@ -56,7 +57,6 @@
 		0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7999208F5F3E004AB6D4 /* Parser.swift */; };
 		0C3F79A1208F5F7A004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and.vhd */; };
 		0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A2208F5F82004AB6D4 /* assignment.vhd */; };
-		0C3F79A6208F5F82004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
 		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
@@ -87,6 +87,7 @@
 
 /* Begin PBXFileReference section */
 		0C0585321FEACB36007E07FB /* CanvasNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasNode.swift; sourceTree = "<group>"; };
+		0C08549D20924E7E00DE1EFC /* LogicDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicDescriptor.swift; sourceTree = "<group>"; };
 		0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewExtensions.swift; sourceTree = "<group>"; };
 		0C0F8D831FEBE923006CC411 /* LogicPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicPort.swift; sourceTree = "<group>"; };
 		0C0F8D851FEBEA10006CC411 /* EntityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		0C116CEE1FDAE393004B8999 /* SKSpriteNodeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKSpriteNodeExtensions.swift; sourceTree = "<group>"; };
 		0C29FE511FD57BFD0029BB42 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		0C29FE531FD57C150029BB42 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
-		0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicDescriptor.swift; sourceTree = "<group>"; };
 		0C29FE571FD57CCA0029BB42 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		0C29FE591FD57CEB0029BB42 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSignal.swift; sourceTree = "<group>"; };
@@ -268,9 +268,9 @@
 		0C29FE611FD5D0F40029BB42 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				0C08549D20924E7E00DE1EFC /* LogicDescriptor.swift */,
 				0C29FE511FD57BFD0029BB42 /* Entity.swift */,
 				0C29FE531FD57C150029BB42 /* Port.swift */,
-				0C29FE551FD57CA80029BB42 /* LogicDescriptor.swift */,
 				0C29FE591FD57CEB0029BB42 /* Output.swift */,
 				0C29FE571FD57CCA0029BB42 /* Input.swift */,
 				0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */,
@@ -587,8 +587,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C08549F2092505200DE1EFC /* and.vhd in Resources */,
 				0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */,
-				0C3F79A6208F5F82004AB6D4 /* and.vhd in Resources */,
 				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,
 				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
@@ -632,6 +632,7 @@
 				0CB72A092019061900CED264 /* InternalPin.swift in Sources */,
 				0C385E061FD0A210008FB5D7 /* CombinationalModule.swift in Sources */,
 				0C0F8D881FEBEB87006CC411 /* NodeComponent.swift in Sources */,
+				0C08549E20924E7E00DE1EFC /* LogicDescriptor.swift in Sources */,
 				0C116CE31FDABFAD004B8999 /* Environment.swift in Sources */,
 				0C385E001FD09FB1008FB5D7 /* Signal.swift in Sources */,
 				0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */,
@@ -657,7 +658,6 @@
 				0C3DD4EE1FEACFAC00968EA5 /* SKNodeExtensions.swift in Sources */,
 				0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */,
 				0CE7490820179FE500A21A2B /* WireComponent.swift in Sources */,
-				0C29FE561FD57CA80029BB42 /* LogicDescriptor.swift in Sources */,
 				0C29FE581FD57CCA0029BB42 /* Input.swift in Sources */,
 				0C116CE01FDABF45004B8999 /* CircuitScene.swift in Sources */,
 				0C116CED1FDAE2D6004B8999 /* LogicPortNode.swift in Sources */,

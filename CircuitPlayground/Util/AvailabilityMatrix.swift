@@ -17,7 +17,6 @@ struct AvailabilityMatrix {
     // MARK: - Private
     var spots: [[RenderableEntity?]]
     
-    
     // MARK: - Inititalization
     init(width: Int, height: Int) {
         self.spots = []
