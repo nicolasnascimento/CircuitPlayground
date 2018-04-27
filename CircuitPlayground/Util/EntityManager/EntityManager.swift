@@ -43,15 +43,17 @@ class EntityManager {
         }
         // Remove all components from entity before removing it.
         // This allows the components to perform custom behaviour on removal
-        let entity = self.entities[index]
-        for componentType in entity.components.map({ return type(of: $0) }) {
-            entity.removeComponent(ofType: componentType)
-        }
+        
         // Remove from list of entities
         self.entities.remove(at: index)
         
         // Notify the delegate
         self.delegate?.entityManager(self, didRemove: entity)
+        
+//        let entity = self.entities[index]
+        for componentType in entity.components.map({ return type(of: $0) }) {
+            entity.removeComponent(ofType: componentType)
+        }
     }
     func removeAllEntities() {
         

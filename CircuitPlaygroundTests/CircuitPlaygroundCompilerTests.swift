@@ -12,7 +12,7 @@ import XCTest
 class CircuitPlaygroundCompilerTests: XCTestCase {
     
     func testLexer() throws {
-        
+        // Extract tokens
         let tokens = self.extractTokens()
         
         // 58 Valid tokens + EOF token
@@ -20,15 +20,10 @@ class CircuitPlaygroundCompilerTests: XCTestCase {
     }
 
     func testSyntax() throws {
-        
         var syntax = Parser(tokens: self.extractTokens())
-        
         let expressions = try! syntax.parseFile()
-        
         var synthetizer = SynthesisPerformer(expressions: expressions)
-        
         let spec = synthetizer.extractLogicSpecification()
-        
         print(spec)
     }
     
@@ -37,42 +32,9 @@ class CircuitPlaygroundCompilerTests: XCTestCase {
         let vhdlDescription = self.andCombinationalVHDLDescription
         // Create the lexer
         var lexer = Lexer(input: vhdlDescription.text)
-        
         // First Extract Tokens form Lexer
         return lexer.lex()
     }
-
-//    func testCompiler() throws {
-//
-//        let circuitFile = "/Users/nicolasnascimento/Dropbox (Personal)/TCC/CircuitPlayground/CircuitPlayground/Compiler/Sample/SingleBit/Combinational/and.vhd"
-//
-//        // Choose the sequential path
-//        let path = circuitFile
-//
-//        // Construct URL from the path
-//        let url = URL(fileURLWithPath: path)
-//
-//        print("Reading ...")
-//        let data = try Data.init(contentsOf: url)
-//        print("Done")
-//        guard let textFromFile = String(data: data, encoding: .utf8) else { fatalError("Couldn't Extract Text From File") }
-//        var lexer = Lexer(input: textFromFile)
-//
-//        print("Lexing ...")
-//        // First Extract Tokens form Lexer
-//        let tokens = lexer.lex()
-//
-//        XCTAssert(tokens.isEmpty == false)
-//        print("Done")
-//        // Next extract the expressions
-//        var parser = Parser(tokens: tokens)
-//        print("Parsing ...")
-//        let expressions = try parser.parseFile()
-//
-//        XCTAssert(expressions.isEmpty == false)
-//
-//    }
-    
 }
 
 

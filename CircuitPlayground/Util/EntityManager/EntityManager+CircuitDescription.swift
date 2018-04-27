@@ -37,7 +37,7 @@ extension EntityManager {
             
             // We don't add the interal pin otherwise they will be placed as an input/output pin.
             // Also, there's no need to add them as they will already be placed during port extraction
-//            internalPins.forEach(self.add)
+            internalPins.forEach(self.add)
             
             // Before Adding wires, properly place node
             let availabilityMatrix = self.placeEntriesAndPorts()
@@ -50,6 +50,9 @@ extension EntityManager {
                 self?.add(entity: $0)
                 $0.nodeComponent.position = $0.nodeComponent.position
             }
+            
+            // Remove temporary pins
+            internalPins.filter({ $0.signal.associatedId.contains("__TEMP__") }).forEach(self.remove)
             
         default:
             fatalError("Multiple Module Populate function not implemented yet")
@@ -77,6 +80,9 @@ extension EntityManager {
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
                     let multiplier = $0 is ExitPin ? 1 : 2
+                    let column = column
+                    let row = $0 is LogicPort ? column : row
+                    
                     if( spots.at(row: row*multiplier, column: column*multiplier) == nil ) {
                         coordinateComponent.coordinate = Coordinate(x: column*multiplier, y: row*multiplier)
                         spots.set(value: $0 as? RenderableEntity,row: row*multiplier, column: column*multiplier)
@@ -122,7 +128,6 @@ extension EntityManager {
             // We'll use this afterwards to perform wiring of ports
             port.inputs = function.inputs
             
-            
             return port
         }
     }
@@ -165,7 +170,7 @@ extension EntityManager {
                     
                     print(inputCoordinate, portCoordinate, outputCoordinate)
 
-                    if( !(inputEntity is InternalPin) ) {
+//                    if( !(inputEntity is InternalPin) ) {
                     
                         // Input Pin -> Port
                         let inputWire = Wire(sourceCoordinate: inputCoordinate, destinationCoordinate: portCoordinate)
@@ -174,7 +179,7 @@ extension EntityManager {
                        
                         // Update availability Matrix
                         inputWire.usedCoordinates.forEach{ availabilityMatrix.set(value: inputWire,row: $0.y, column: $0.x) }
-                    }
+//                    }
                     
                     // Port -> Output Pin
                     if( !outputConnected ) {

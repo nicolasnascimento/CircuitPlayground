@@ -25,7 +25,7 @@ enum Environment {
 extension Environment {
     enum Images {
         static let andPortImageName:    String = "And-Gate"
-        static let orPortImageName:     String = "LogicOrPort"
+        static let orPortImageName:     String = "Or-Gate"
         static let nonePortImageName:   String = "Connection-Gate"
         static let notPortImageName:    String = "LogicNotPort"
         static let pinImageName:        String = "Pin"

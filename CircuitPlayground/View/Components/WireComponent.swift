@@ -108,19 +108,17 @@ class WireComponent: GKComponent {
             let nonConnectedNodes = nodesToConnect.filter{ !node2D.connectedNodes.contains($0) }
             node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
         }
-//        print(self.entity!.className)
-//        print("nodes:", graph.nodes!.count)
-//        print("edges:", graph.nodes!.reduce(into: 0, { $0 += $1.connectedNodes.count }))
+        
         guard let path = graph.findPath(from: sourceNode, to: destinationNode) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
         
-        let points: [CGPoint] = path.map{
+        let points: [CGPoint] = path.map {
+            let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
             let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
-            return GridComponent.position(for: coordinate)
-            
+            let position = GridComponent.position(for: coordinate)
+            return CGPoint(x: position.x + xOffset, y: position.y)
         }
         
         self.path = points.map{ Coordinate(x: Int($0.x), y: Int($0.y)) }
-        
         if( points.isEmpty ) {
             print("\n\tNo Connection from \(source) to \(destination)\n")
         } else {

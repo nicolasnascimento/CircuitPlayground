@@ -13,7 +13,6 @@ import GameplayKit
 class InitialViewController: NSViewController {
 
     // MARK: - Outlets
-    @IBOutlet private var editorTextView: NSTextView!
     @IBOutlet private weak var skView: SKView!
     
     // MARK: - Properties
@@ -25,16 +24,13 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "and"
+        let fileName = "sample"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
-
-        
-        
+        print(circuitDescription)
         // Populate entities from circuit description
         self.entityManager.populate(with: circuitDescription)
-        
         
         // TEMPORARY - Read file containing specs of circuit
 //        self.read(fileNamed: Environment.Files.JSON.baseFile) { (specification, error) in
@@ -84,7 +80,7 @@ extension InitialViewController: NSTextViewDelegate {
     private func setupEditorTextView() {
         
         // Set Delegate
-        self.editorTextView.delegate = self
+//        self.editorTextView.delegate = self
     }
 }
 

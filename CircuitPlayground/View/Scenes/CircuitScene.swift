@@ -40,7 +40,6 @@ class CircuitScene: SKScene {
     
     // MARK: - Public
     
-    
     // MARK: - Private
     private func initialize() {
         
