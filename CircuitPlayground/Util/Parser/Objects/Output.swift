@@ -11,3 +11,9 @@ import Foundation
 struct Output: Codable {
     var name: String
 }
+
+extension Output {
+    init(globalSignal: GlobalSignal) {
+        self.name = globalSignal.name
+    }
+}

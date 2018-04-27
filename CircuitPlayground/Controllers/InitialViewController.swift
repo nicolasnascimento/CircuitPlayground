@@ -25,18 +25,29 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
+        let fileName = "and"
+        let specification = self.generateSpecification(readingFrom: fileName)
+        
+        let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
+
+        
+        
+        // Populate entities from circuit description
+        self.entityManager.populate(with: circuitDescription)
+        
+        
         // TEMPORARY - Read file containing specs of circuit
-        self.read(fileNamed: Environment.Files.JSON.baseFile) { (specification, error) in
-            if let error = error {
-                fatalError(error.localizedDescription)
-            } else if let spec = specification {
-                // Extract the circuit description
-                let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
-                
-                // Populate entities from circuit description
-                self.entityManager.populate(with: circuitDescription)
-            }
-        }
+//        self.read(fileNamed: Environment.Files.JSON.baseFile) { (specification, error) in
+//            if let error = error {
+//                fatalError(error.localizedDescription)
+//            } else if let spec = specification {
+//                // Extract the circuit description
+//                let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
+//
+//                // Populate entities from circuit description
+//                self.entityManager.populate(with: circuitDescription)
+//            }
+//        }
     }
 
     override func viewDidLayout() {
@@ -75,8 +86,6 @@ extension InitialViewController: NSTextViewDelegate {
         // Set Delegate
         self.editorTextView.delegate = self
     }
-    
-    // MARK: - Text View Delegate
 }
 
 extension InitialViewController: SKViewDelegate {
@@ -124,6 +133,24 @@ extension InitialViewController {
                 completion(specification, nil)
             }
         }
+    }
+    
+    func generateSpecification(readingFrom fileName: String) -> LogicSpecification {
+        
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: "vhd") else { fatalError("Couldn't From url from path \(fileName)") }
+        
+        print(url)
+        guard let data = try? Data.init(contentsOf: url) else { fatalError("Couldn't extract data from path \(url)") }
+        guard let textFromFile = String(data: data, encoding: .utf8) else { fatalError("Couldn't Extract Text From File") }
+        var lexer = Lexer(input: textFromFile)
+        let tokens = lexer.lex()
+    
+        var parser = Parser(tokens: tokens)
+        guard let expressions = try? parser.parseFile() else { fatalError("Couldn't Extract Expressions from parser") }
+        
+        var synthesisPerformer = SynthesisPerformer(expressions: expressions)
+        return synthesisPerformer.extractLogicSpecification()
+        
     }
 }
 

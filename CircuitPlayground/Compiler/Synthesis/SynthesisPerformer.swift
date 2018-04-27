@@ -20,8 +20,12 @@ struct SynthesisPerformer {
     // This will be used
     private var availableSignals: [GlobalSignal] = []
     private var temporarySignalAmount: Int = 0
+    
+    // MARK: - Initialization
+    init(expressions: [Expression]) {
+        self.expressions = expressions
+    }
 }
-
 
 extension SynthesisPerformer {
 
@@ -35,7 +39,17 @@ extension SynthesisPerformer {
             if let vhdlEntity = $0 as? VHDLEntity {
                 possibleEntity = self.extractEntity(from: vhdlEntity)
             } else if let vhdlArchitecture = $0 as? VHDLArchitecture {
-                possibleArchitecture = self.extractArchitecture(from: vhdlArchitecture)
+                
+                // Extract all signals before proceeding to architecture extraction
+                self.availableSignals = self.extractGlobalSignals(from: vhdlArchitecture.signals.signals, and: possibleEntity?.ports ?? [])
+                var architecture = self.extractArchitecture(from: vhdlArchitecture)
+                
+                // Remove Port related signals from architecture global signals
+                architecture.globalSignals = architecture.globalSignals.filter{ signal in
+                    return possibleEntity?.ports.index(where: { $0.name == signal.name }) == nil
+                }
+                
+                possibleArchitecture = architecture
             }
         }
         guard let entity = possibleEntity, let architecture = possibleArchitecture else { fatalError("Couldn't extract entity or architecture") }
@@ -62,10 +76,6 @@ extension SynthesisPerformer {
     }
 
     private mutating func extractArchitecture(from vhdlArchitecture: VHDLArchitecture) -> Architecture {
-        
-        // Store global signals and logic descriptors
-        self.availableSignals = self.extractGlobalSignals(from: vhdlArchitecture.signals.signals)
-        
         let architectureExpressionList = vhdlArchitecture.expression.list
         
         let logicDescriptors: [LogicDescriptor] = self.extractLogicDescriptors(from: architectureExpressionList)
@@ -73,12 +83,15 @@ extension SynthesisPerformer {
         return Architecture(name: vhdlArchitecture.name.name, globalSignals: self.availableSignals, logicDescriptors: logicDescriptors)
     }
     
-    private func extractGlobalSignals(from signals: [VHDLInternalSignalDeclaration]) -> [GlobalSignal] {
-        // Extract global signals
-        return signals.map {
-            GlobalSignal(name: $0.identifier.name, type: .standardLogic, numberOfBits: 1)
-        }
+    private func extractGlobalSignals(from internalSignals: [VHDLInternalSignalDeclaration], and externalSignals: [Port]) -> [GlobalSignal] {
+        // Extract global signal
+        
+        let internalGlobalSignals = internalSignals.map { GlobalSignal(name: $0.identifier.name, type: .standardLogic, numberOfBits: 1) }
+        let externalGlobalSignals = externalSignals.map { GlobalSignal(name: $0.name, type: .standardLogic, numberOfBits: 1) }
+        
+        return internalGlobalSignals + externalGlobalSignals
     }
+    
     private mutating func extractLogicDescriptors(from expressionList: [Expression]) -> [LogicDescriptor] {
        
         var descriptors: [LogicDescriptor] = []
@@ -96,6 +109,7 @@ extension SynthesisPerformer {
             if let inputSignal = self.availableSignals.compactMap({ $0.name == identifier.name ? Input(name: $0.name) : nil }).first {
                 return [inputSignal]
             }
+            
         }
         return []
     }
@@ -104,6 +118,29 @@ extension SynthesisPerformer {
         // The inputs and outputs
         var leftInputs: [Input] = self.extractInputFrom(expression: binaryExpression.leftExpression)
         var rightInputs: [Input] = self.extractInputFrom(expression: binaryExpression.rightExpression)
+        
+        var logicDescriptors: [LogicDescriptor] = []
+        
+        // If not single sinal was extracted from the right expression, this means we're dealing with a compound expression
+        // In this case, we should attach the extracted expressions' output as our input
+        if rightInputs.isEmpty {
+            let descriptors = self.extractLogicDescriptors(from: binaryExpression.rightExpression.list)
+            
+            // Create temporary output for logic descriptor to be generated
+            let temporarySignal = GlobalSignal(name: "__TEMP__" + "\(self.temporarySignalAmount)", type: .standardLogic, numberOfBits: 1)
+            self.availableSignals.append(temporarySignal)
+            self.temporarySignalAmount += 1
+            
+            // Link to logic descriptor output
+            let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(globalSignal: temporarySignal)]) }
+            
+            // Add logic descriptor
+            logicDescriptors.append(contentsOf: linkedDescriptors)
+            
+            // Append to inputs of logic descriptor
+            rightInputs.append(Input(globalSignal: temporarySignal))
+        }
+        
         
         // If the signal is composed, extract logic descriptor from it then
         switch binaryExpression.operator {
@@ -120,42 +157,47 @@ extension SynthesisPerformer {
             // In this case, we should attach the extracted expressions' output as our input
             if leftInputs.isEmpty {
                 let descriptors = self.extractLogicDescriptors(from: binaryExpression.leftExpression.list)
-                let inputs = descriptors.reduce([], { $0 + $1.inputs })
-                leftInputs.append(contentsOf: inputs)
-            }
-            
-            // If not single sinal was extracted this means we're dealing with a compound expression
-            // In this case, we should attach the extracted expressions' output as our input
-            if rightInputs.isEmpty {
-                let descriptors = self.extractLogicDescriptors(from: binaryExpression.rightExpression.list)
-                
+    
                 // Create temporary output for logic descriptor to be generated
                 let temporarySignal = GlobalSignal(name: "__TEMP__" + "\(self.temporarySignalAmount)", type: .standardLogic, numberOfBits: 1)
                 self.availableSignals.append(temporarySignal)
                 self.temporarySignalAmount += 1
                 
                 // Link to logic descriptor output
-                let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(name: temporarySignal.name)]) }
+                let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(globalSignal: temporarySignal)]) }
+                
+                // Add logic descriptor
+                logicDescriptors.append(contentsOf: linkedDescriptors)
                 
                 // Append to inputs of logic descriptor
-//                rightInputs.append(contentsOf: linkedDescriptors)
+                leftInputs.append(Input(globalSignal: temporarySignal))
             }
             
-            return [LogicDescriptor(elementType: .combinational, logicOperation: operation, inputs: leftInputs + rightInputs, outputs: [])]
-        case let value as Assignment:
-            // By extracting the right expression, we're going to get back a
-            if rightInputs.isEmpty {
-                let descriptors = self.extractLogicDescriptors(from: binaryExpression.rightExpression.list)
-                let inputs = descriptors.reduce([], { $0 + $1.inputs })
-                rightInputs.append(contentsOf: inputs)
+            // Add logic descriptor to returnning array
+            let newDescriptor = LogicDescriptor(elementType: .combinational, logicOperation: operation, inputs: leftInputs + rightInputs, outputs: [])
+            logicDescriptors += [newDescriptor]
+        case is Assignment:
+            
+            // If no logic descriptor is found create a connection
+            if logicDescriptors.isEmpty {
+                logicDescriptors += [ LogicDescriptor(elementType: .connection, logicOperation: .none, inputs: rightInputs, outputs: []) ]
             }
             
-            return []//[LogicDescriptor(elementType: .combinational, logicOperation: operation, inputs: [], outputs: [])]
-        case /*let value as*/ is Shift: return []
-        case /*let value as*/ is Relational: return []
-        case /*let value as*/ is Miscelaneous: return []
-        case /*let value as*/ is Math: return []
-        default: return []
+            // In the case of assignment all we need to do is set the left signal as output of the logic descriptor in the right
+            guard var leftLogicDescriptor = logicDescriptors.first else { fatalError("Couldn't get a logic descriptor from right expression") }
+            leftLogicDescriptor.outputs = leftInputs.map{ Output(name: $0.name) }
+            
+            logicDescriptors = logicDescriptors.map{
+                let outputs = leftInputs.map{ Output(name: $0.name) }
+                return LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: outputs)
+            }
+        case /*let value as*/ is Shift: break
+        case /*let value as*/ is Relational: break
+        case /*let value as*/ is Miscelaneous: break
+        case /*let value as*/ is Math: break
+        default: break
         }
+        
+        return logicDescriptors
     }
 }

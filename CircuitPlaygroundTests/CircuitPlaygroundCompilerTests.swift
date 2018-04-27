@@ -11,26 +11,35 @@ import XCTest
 
 class CircuitPlaygroundCompilerTests: XCTestCase {
     
-    var tokens: [Token] = []
-    
     func testLexer() throws {
         
+        let tokens = self.extractTokens()
+        
+        // 58 Valid tokens + EOF token
+        XCTAssert(tokens.count == self.andCombinationalVHDLDescription.numberOfTokens)
+    }
+
+    func testSyntax() throws {
+        
+        var syntax = Parser(tokens: self.extractTokens())
+        
+        let expressions = try! syntax.parseFile()
+        
+        var synthetizer = SynthesisPerformer(expressions: expressions)
+        
+        let spec = synthetizer.extractLogicSpecification()
+        
+        print(spec)
+    }
+    
+    private func extractTokens() -> [Token] {
         // A known vhdl description to be put to the test
         let vhdlDescription = self.andCombinationalVHDLDescription
         // Create the lexer
         var lexer = Lexer(input: vhdlDescription.text)
         
         // First Extract Tokens form Lexer
-        self.tokens = lexer.lex()
-        
-        // 58 Valid tokens + EOF token
-        XCTAssert(self.tokens.count == vhdlDescription.numberOfTokens)
-    }
-
-    func testSyntax() throws {
-        
-//        let syntax
-        
+        return lexer.lex()
     }
 
 //    func testCompiler() throws {

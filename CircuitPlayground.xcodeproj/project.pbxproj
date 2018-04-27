@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C0585331FEACB36007E07FB /* CanvasNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0585321FEACB36007E07FB /* CanvasNode.swift */; };
 		0C08549E20924E7E00DE1EFC /* LogicDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C08549D20924E7E00DE1EFC /* LogicDescriptor.swift */; };
-		0C08549F2092505200DE1EFC /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
+		0C0854A02093572800DE1EFC /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A3208F5F82004AB6D4 /* and.vhd */; };
 		0C0F8D821FEAEF0B006CC411 /* SKViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */; };
 		0C0F8D841FEBE923006CC411 /* LogicPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D831FEBE923006CC411 /* LogicPort.swift */; };
 		0C0F8D861FEBEA10006CC411 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F8D851FEBEA10006CC411 /* EntityManager.swift */; };
@@ -55,7 +55,7 @@
 		0C3F7997208F5F20004AB6D4 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7995208F5F20004AB6D4 /* Token.swift */; };
 		0C3F799A208F5F3F004AB6D4 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7998208F5F3E004AB6D4 /* Expression.swift */; };
 		0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7999208F5F3E004AB6D4 /* Parser.swift */; };
-		0C3F79A1208F5F7A004AB6D4 /* and.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and.vhd */; };
+		0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and2.vhd */; };
 		0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A2208F5F82004AB6D4 /* assignment.vhd */; };
 		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
@@ -138,7 +138,7 @@
 		0C3F7995208F5F20004AB6D4 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		0C3F7998208F5F3E004AB6D4 /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 		0C3F7999208F5F3E004AB6D4 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		0C3F79A0208F5F7A004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
+		0C3F79A0208F5F7A004AB6D4 /* and2.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and2.vhd; sourceTree = "<group>"; };
 		0C3F79A2208F5F82004AB6D4 /* assignment.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = assignment.vhd; sourceTree = "<group>"; };
 		0C3F79A3208F5F82004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
 		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
@@ -463,7 +463,7 @@
 		0C3F799E208F5F64004AB6D4 /* Sequential */ = {
 			isa = PBXGroup;
 			children = (
-				0C3F79A0208F5F7A004AB6D4 /* and.vhd */,
+				0C3F79A0208F5F7A004AB6D4 /* and2.vhd */,
 			);
 			path = Sequential;
 			sourceTree = "<group>";
@@ -587,12 +587,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C08549F2092505200DE1EFC /* and.vhd in Resources */,
+				0C0854A02093572800DE1EFC /* and.vhd in Resources */,
 				0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */,
 				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,
 				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
-				0C3F79A1208F5F7A004AB6D4 /* and.vhd in Resources */,
+				0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */,
 				0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
