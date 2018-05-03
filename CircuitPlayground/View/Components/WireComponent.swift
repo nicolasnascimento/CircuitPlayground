@@ -51,7 +51,6 @@ class WireComponent: GKComponent {
                     sourceNode = node
                 } else if( row == destination.y && column == destination.x ) {
                     destinationNode = node
-                    
                 }
                 let entityAtSpot = availabilityMatrix.at(row: row, column: column)
                 if( !(entityAtSpot is Wire) ) {
@@ -106,7 +105,7 @@ class WireComponent: GKComponent {
             
             // Create Edges
             let nonConnectedNodes = nodesToConnect.filter{ !node2D.connectedNodes.contains($0) }
-            node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
+            node2D.addConnections(to: nonConnectedNodes, bidirectional: true)
         }
         
         guard let path = graph.findPath(from: sourceNode, to: destinationNode) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
@@ -120,9 +119,9 @@ class WireComponent: GKComponent {
         
         self.path = points.map{ Coordinate(x: Int($0.x), y: Int($0.y)) }
         if( points.isEmpty ) {
-            print("\n\tNo Connection from \(source) to \(destination)\n")
+            print("No Connection from \(source) to \(destination)")
         } else {
-            print("Sucess Wiring")
+            print("Sucess Wiring from \(source) to \(destination)")
         }
         
         self.wireNode = WireNode(points: points)

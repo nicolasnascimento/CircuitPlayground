@@ -45,7 +45,7 @@ struct AvailabilityMatrix {
             self.spots[row][column] = value
         }
     }
-    mutating func untake(row: Int, column: Int) {
+    mutating func unset(row: Int, column: Int) {
         if( self.valid(row: row, column: column) ) {
             self.spots[row][column] = nil
         }

@@ -99,8 +99,6 @@ extension EntityManager {
             // Set Correct Position
             nodeComponent.position = coordinateComponent.cgPoint
         }
-        
-        
         return spots
     }
     
@@ -145,6 +143,7 @@ extension EntityManager {
         // Uses entries as starting points first
         for pin in pins {
             
+            
             // Check which ports are using the current entry as input
             let portConnections = ports.filter{ port in
                 return port.inputs.filter({ signal in
@@ -152,11 +151,15 @@ extension EntityManager {
                 }).isEmpty ? false : true
             }
             
+            
+            print("pin: \(pin.signal), portConnections: \(portConnections.count), connections: \(portConnections)")
+            
             // Because there will be multiple input and a single output, We'll use a flag to indicate wheter the port has already been connected to its output
             var outputConnected: Bool = false
             
             // Get input and output entity for each connection
             for portConnection in portConnections {
+                
                 let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
                 let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
                 
@@ -168,7 +171,7 @@ extension EntityManager {
                     let outputCoordinate = outputEntity.component(ofType: GridComponent.self)!.coordinate
                     let portCoordinate = portConnection.component(ofType: GridComponent.self)!.coordinate
                     
-                    print(inputCoordinate, portCoordinate, outputCoordinate)
+//                    print(inputCoordinate, portCoordinate, outputCoordinate)
 
 //                    if( !(inputEntity is InternalPin) ) {
                     
@@ -184,7 +187,7 @@ extension EntityManager {
                     // Port -> Output Pin
                     if( !outputConnected ) {
                         let outputWire = Wire(sourceCoordinate: portCoordinate, destinationCoordinate: outputCoordinate)
-                        outputWire.connect(avoiding: availabilityMatrix) 
+                        outputWire.connect(avoiding: availabilityMatrix)
                         wires.append(outputWire)
                         
                         // Update availability Matrix
