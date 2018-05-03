@@ -83,7 +83,7 @@ extension EntityManager {
                     let column = column
                     let row = $0 is LogicPort ? column : row
                     
-                    if( spots.at(row: row*multiplier, column: column*multiplier) == nil ) {
+                    if spots.at(row: row*multiplier, column: column*multiplier) == nil {
                         coordinateComponent.coordinate = Coordinate(x: column*multiplier, y: row*multiplier)
                         spots.set(value: $0 as? RenderableEntity,row: row*multiplier, column: column*multiplier)
                         
@@ -105,21 +105,12 @@ extension EntityManager {
     private func ports(from functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]) -> [LogicPort] {
         
         return functions.map { function -> LogicPort in
-            
             let port: LogicPort
             switch function.logicFunction.logicDescriptor {
-            case .and:
-                print("and")
-                port = LogicPort(with: .and, coordinate: .zero, output: function.output)
-            case .none:
-                print("none")
-                port = LogicPort(with: .none, coordinate: .zero, output: function.output)
-            case .or:
-                print("or")
-                port = LogicPort(with: .or, coordinate: .zero, output: function.output)
-            case .not:
-                print("not")
-                port = LogicPort(with: .not, coordinate: .zero, output: function.output)
+            case .and: port = LogicPort(with: .and, coordinate: .zero, output: function.output)
+            case .none: port = LogicPort(with: .none, coordinate: .zero, output: function.output)
+            case .or: port = LogicPort(with: .or, coordinate: .zero, output: function.output)
+            case .not: port = LogicPort(with: .not, coordinate: .zero, output: function.output)
             }
             
             // Set inputs of the node
@@ -162,7 +153,6 @@ extension EntityManager {
                 
                 let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
                 let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
-                
                 
                 // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {

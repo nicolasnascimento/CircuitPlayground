@@ -38,24 +38,24 @@ class WireComponent: GKComponent {
         // The graph which will be used for
         let graph = GKGraph([])
         
-        var sourceNode: GKGraphNode2D!
-        var destinationNode: GKGraphNode2D!
+        var sourceNode: GKGraphNode2D?
+        var destinationNode: GKGraphNode2D?
         
-        // Create nodes
+        // Create twice as many nodes for the grid
         for row in 0..<availabilityMatrix.height {
             for column in 0..<availabilityMatrix.width {
                 let node = GKGraphNode2D()
                 node.position.x = Float(column)
                 node.position.y = Float(row)
-                if( row == source.y && column == source.x ) {
+                if row == source.y && column == source.x {
                     sourceNode = node
-                } else if( row == destination.y && column == destination.x ) {
+                } else if row == destination.y && column == destination.x {
                     destinationNode = node
                 }
-                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
-                if( !(entityAtSpot is Wire) ) {
+//                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
+//                if( !(entityAtSpot is Wire) ) {
                     graph.add([node])
-                }
+//                }
             }
         }
         
@@ -94,27 +94,28 @@ class WireComponent: GKComponent {
             // [Point] -> [Node]
             var nodesToConnect: [GKGraphNode2D] = []
             
-            for aNode in graph.nodes ?? [] {
-                if let aNode2D = aNode as? GKGraphNode2D {
-                    let position = aNode2D.position
-                    if let _ = pointsToConnect.index(of: position) {
-                        nodesToConnect.append(aNode2D)
-                    }
+            for aNode in graph.nodes?.compactMap({ $0 as? GKGraphNode2D }) ?? [] {
+                if let _ = pointsToConnect.index(of: aNode.position) {
+                    nodesToConnect.append(aNode)
                 }
             }
             
             // Create Edges
             let nonConnectedNodes = nodesToConnect.filter{ !node2D.connectedNodes.contains($0) }
-            node2D.addConnections(to: nonConnectedNodes, bidirectional: true)
+            node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
         }
-        
-        guard let path = graph.findPath(from: sourceNode, to: destinationNode) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
-        
-        let points: [CGPoint] = path.map {
-            let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
-            let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
-            let position = GridComponent.position(for: coordinate)
-            return CGPoint(x: position.x + xOffset, y: position.y)
+        var points: [CGPoint] = []
+        if let source = sourceNode, let destination = destinationNode {
+            guard let path = graph.findPath(from: source, to: destination) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
+            
+            points = path.map {
+                let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
+                let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
+                let position = GridComponent.position(for: coordinate)
+                return CGPoint(x: position.x + xOffset, y: position.y)
+            }
+        } else {
+            print("Cannot create path from (\(sourceNode?.description ?? "")) to (\(destinationNode?.description ?? ""))")
         }
         
         self.path = points.map{ Coordinate(x: Int($0.x), y: Int($0.y)) }

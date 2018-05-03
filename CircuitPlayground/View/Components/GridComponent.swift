@@ -8,7 +8,7 @@
 
 import GameplayKit
 
-struct Coordinate: Decodable {
+struct Coordinate: Codable {
     var x: Int
     var y: Int
     

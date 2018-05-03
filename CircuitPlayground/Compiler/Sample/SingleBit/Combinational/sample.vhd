@@ -21,9 +21,9 @@ architecture ExampleArchitecture of ExampleEntity is
 begin
 
 	-- Perform 'AND' of 'A' and 'B'
-	temp <= A and B;
+	temp <= A or B;
 
 	-- connect 'temp' to 'C
-	C <= temp or A;
+	C <= temp and A;
 
 end architecture ; -- ExampleArchitecture
