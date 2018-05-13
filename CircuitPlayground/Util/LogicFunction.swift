@@ -93,6 +93,9 @@ enum LogicFunctions {
         }
         return []
     }
+    static let nand: LogicFunction = { inputs in
+        return LogicFunctions.and(inputs).map{ !$0 }
+    }
     static let none: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
         if( inputs.isEmpty ) {
             print("Warning - Perfoming operation (none) without inputs")

@@ -111,6 +111,7 @@ extension EntityManager {
             case .none: port = LogicPort(with: .none, coordinate: .zero, output: function.output)
             case .or: port = LogicPort(with: .or, coordinate: .zero, output: function.output)
             case .not: port = LogicPort(with: .not, coordinate: .zero, output: function.output)
+            case .nand: port = LogicPort(with: .nand, coordinate: .zero, output: function.output)
             }
             
             // Set inputs of the node

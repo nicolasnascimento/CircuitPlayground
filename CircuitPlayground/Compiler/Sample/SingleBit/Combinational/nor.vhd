@@ -18,7 +18,7 @@ architecture ExampleArchitecture of ExampleEntity is
 
 begin
 
-	-- Perform 'XOR' of 'A' and 'B'
+	-- Perform 'NOR' of 'A' and 'B'
 	C <= A nor B;
 
 end architecture ; -- ExampleArchitecture

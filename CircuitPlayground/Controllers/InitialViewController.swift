@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "sample"
+        let fileName = "nand"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)

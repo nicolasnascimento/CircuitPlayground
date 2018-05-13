@@ -18,7 +18,7 @@ architecture ExampleArchitecture of ExampleEntity is
 
 begin
 
-	-- Perform 'XOR' of 'A' and 'B'
+	-- Perform 'NAND' of 'A' and 'B'
 	C <= A nand B;
 
 end architecture ; -- ExampleArchitecture
