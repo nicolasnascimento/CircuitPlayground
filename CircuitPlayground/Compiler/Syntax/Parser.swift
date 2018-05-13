@@ -311,15 +311,13 @@ extension Parser {
         var signals: [VHDLInternalSignalDeclaration] = []
         var currentOffset = offset
         
-        var shouldLoop = true
-        while shouldLoop {
-            shouldLoop = false
+        while true {
             do {
                 let signal = try self.extractInternalSignalDeclarationFromCurrentToken(with: currentOffset)
                 signals.append(signal)
                 currentOffset += signal.numberOfTokens
             } catch {
-                shouldLoop = false
+                break
             }
         }
         

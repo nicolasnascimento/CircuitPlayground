@@ -27,7 +27,7 @@ class GridComponent: GKComponent {
     static let gridDimensions: CGSize = Environment.Dimensions.size
     
     // MARK: - Static
-    static let maxDimension = CGPoint(x: 11, y: 22)
+    static let maxDimension = CGPoint(x: 8, y: 18)
     static var maximumIndividualSize: CGSize {
         let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y

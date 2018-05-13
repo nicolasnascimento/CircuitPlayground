@@ -16,17 +16,9 @@ end ExampleEntity;
 -- Define the basic architecture
 architecture ExampleArchitecture of ExampleEntity is
 
-    signal temp2: std_logic;
-	signal temp: std_logic;
-
 begin
 
-	-- Perform 'AND' of 'A' and 'B'
-	temp <= A or B;
-
-	-- connect 'temp' to 'C
-	temp2 <= temp and A;
-
-    C <= temp2 and temp;
+	-- Perform 'XOR' of 'A' and 'B'
+	C <= A nand B;
 
 end architecture ; -- ExampleArchitecture

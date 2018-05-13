@@ -7,8 +7,7 @@ use ieee.std_logic_1164.all;
 entity ExampleEntity is
 	port(
 		A: in std_logic;
-		B: in std_logic;
-		C: out std_logic
+		B: out std_logic
 	);
 end ExampleEntity;
 
@@ -16,17 +15,9 @@ end ExampleEntity;
 -- Define the basic architecture
 architecture ExampleArchitecture of ExampleEntity is
 
-    signal temp2: std_logic;
-	signal temp: std_logic;
-
 begin
 
-	-- Perform 'AND' of 'A' and 'B'
-	temp <= A or B;
-
-	-- connect 'temp' to 'C
-	temp2 <= temp and A;
-
-    C <= temp2 and temp;
+	-- Perform 'XOR' of 'A' and 'B'
+	B <= not A;
 
 end architecture ; -- ExampleArchitecture

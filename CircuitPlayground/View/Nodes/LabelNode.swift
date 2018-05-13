@@ -20,7 +20,6 @@ class LabelNode: SKLabelNode {
         self.fontName = Environment.Text.fontName
         self.text = text
         self.fontSize = Environment.Text.fontSize
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

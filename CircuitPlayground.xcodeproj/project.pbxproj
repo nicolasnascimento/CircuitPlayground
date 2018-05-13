@@ -61,6 +61,12 @@
 		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
+		0C74B2D620A8D27B00BB4C87 /* nor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D020A8D27A00BB4C87 /* nor.vhd */; };
+		0C74B2D720A8D27B00BB4C87 /* nand.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D120A8D27B00BB4C87 /* nand.vhd */; };
+		0C74B2D820A8D27B00BB4C87 /* xor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D220A8D27B00BB4C87 /* xor.vhd */; };
+		0C74B2D920A8D27B00BB4C87 /* not.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D320A8D27B00BB4C87 /* not.vhd */; };
+		0C74B2DA20A8D27B00BB4C87 /* xnor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D420A8D27B00BB4C87 /* xnor.vhd */; };
+		0C74B2DB20A8D27B00BB4C87 /* or.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D520A8D27B00BB4C87 /* or.vhd */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
@@ -146,6 +152,12 @@
 		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
 		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
 		0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisPerformer.swift; sourceTree = "<group>"; };
+		0C74B2D020A8D27A00BB4C87 /* nor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nor.vhd; sourceTree = "<group>"; };
+		0C74B2D120A8D27B00BB4C87 /* nand.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nand.vhd; sourceTree = "<group>"; };
+		0C74B2D220A8D27B00BB4C87 /* xor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xor.vhd; sourceTree = "<group>"; };
+		0C74B2D320A8D27B00BB4C87 /* not.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = not.vhd; sourceTree = "<group>"; };
+		0C74B2D420A8D27B00BB4C87 /* xnor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xnor.vhd; sourceTree = "<group>"; };
+		0C74B2D520A8D27B00BB4C87 /* or.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = or.vhd; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
@@ -474,6 +486,12 @@
 			isa = PBXGroup;
 			children = (
 				0C0854A12093622000DE1EFC /* sample.vhd */,
+				0C74B2D120A8D27B00BB4C87 /* nand.vhd */,
+				0C74B2D020A8D27A00BB4C87 /* nor.vhd */,
+				0C74B2D320A8D27B00BB4C87 /* not.vhd */,
+				0C74B2D520A8D27B00BB4C87 /* or.vhd */,
+				0C74B2D420A8D27B00BB4C87 /* xnor.vhd */,
+				0C74B2D220A8D27B00BB4C87 /* xor.vhd */,
 				0C3F79A3208F5F82004AB6D4 /* and.vhd */,
 				0C3F79A2208F5F82004AB6D4 /* assignment.vhd */,
 				0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */,
@@ -590,14 +608,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C74B2D920A8D27B00BB4C87 /* not.vhd in Resources */,
 				0C0854A02093572800DE1EFC /* and.vhd in Resources */,
 				0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */,
+				0C74B2DB20A8D27B00BB4C87 /* or.vhd in Resources */,
+				0C74B2D820A8D27B00BB4C87 /* xor.vhd in Resources */,
 				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,
+				0C74B2D620A8D27B00BB4C87 /* nor.vhd in Resources */,
 				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C0854A22093622000DE1EFC /* sample.vhd in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
 				0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */,
 				0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */,
+				0C74B2D720A8D27B00BB4C87 /* nand.vhd in Resources */,
+				0C74B2DA20A8D27B00BB4C87 /* xnor.vhd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

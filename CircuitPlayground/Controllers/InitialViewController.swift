@@ -142,10 +142,21 @@ extension InitialViewController {
         let tokens = lexer.lex()
     
         var parser = Parser(tokens: tokens)
-        guard let expressions = try? parser.parseFile() else { fatalError("Couldn't Extract Expressions from parser") }
         
-        var synthesisPerformer = SynthesisPerformer(expressions: expressions)
-        return synthesisPerformer.extractLogicSpecification()
+        do {
+            let expressions = try parser.parseFile()
+            
+            var synthesisPerformer = SynthesisPerformer(expressions: expressions)
+            return synthesisPerformer.extractLogicSpecification()
+        } catch {
+            guard let parsingError = error as? ParserError else { fatalError("Couldn't Extract Expressions from parser") }
+            switch parsingError {
+            case .unknown(let description): fatalError("Couldn't Extract Expressions from parser, description: \(description)")
+            }
+        }
+        
+        
+       
         
     }
 }

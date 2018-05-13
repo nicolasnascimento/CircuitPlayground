@@ -41,7 +41,7 @@ class WireComponent: GKComponent {
         var sourceNode: GKGraphNode2D?
         var destinationNode: GKGraphNode2D?
         
-        // Create twice as many nodes for the grid
+        // Create nodes for the grid
         for row in 0..<availabilityMatrix.height {
             for column in 0..<availabilityMatrix.width {
                 let node = GKGraphNode2D()
@@ -124,7 +124,7 @@ class WireComponent: GKComponent {
         } else {
             print("Sucess Wiring from \(source) to \(destination)")
         }
-        
+
         self.wireNode = WireNode(points: points)
         self.parentNode.addChildNode(self.wireNode)
     }
