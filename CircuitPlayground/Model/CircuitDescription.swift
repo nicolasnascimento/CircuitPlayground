@@ -130,6 +130,10 @@ extension CircuitDescription {
                     let function: LogicFunction = LogicFunctions.nand
                     let value = LogicFunctionDescriptor(logicDescriptor: .nand, logicFunction: function)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                case .nor:
+                    let function: LogicFunction = LogicFunctions.nor
+                    let value = LogicFunctionDescriptor(logicDescriptor: .nor, logicFunction: function)
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 }
             }
         }

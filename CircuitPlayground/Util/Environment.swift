@@ -29,6 +29,7 @@ extension Environment {
         static let nonePortImageName:   String = "Connection-Gate"
         static let notPortImageName:    String = "LogicNotPort"
         static let nandPortImageName:   String = "Nand-Gate"
+        static let norPortImageName:    String = "Nor-Gate"
         static let pinImageName:        String = "Pin"
         
         static func image(for operation: LogicDescriptor.LogicOperation) -> String {
@@ -38,6 +39,7 @@ extension Environment {
             case .and:  return Environment.Images.andPortImageName
             case .not:  return Environment.Images.notPortImageName
             case .nand: return Environment.Images.nandPortImageName
+            case .nor: return Environment.Images.norPortImageName
             }
         }
     }

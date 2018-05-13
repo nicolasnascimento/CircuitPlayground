@@ -126,6 +126,9 @@ enum LogicFunctions {
         }
         return []
     }
+    static let nor: LogicFunction = { inputs in
+        return LogicFunctions.or(inputs).map{ !$0 }
+    }
     static let not: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
         if( inputs.isEmpty ) {
             print("Warning - Perfoming operation (not) without inputs")
