@@ -31,6 +31,7 @@ extension Environment {
         static let nandPortImageName:   String = "Nand-Gate"
         static let norPortImageName:    String = "Nor-Gate"
         static let xorPortImageName:    String = "Xor-Gate"
+        static let xnorPortImageName:   String = "Xnor-Gate"
         static let pinImageName:        String = "Pin"
         
         static func image(for operation: LogicDescriptor.LogicOperation) -> String {
@@ -42,6 +43,7 @@ extension Environment {
             case .nand: return Environment.Images.nandPortImageName
             case .nor: return Environment.Images.norPortImageName
             case .xor: return Environment.Images.xorPortImageName
+            case .xnor: return Environment.Images.xnorPortImageName
             }
         }
     }

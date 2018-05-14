@@ -131,6 +131,10 @@ extension CircuitDescription {
                 case .xor:
                     let value = LogicFunctionDescriptor(logicDescriptor: .xor, logicFunction: LogicFunctions.xor)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                case .xnor:
+                    let value = LogicFunctionDescriptor(logicDescriptor: .xnor, logicFunction: LogicFunctions.xnor)
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    
                 }
             }
         }

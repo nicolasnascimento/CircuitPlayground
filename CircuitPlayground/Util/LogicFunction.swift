@@ -163,6 +163,9 @@ enum LogicFunctions {
         }
         return []
     }
+    static let xnor: LogicFunction = { inputs in
+        return LogicFunctions.and(inputs).map{ !$0 }
+    }
     static let nor: LogicFunction = { inputs in
         return LogicFunctions.or(inputs).map{ !$0 }
     }

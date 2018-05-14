@@ -105,16 +105,20 @@ extension EntityManager {
     private func ports(from functions: [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)]) -> [LogicPort] {
         
         return functions.map { function -> LogicPort in
-            let port: LogicPort
+            
+            let operation: LogicDescriptor.LogicOperation
             switch function.logicFunction.logicDescriptor {
-            case .and: port = LogicPort(with: .and, coordinate: .zero, output: function.output)
-            case .none: port = LogicPort(with: .none, coordinate: .zero, output: function.output)
-            case .or: port = LogicPort(with: .or, coordinate: .zero, output: function.output)
-            case .not: port = LogicPort(with: .not, coordinate: .zero, output: function.output)
-            case .nand: port = LogicPort(with: .nand, coordinate: .zero, output: function.output)
-            case .nor: port = LogicPort(with: .nor, coordinate: .zero, output: function.output)
-            case .xor: port = LogicPort(with: .xor, coordinate: .zero, output: function.output)
+            case .and: operation =  .and
+            case .none: operation = .none
+            case .or: operation = .or
+            case .not: operation = .not
+            case .nand: operation = .nand
+            case .nor: operation = .nor
+            case .xor: operation = .xor
+            case .xnor: operation = .xnor
             }
+            
+            let port: LogicPort = LogicPort(with: operation, coordinate: .zero, output: function.output)
             
             // Set inputs of the node
             // We'll use this afterwards to perform wiring of ports

@@ -153,7 +153,7 @@ extension SynthesisPerformer {
             case .nand: operation = .nand
             case .nor: operation = .nor
             case .xor: operation = .xor
-            default: operation = .none
+            case .xnor: operation = .xnor
             }
             
             // If not single sinal was extracted this means we're dealing with a compound expression
