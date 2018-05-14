@@ -40,15 +40,15 @@ extension Parser {
 
 // MARK: - Private
 extension Parser {
-    private func extractExpressionFromCurrentToken(offset: Int = 0) throws -> Expression? {
-        guard let token = self.currentToken(offsetBy: offset) else { return nil }
-        
+    
+    private func extractLeastComplexExpressionFromCurrentToken(with token: Token, offset: Int) throws -> Expression? {
         // The expression to be returned
         var expression: Expression?
         
+        // Depending on the type of token, we have to extract a different strucuture
         switch token.type {
-        case is Keyword:
-            switch (token.type as! Keyword) {
+        case let type as Keyword:
+            switch type {
             case .library: expression = try self.extractLibraryFromCurrentToken()
             case .use: expression = try self.extractUseFromCurrentToken()
             case .if:
@@ -57,33 +57,40 @@ extension Parser {
                 } catch {
                     expression = try self.extractIfFromCurrentToken(offsetting: offset)
                 }
-            case .entity:
-                expression = try self.extractEntityFromCurrentToken()
+            case .entity: expression = try self.extractEntityFromCurrentToken()
             case .architecture: expression = try self.extractArchitectureFromCurrentToken()
             case .process: expression = try self.extractProcessFromCurrentToken(offsetting: offset)
             default: expression = nil
             }
-        case is PrecedenceOperator:
-            switch (token.type as! PrecedenceOperator) {
-            case .leftParenthesis:
-                expression = try self.extractParenthesizedExpressionFromCurrentToken()
+        case let operatorType as PrecedenceOperator:
+            switch operatorType {
+            case .leftParenthesis: expression = try self.extractParenthesizedExpressionFromCurrentToken()
             default: expression = nil
             }
-        case is ComposedElement:
-            switch (token.type as! ComposedElement) {
+        case let logicNot as Logic:
+            if let rightExpresison = try self.extractExpressionFromCurrentToken(), let possibleSemicolon = (self.currentToken(offsetBy: offset + logicNot.numberOfTokens + rightExpresison.numberOfTokens)?.type as? Ponctuation) {
+                let semicolon = possibleSemicolon  == .semicolon ? possibleSemicolon : nil
+                expression = VHDLUnaryOperation(rightExpression: rightExpresison, operator: logicNot, semicolon: semicolon)
+            }
+        case let composedElement as ComposedElement:
+            switch composedElement {
             case .identifier(let value):
                 expression = VHDLIdentifier(name: value)
             case .number(let number):
                 expression = VHDLConstant(rawType: .numeral(number))
+            case .operator(let type):
+                if let rightExpresison = try self.extractExpressionFromCurrentToken(offset: offset + type.numberOfTokens), let possibleSemicolon = (self.currentToken(offsetBy: offset + type.numberOfTokens + rightExpresison.numberOfTokens)?.type as? Ponctuation) {
+                    let semicolon = possibleSemicolon  == .semicolon ? possibleSemicolon : nil
+                    expression = VHDLUnaryOperation(rightExpression: rightExpresison, operator: type, semicolon: semicolon)
+                }
             default: break
             }
-        case is Ponctuation:
-            switch (token.type as! Ponctuation) {
+        case let ponctuation as Ponctuation:
+            switch ponctuation {
             case .apostrophe:
                 guard let constantValue = self.currentToken(offsetBy: offset + 1)?.type as? ComposedElement else { break }
                 switch constantValue {
-                case .number(let value):
-                    return VHDLConstant(rawType: .bit(value == 1))
+                case .number(let value): return VHDLConstant(rawType: .bit(value == 1))
                 default: break
                 }
             default: break
@@ -91,27 +98,23 @@ extension Parser {
         default: break
         }
         
-        if let currentExpression = expression {
-            let numberOfTokens = currentExpression.numberOfTokens
-            guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? ComposedElement else { return expression }
-            
-            switch (nextTokenType) {
-            case .operator(let operation):
-                if let rightExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1) {
-                    if let semicolon = self.currentToken(offsetBy: offset + numberOfTokens + 1 + rightExpression.numberOfTokens)?.type as? Ponctuation, semicolon == .semicolon {
-                        
-                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: .semicolon)
-                    } else {
-                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: nil)
-                    }
-                }
-            default: break
-            }
-        }
-        
         return expression
     }
     
+    private func extractExpressionFromCurrentToken(offset: Int = 0) throws -> Expression? {
+        guard let token = self.currentToken(offsetBy: offset) else { return nil }
+        
+        // Extract first level of expression
+        var expression = try self.extractLeastComplexExpressionFromCurrentToken(with: token, offset: offset)
+        
+        // Attemp composing expression to form a more complex one
+        if let composedExpression = try self.attempExtractingComposedExpressionFromCurrentToken(with: expression, offset: offset) {
+            expression = composedExpression
+        }
+        
+        // Return fina expression
+        return expression
+    }
     
     private func extractParenthesizedExpressionFromCurrentToken() throws -> VHDLParenthesized {
         guard let firstElement = self.currentToken?.type as? PrecedenceOperator, firstElement == .leftParenthesis,
@@ -341,6 +344,29 @@ extension Parser {
         default: throw ParserError.unknown("Error parsing Internal Signal")
         }
         
+    }
+    
+    private func attempExtractingComposedExpressionFromCurrentToken(with currentExpression: Expression?, offset: Int) throws -> Expression? {
+        // The expression to be returned
+        var expression: Expression?
+        if let currentExpression = currentExpression {
+            let numberOfTokens = currentExpression.numberOfTokens
+            guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? ComposedElement else { return expression }
+            
+            switch (nextTokenType) {
+            case .operator(let operation):
+                if let rightExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1) {
+                    if let semicolon = self.currentToken(offsetBy: offset + numberOfTokens + 1 + rightExpression.numberOfTokens)?.type as? Ponctuation, semicolon == .semicolon {
+                        
+                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: .semicolon)
+                    } else {
+                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: nil)
+                    }
+                }
+            default: break
+            }
+        }
+        return expression
     }
     
     private func extractExternalSignalDeclarationFromCurrentToken(with offset: Int) throws -> VHDLExternalSignalDeclaration {

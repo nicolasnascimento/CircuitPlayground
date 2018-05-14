@@ -103,6 +103,15 @@ struct VHDLBinaryOperation: ParserElement, Expression {
     var numberOfTokens: Int { return self.leftExpression.numberOfTokens + self.operator.numberOfTokens + self.rightExpression.numberOfTokens + (self.semicolon?.numberOfTokens ?? 0) }
 }
 
+struct VHDLUnaryOperation: ParserElement, Expression {
+    let rightExpression: Expression
+    let `operator`: Operator
+    let semicolon: Ponctuation?
+    
+    // IMPORTANT: Adding a new property requires you to update this value to match is
+    var numberOfTokens: Int { return self.operator.numberOfTokens + self.rightExpression.numberOfTokens + (self.semicolon?.numberOfTokens ?? 0) }
+}
+
 // An if statement
 struct VHDLIf: ParserElement, Expression {
     let ifKeyword: Keyword

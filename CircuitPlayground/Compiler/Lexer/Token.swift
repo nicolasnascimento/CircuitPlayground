@@ -12,8 +12,27 @@ import Foundation
 // https://harlanhaskins.com/2017/01/08/building-a-compiler-with-swift-in-llvm-part-1-introduction-and-the-lexer.html
 //
 
+// Indicates an element that can serve as a token type
+protocol TokenType {
+    
+    // The string representation associated with the Token
+    var stringValue: String { get }
+    
+    // The number of tokens a token holds.
+    // This value will usually be 1 but more complex tokens may have more than 1 token
+    var numberOfTokens: Int { get }
+}
+
 // Indicates an element that can perform and operation
-protocol Operator: TokenType {}
+protocol Operator: TokenType {
+    var numberOfOperators: Int { get }
+}
+
+extension Operator {
+    var numberOfOperators: Int {
+        return 2
+    }
+}
 
 // MARK: - Operators
 enum Logic: String, Operator {
@@ -24,7 +43,10 @@ enum Logic: String, Operator {
     case xor = "xor"
     case xnor = "xnor"
     case not = "not"
+    
+    var numberOfOperators: Int { return self == .not ? 1 : 2 }
 }
+
 
 enum Shift: String, Operator {
     case shiftLeftLogic = "sll"
@@ -56,17 +78,6 @@ enum Math: String, Operator {
     case minus = "-"
     case times = "*"
     case divide = "/"
-}
-
-// Indicates an element that can serve as a token type
-protocol TokenType {
-    
-    // The string representation associated with the Token
-    var stringValue: String { get }
-    
-    // The number of tokens a token holds.
-    // This value will usually be 1 but more complex tokens may have more than 1 token
-    var numberOfTokens: Int { get }
 }
 
 extension TokenType where Self: RawRepresentable, Self.RawValue == String {

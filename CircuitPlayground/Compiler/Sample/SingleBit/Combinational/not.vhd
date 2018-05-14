@@ -17,7 +17,7 @@ architecture ExampleArchitecture of ExampleEntity is
 
 begin
 
-	-- Perform 'NOT' of 'A' and 'B'
+	-- Perform 'NOT' of 'A'
 	B <= not A;
 
 end architecture ; -- ExampleArchitecture

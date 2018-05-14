@@ -24,26 +24,13 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "xnor"
+        let fileName = "not"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
         print(circuitDescription)
         // Populate entities from circuit description
         self.entityManager.populate(with: circuitDescription)
-        
-        // TEMPORARY - Read file containing specs of circuit
-//        self.read(fileNamed: Environment.Files.JSON.baseFile) { (specification, error) in
-//            if let error = error {
-//                fatalError(error.localizedDescription)
-//            } else if let spec = specification {
-//                // Extract the circuit description
-//                let circuitDescription = CircuitDescription(singleCircuitSpecification: spec)
-//
-//                // Populate entities from circuit description
-//                self.entityManager.populate(with: circuitDescription)
-//            }
-//        }
     }
 
     override func viewDidLayout() {
