@@ -32,6 +32,9 @@ enum StandardLogicValue: String {
         case .positive: return .negative
         }
     }
+    static public func ^(lhs: StandardLogicValue, rhs: StandardLogicValue) -> StandardLogicValue {
+        return lhs == rhs ? .negative : .positive
+    }
 }
 
 // Describes the necessary properties for a Signal

@@ -16,6 +16,7 @@ struct LogicDescriptor: Codable {
         case not
         case nand
         case nor
+        case xor
     }
     enum ElementType: String, Codable {
         case combinational

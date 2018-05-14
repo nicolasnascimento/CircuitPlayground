@@ -47,7 +47,7 @@ extension Collection where Element == Signal {
         })
     }
     var performingOrOfSignals: [StandardLogicValue] {
-        return self.reduce([StandardLogicValue](), {
+        return self.reduce([StandardLogicValue]()) {
             var storage = $0
             if( storage.isEmpty ) {
                 storage.append(contentsOf: $1.bits)
@@ -59,7 +59,22 @@ extension Collection where Element == Signal {
                 storage = newStorage
             }
             return storage
-        })
+        }
+    }
+    var performingXorOfSignals: [StandardLogicValue] {
+        return self.reduce([StandardLogicValue]()) {
+            var storage = $0
+            if( storage.isEmpty ) {
+                storage.append(contentsOf: $1.bits)
+            } else {
+                var newStorage = [StandardLogicValue]()
+                for (index, bit) in $1.bits.enumerated() {
+                    newStorage.append(storage[index] ^ bit)
+                }
+                storage = newStorage
+            }
+            return storage
+        }
     }
     var performingNotOfSignals: [StandardLogicValue] {
         return self.first?.bits.map{ return !$0 } ?? []
@@ -122,6 +137,28 @@ enum LogicFunctions {
                 return [StandardLogicValue](repeating: .positive, count: inputs.first!.numberOfBits)
             } else {
                 return inputs.performingOrOfSignals
+            }
+        }
+        return []
+    }
+    static let xor: LogicFunction = { (_ inputs: [Signal]) -> [StandardLogicValue] in
+        if( inputs.isEmpty ) {
+            print("Warning - Perfoming operation (or) without inputs")
+            return []
+        } else if( inputs.count == 1 && inputs.first!.numberOfBits != 0 ) {
+            print("Warning - Perfoming single signal operation (or)")
+            return inputs.first!.bits
+        } else if( inputs.contaisSingleBitSignalsOnly ) {
+            if( inputs.allSignalsContainOnlyPositiveBits ) {
+                return inputs.count % 2 == 0 ? [.negative] : [.positive]
+            } else {
+                return inputs.performingXorOfSignals
+            }
+        } else if( inputs.containsSameLengthSignalsOnly ) {
+            if( inputs.allSignalsContainOnlyPositiveBits ) {
+                return [StandardLogicValue](repeating: .positive, count: inputs.first!.numberOfBits)
+            } else {
+                return inputs.performingXorOfSignals
             }
         }
         return []

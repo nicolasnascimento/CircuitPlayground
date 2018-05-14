@@ -152,6 +152,7 @@ extension SynthesisPerformer {
             case .not: operation = .not
             case .nand: operation = .nand
             case .nor: operation = .nor
+            case .xor: operation = .xor
             default: operation = .none
             }
             

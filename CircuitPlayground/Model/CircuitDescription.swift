@@ -111,28 +111,25 @@ extension CircuitDescription {
                 
                 switch $0.logicOperation {
                 case .and:
-                    let function: LogicFunction = LogicFunctions.and
-                    let value = LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: LogicFunctions.and)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .or:
-                    let function: LogicFunction = LogicFunctions.or
-                    let value = LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: LogicFunctions.or)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .none:
-                    let function: LogicFunction = LogicFunctions.none
-                    let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: LogicFunctions.none)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .not:
-                    let function: LogicFunction = LogicFunctions.not
-                    let value = LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: LogicFunctions.not)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .nand:
-                    let function: LogicFunction = LogicFunctions.nand
-                    let value = LogicFunctionDescriptor(logicDescriptor: .nand, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .nand, logicFunction: LogicFunctions.nand)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .nor:
-                    let function: LogicFunction = LogicFunctions.nor
-                    let value = LogicFunctionDescriptor(logicDescriptor: .nor, logicFunction: function)
+                    let value = LogicFunctionDescriptor(logicDescriptor: .nor, logicFunction: LogicFunctions.nor)
+                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                case .xor:
+                    let value = LogicFunctionDescriptor(logicDescriptor: .xor, logicFunction: LogicFunctions.xor)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 }
             }
