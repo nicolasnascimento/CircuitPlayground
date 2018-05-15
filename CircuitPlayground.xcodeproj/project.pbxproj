@@ -61,6 +61,7 @@
 		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
+		0C5366FF20AB1C4C00C920A3 /* constant.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C5366FE20AB1C4C00C920A3 /* constant.vhd */; };
 		0C74B2D620A8D27B00BB4C87 /* nor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D020A8D27A00BB4C87 /* nor.vhd */; };
 		0C74B2D720A8D27B00BB4C87 /* nand.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D120A8D27B00BB4C87 /* nand.vhd */; };
 		0C74B2D820A8D27B00BB4C87 /* xor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D220A8D27B00BB4C87 /* xor.vhd */; };
@@ -152,6 +153,7 @@
 		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
 		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
 		0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisPerformer.swift; sourceTree = "<group>"; };
+		0C5366FE20AB1C4C00C920A3 /* constant.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constant.vhd; sourceTree = "<group>"; };
 		0C74B2D020A8D27A00BB4C87 /* nor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nor.vhd; sourceTree = "<group>"; };
 		0C74B2D120A8D27B00BB4C87 /* nand.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nand.vhd; sourceTree = "<group>"; };
 		0C74B2D220A8D27B00BB4C87 /* xor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xor.vhd; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 		0C3F799F208F5F6B004AB6D4 /* Combinational */ = {
 			isa = PBXGroup;
 			children = (
+				0C5366FE20AB1C4C00C920A3 /* constant.vhd */,
 				0C0854A12093622000DE1EFC /* sample.vhd */,
 				0C74B2D120A8D27B00BB4C87 /* nand.vhd */,
 				0C74B2D020A8D27A00BB4C87 /* nor.vhd */,
@@ -617,6 +620,7 @@
 				0C74B2D620A8D27B00BB4C87 /* nor.vhd in Resources */,
 				0C385E1B1FD1D844008FB5D7 /* base.json in Resources */,
 				0C0854A22093622000DE1EFC /* sample.vhd in Resources */,
+				0C5366FF20AB1C4C00C920A3 /* constant.vhd in Resources */,
 				0C385DAE1FD0938F008FB5D7 /* Assets.xcassets in Resources */,
 				0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */,
 				0C385DB11FD0938F008FB5D7 /* Main.storyboard in Resources */,
