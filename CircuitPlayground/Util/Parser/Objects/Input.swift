@@ -10,6 +10,10 @@ import Foundation
 
 struct Input: Codable {
     var name: String
+    
+    init(name: String) {
+        self.name = name
+    }
 }
 
 extension Input {
@@ -17,3 +21,9 @@ extension Input {
         self.name = globalSignal.name
     }
 }
+
+extension Input {
+    static var constantPositive: Input { return Input(name: "VCC") }
+    static var constantNegative: Input { return Input(name: "GND") }
+}
+

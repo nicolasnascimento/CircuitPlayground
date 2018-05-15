@@ -104,12 +104,24 @@ extension SynthesisPerformer {
         return descriptors
     }
     private func extractInputFrom(expression: Expression) -> [Input] {
-        // Extract left logic descriptor
+        // Attemp extracting identifier
         if let identifier = expression as? VHDLIdentifier {
             if let inputSignal = self.availableSignals.compactMap({ $0.name == identifier.name ? Input(name: $0.name) : nil }).first {
                 return [inputSignal]
             }
+        
+        // Attemp extracting a constant value
+        } else if let constant = expression as? VHDLConstant {
             
+            switch constant.rawType {
+            case .bit(let value):
+                if value {
+                    return [Input.constantPositive]
+                } else {
+                    return [Input.constantNegative]
+                }
+            default: break
+            }
         }
         return []
     }
@@ -118,6 +130,16 @@ extension SynthesisPerformer {
         // The inputs and outputs
         var leftInputs: [Input] = self.extractInputFrom(expression: binaryExpression.leftExpression)
         var rightInputs: [Input] = self.extractInputFrom(expression: binaryExpression.rightExpression)
+        
+        // Add VCC or GND if required to global list of signals
+        let shouldAddVCCToGlobalPins = (!leftInputs.filter({ $0.name == Input.constantPositive.name }).isEmpty || !rightInputs.filter({ $0.name == Input.constantPositive.name }).isEmpty) && self.availableSignals.filter({ $0.name == Input.constantPositive.name }).isEmpty
+        let shouldAddGNDToGlobalPins = (!leftInputs.filter({ $0.name == Input.constantNegative.name }).isEmpty || !rightInputs.filter({ $0.name == Input.constantNegative.name }).isEmpty) && self.availableSignals.filter({ $0.name == Input.constantNegative.name }).isEmpty
+        if shouldAddVCCToGlobalPins {
+            self.availableSignals.append(GlobalSignal(name: Input.constantPositive.name, type: .standardLogic, numberOfBits: 1))
+        }
+        if shouldAddGNDToGlobalPins {
+            self.availableSignals.append(GlobalSignal(name: Input.constantNegative.name, type: .standardLogic, numberOfBits: 1))
+        }
         
         var logicDescriptors: [LogicDescriptor] = []
         

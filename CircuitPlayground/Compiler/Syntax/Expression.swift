@@ -274,14 +274,11 @@ struct VHDLLibrary: ParserElement, Expression {
 
 extension Array: Expression {
     var numberOfTokens: Int {
-        return 1
+        let mapping = self.compactMap{ $0 as? Expression }
+        return mapping.reduce(0, { $0 + $1.numberOfTokens })
     }
 }
-extension Array where Element: Expression {
-    var numberOfTokens: Int {
-        return reduce(0, { $0 + $1.numberOfTokens })
-    }
-}
+
 
 // An usage for a library definition
 struct VHDLUse: ParserElement, Expression {
