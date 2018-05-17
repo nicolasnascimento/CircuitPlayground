@@ -58,7 +58,7 @@
 		0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7999208F5F3E004AB6D4 /* Parser.swift */; };
 		0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and2.vhd */; };
 		0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A2208F5F82004AB6D4 /* assignment.vhd */; };
-		0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */; };
+		0C3F79A7208F5F82004AB6D4 /* when-else.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* when-else.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
 		0C5366FF20AB1C4C00C920A3 /* constant.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C5366FE20AB1C4C00C920A3 /* constant.vhd */; };
@@ -150,7 +150,7 @@
 		0C3F79A0208F5F7A004AB6D4 /* and2.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and2.vhd; sourceTree = "<group>"; };
 		0C3F79A2208F5F82004AB6D4 /* assignment.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = assignment.vhd; sourceTree = "<group>"; };
 		0C3F79A3208F5F82004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
-		0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = multiplexer.vhd; sourceTree = "<group>"; };
+		0C3F79A4208F5F82004AB6D4 /* when-else.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "when-else.vhd"; sourceTree = "<group>"; };
 		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
 		0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisPerformer.swift; sourceTree = "<group>"; };
 		0C5366FE20AB1C4C00C920A3 /* constant.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constant.vhd; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 				0C74B2D220A8D27B00BB4C87 /* xor.vhd */,
 				0C3F79A3208F5F82004AB6D4 /* and.vhd */,
 				0C3F79A2208F5F82004AB6D4 /* assignment.vhd */,
-				0C3F79A4208F5F82004AB6D4 /* multiplexer.vhd */,
+				0C3F79A4208F5F82004AB6D4 /* when-else.vhd */,
 			);
 			path = Combinational;
 			sourceTree = "<group>";
@@ -613,7 +613,7 @@
 			files = (
 				0C74B2D920A8D27B00BB4C87 /* not.vhd in Resources */,
 				0C0854A02093572800DE1EFC /* and.vhd in Resources */,
-				0C3F79A7208F5F82004AB6D4 /* multiplexer.vhd in Resources */,
+				0C3F79A7208F5F82004AB6D4 /* when-else.vhd in Resources */,
 				0C74B2DB20A8D27B00BB4C87 /* or.vhd in Resources */,
 				0C74B2D820A8D27B00BB4C87 /* xor.vhd in Resources */,
 				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,

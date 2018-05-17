@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "constant"
+        let fileName = "when-else"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
@@ -141,10 +141,6 @@ extension InitialViewController {
             case .unknown(let description): fatalError("Couldn't Extract Expressions from parser, description: \(description)")
             }
         }
-        
-        
-       
-        
     }
 }
 

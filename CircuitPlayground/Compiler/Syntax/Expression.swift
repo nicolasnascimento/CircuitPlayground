@@ -13,8 +13,6 @@ protocol Expression {
     var numberOfTokens: Int { get }
 }
 
-
-
 // MARK: - Default Implementation
 extension Expression {
     var numberOfTokens: Int {
@@ -102,7 +100,7 @@ struct VHDLBinaryOperation: ParserElement, Expression {
     // IMPORTANT: Adding a new property requires you to update this value to match is
     var numberOfTokens: Int { return self.leftExpression.numberOfTokens + self.operator.numberOfTokens + self.rightExpression.numberOfTokens + (self.semicolon?.numberOfTokens ?? 0) }
 }
-
+// An unary operation
 struct VHDLUnaryOperation: ParserElement, Expression {
     let rightExpression: Expression
     let `operator`: Operator
@@ -110,6 +108,15 @@ struct VHDLUnaryOperation: ParserElement, Expression {
     
     // IMPORTANT: Adding a new property requires you to update this value to match is
     var numberOfTokens: Int { return self.operator.numberOfTokens + self.rightExpression.numberOfTokens + (self.semicolon?.numberOfTokens ?? 0) }
+}
+
+// A when else structure
+struct VHDLWhenElse: ParserElement, Expression {
+    let leftExpression: Expression
+    let whenKeyword: Keyword
+    let booleanExpression: Expression
+    let elseKeyword: Keyword
+    let defaultValue: Expression
 }
 
 // An if statement
