@@ -40,7 +40,7 @@ extension Parser {
 
 // MARK: - Private
 extension Parser {
-    
+
     private func extractLeastComplexExpressionFromCurrentToken(with token: Token, offset: Int) throws -> Expression? {
         // The expression to be returned
         var expression: Expression?
@@ -65,19 +65,13 @@ extension Parser {
         case let operatorType as PrecedenceOperator:
             switch operatorType {
             case .leftParenthesis: expression = try self.extractParenthesizedExpressionFromCurrentToken()
-            default: expression = nil
+            case .rightParenthesis: expression = nil
             }
-        case let logicNot as Logic:
-            if let rightExpresison = try self.extractExpressionFromCurrentToken(), let possibleSemicolon = (self.currentToken(offsetBy: offset + logicNot.numberOfTokens + rightExpresison.numberOfTokens)?.type as? Ponctuation) {
-                let semicolon = possibleSemicolon  == .semicolon ? possibleSemicolon : nil
-                expression = VHDLUnaryOperation(rightExpression: rightExpresison, operator: logicNot, semicolon: semicolon)
-            }
+        case let logicNot as Logic: expression = try extractUnaryOperationFromCurrentToken(with: offset, logicNot: logicNot)
         case let composedElement as ComposedElement:
             switch composedElement {
-            case .identifier(let value):
-                expression = VHDLIdentifier(name: value)
-            case .number(let number):
-                expression = VHDLConstant(rawType: .numeral(number))
+            case .identifier(let value): expression = VHDLIdentifier(name: value)
+            case .number(let number): expression = VHDLConstant(rawType: .numeral(number))
             case .operator(let type):
                 if let rightExpresison = try self.extractExpressionFromCurrentToken(offset: offset + type.numberOfTokens), let possibleSemicolon = (self.currentToken(offsetBy: offset + type.numberOfTokens + rightExpresison.numberOfTokens)?.type as? Ponctuation) {
                     let semicolon = possibleSemicolon  == .semicolon ? possibleSemicolon : nil
@@ -122,6 +116,12 @@ extension Parser {
         let thirdElement = (self.currentToken(offsetBy: 1 + secondElement.numberOfTokens)?.type as? PrecedenceOperator), thirdElement == .rightParenthesis else { throw ParserError.unknown("Error parsing Parenthesis") }
         
         return VHDLParenthesized(leftParethesis: firstElement, rightParenthesis: thirdElement, expression: secondElement)
+    }
+    
+    private func extractUnaryOperationFromCurrentToken(with offset: Int, logicNot: Logic) throws -> Expression? {
+        guard let rightExpresison = try self.extractExpressionFromCurrentToken(), let possibleSemicolon = (self.currentToken(offsetBy: offset + logicNot.numberOfTokens + rightExpresison.numberOfTokens)?.type as? Ponctuation) else { return nil }
+        let semicolon = possibleSemicolon  == .semicolon ? possibleSemicolon : nil
+        return VHDLUnaryOperation(rightExpression: rightExpresison, operator: logicNot, semicolon: semicolon)
     }
     
     private func extractProcessFromCurrentToken(offsetting: Int) throws -> VHDLProcess {
@@ -349,24 +349,31 @@ extension Parser {
     private func attempExtractingComposedExpressionFromCurrentToken(with currentExpression: Expression?, offset: Int) throws -> Expression? {
         // The expression to be returned
         var expression: Expression?
-        if let currentExpression = currentExpression {
-            let numberOfTokens = currentExpression.numberOfTokens
-            guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? ComposedElement else { return expression }
-            
-            switch (nextTokenType) {
-            case .operator(let operation):
-                if let rightExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1) {
-                    if let semicolon = self.currentToken(offsetBy: offset + numberOfTokens + 1 + rightExpression.numberOfTokens)?.type as? Ponctuation, semicolon == .semicolon {
-                        
-                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: .semicolon)
-                    } else {
-                        expression = VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: nil)
-                    }
-                }
-            default: break
-            }
+        
+        // First, attemp to extract binary operation
+        if let currentExpression = currentExpression, let binaryOperation = try self.attempExtractingSignalAttibutionFromCurrentToken(with: currentExpression, offset: offset) {
+            expression = binaryOperation
         }
+        
         return expression
+    }
+    
+    private func attempExtractingSignalAttibutionFromCurrentToken(with currentExpression: Expression, offset: Int) throws -> VHDLBinaryOperation? {
+        let numberOfTokens = currentExpression.numberOfTokens
+        guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? ComposedElement else { return nil }
+        
+        switch (nextTokenType) {
+        case .operator(let operation):
+            if let rightExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1) {
+                var possibleSemicolon: Ponctuation?
+                if let semicolon = self.currentToken(offsetBy: offset + numberOfTokens + 1 + rightExpression.numberOfTokens)?.type as? Ponctuation, semicolon == .semicolon {
+                     possibleSemicolon = .semicolon
+                }
+                return VHDLBinaryOperation(leftExpression: currentExpression, rightExpression: rightExpression, operator: operation, semicolon: possibleSemicolon)
+            }
+        default: break
+        }
+        return nil
     }
     
     private func extractExternalSignalDeclarationFromCurrentToken(with offset: Int) throws -> VHDLExternalSignalDeclaration {
