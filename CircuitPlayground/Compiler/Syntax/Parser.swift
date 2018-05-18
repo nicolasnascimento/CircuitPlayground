@@ -32,6 +32,8 @@ extension Parser {
         while let expression = try self.extractExpressionFromCurrentToken() {
             expressions.append(expression)
             self.currentIndex += expression.numberOfTokens
+            
+            print(type(of: expression))
         }
         
         return expressions
@@ -383,32 +385,34 @@ extension Parser {
     }
     
     private func attempExtractingWhenElseClauseFromCurrentToken(with currentExpression: Expression, offset: Int) throws -> VHDLWhenElse? {
-        var numberOfTokens = currentExpression.numberOfTokens
+        var numberOfTokens = 0//currentExpression.numberOfTokens
     
         // Assure next keyword is a when clause
-        guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? Keyword, nextTokenType == .when else { return nil }
+//        guard let nextTokenType = self.currentToken(offsetBy: offset + currentExpression.numberOfTokens)?.type as? Keyword, nextTokenType == .when else { return nil }
         
         // Next begin extracting all possible partial when else expressions
         var partialExpressions: [VHDLPartialWhenElse] = []
-        var partialLeftExpression = currentExpression
+        var partialLeftExpression: Expression? = currentExpression
         while let partialExpression = try self.attempExtractingPartialWhenElseClauseFromCurrentToken(with: partialLeftExpression, offset: offset + numberOfTokens) {
             
             // Appen new partial expression
             partialExpressions.append(partialExpression)
-            
-            // Extract new left side expression
-            if let newLeftExpresssion = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens) {
-                partialLeftExpression = newLeftExpresssion
-            }
-            
+        
             // Increment number of tokens (used as offset)
             numberOfTokens += partialExpression.numberOfTokens
+            
+            // Only the first expression should will use the current expression
+            partialLeftExpression = nil
         }
         
+        if partialExpressions.isEmpty {
+            return nil
+        }
         
         let posssibleDefaultValue = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens)
-        
         if let defaultValue = posssibleDefaultValue {
+            numberOfTokens += defaultValue.numberOfTokens
+            
             if defaultValue.endsInSemicolon {
                 return VHDLWhenElse(partialWhenElseExpressions: partialExpressions, defaultValue: defaultValue, semicolon: nil)
             } else {
@@ -424,18 +428,18 @@ extension Parser {
         return nil
     }
     
-    private func attempExtractingPartialWhenElseClauseFromCurrentToken(with currentExpression: Expression, offset: Int) throws -> VHDLPartialWhenElse? {
-        let numberOfTokens = 0//ccurrentExpression.numberOfTokens
+    private func attempExtractingPartialWhenElseClauseFromCurrentToken(with currentExpression: Expression?, offset: Int) throws -> VHDLPartialWhenElse? {
+        let numberOfTokens = currentExpression?.numberOfTokens ?? 0
         
-        // Assure next keyword is a when clause
-        guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? Keyword, nextTokenType == .when,
+        // Assure we have expression - when - condition - else
+        guard let expression = try currentExpression ?? self.extractExpressionFromCurrentToken(offset: offset),
+        let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? Keyword, nextTokenType == .when,
         let booleanExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1),
         let elseKeyword = self.currentToken(offsetBy: offset + numberOfTokens + 1 + booleanExpression.numberOfTokens)?.type as? Keyword, elseKeyword == .else else
         { return nil }
         
         // Return partial when else clause if possible
-        return VHDLPartialWhenElse(leftExpression: currentExpression, whenKeyword: .when, booleanExpression: booleanExpression, elseKeyword: elseKeyword)
-        
+        return VHDLPartialWhenElse(leftExpression: expression, whenKeyword: .when, booleanExpression: booleanExpression, elseKeyword: elseKeyword)
     }
     
     private func extractExternalSignalDeclarationFromCurrentToken(with offset: Int) throws -> VHDLExternalSignalDeclaration {

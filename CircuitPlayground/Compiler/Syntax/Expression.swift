@@ -131,8 +131,9 @@ struct VHDLWhenElse: ParserElement, Expression {
             self.partialWhelElseExpressions = partialWhenElseExpressions
             self.defaultValue = defaultValue
             self.semicolon = semicolon
+        } else {
+            return nil
         }
-        return nil
     }
     
     var numberOfTokens: Int { return partialWhelElseExpressions.reduce(0, {$0 + $1.numberOfTokens}) + (defaultValue?.numberOfTokens ?? 0) + (semicolon?.numberOfTokens ?? 0) }
