@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - VHDL
 protocol Expression {
+    var endsInSemicolon: Bool { get }
     var numberOfTokens: Int { get }
 }
 
@@ -17,6 +18,10 @@ protocol Expression {
 extension Expression {
     var numberOfTokens: Int {
         return 1
+    }
+
+    var endsInSemicolon: Bool {
+        return true
     }
 }
 
@@ -60,6 +65,7 @@ struct VHDLIdentifier: ParserElement, Expression {
     
     // IMPORTANT: Adding a new property requires you to update this value to match is
     var numberOfTokens: Int { return 1 }
+    var endsInSemicolon: Bool { return false }
 }
 
 // A constant
@@ -78,6 +84,8 @@ struct VHDLConstant: ParserElement, Expression {
         case .numeral(_): return 1
         }
     }
+    
+    var endsInSemicolon: Bool { return false }
 }
 
 // An expression inside parenthesis
@@ -88,6 +96,7 @@ struct VHDLParenthesized: ParserElement, Expression {
     
     // IMPORTANT: Adding a new property requires you to update this value to match is
     var numberOfTokens: Int { return self.leftParethesis.numberOfTokens + self.expression.numberOfTokens + self.rightParenthesis.numberOfTokens }
+    var endsInSemicolon: Bool { return false }
 }
 
 // A binary operation
@@ -112,11 +121,32 @@ struct VHDLUnaryOperation: ParserElement, Expression {
 
 // A when else structure
 struct VHDLWhenElse: ParserElement, Expression {
+    var partialWhelElseExpressions: [VHDLPartialWhenElse]
+    var defaultValue: Expression?
+    var semicolon: Ponctuation?
+    
+    init?(partialWhenElseExpressions: [VHDLPartialWhenElse], defaultValue: Expression?, semicolon: Ponctuation?) {
+        // Check if last expression has an else clause and providede ponctuaction is a semicolon
+        if let possibleElse = partialWhenElseExpressions.last?.elseKeyword, possibleElse == .else, semicolon == .semicolon {
+            self.partialWhelElseExpressions = partialWhenElseExpressions
+            self.defaultValue = defaultValue
+            self.semicolon = semicolon
+        }
+        return nil
+    }
+    
+    var numberOfTokens: Int { return partialWhelElseExpressions.reduce(0, {$0 + $1.numberOfTokens}) + (defaultValue?.numberOfTokens ?? 0) + (semicolon?.numberOfTokens ?? 0) }
+}
+
+
+struct VHDLPartialWhenElse: ParserElement, Expression {
     let leftExpression: Expression
     let whenKeyword: Keyword
     let booleanExpression: Expression
     let elseKeyword: Keyword
-    let defaultValue: Expression
+    
+    var numberOfTokens: Int { return leftExpression.numberOfTokens + whenKeyword.numberOfTokens + booleanExpression.numberOfTokens + elseKeyword.numberOfTokens }
+    var endsInSemicolon: Bool { return false }
 }
 
 // An if statement
@@ -284,6 +314,7 @@ extension Array: Expression {
         let mapping = self.compactMap{ $0 as? Expression }
         return mapping.reduce(0, { $0 + $1.numberOfTokens })
     }
+    var endsInSemicolon: Bool { return (self.last as? Expression)?.endsInSemicolon ?? false }
 }
 
 
