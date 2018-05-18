@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "when-else"
+        let fileName = "when-else-single"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
@@ -138,7 +138,8 @@ extension InitialViewController {
         } catch {
             guard let parsingError = error as? ParserError else { fatalError("Couldn't Extract Expressions from parser") }
             switch parsingError {
-            case .unknown(let description): fatalError("Couldn't Extract Expressions from parser, description: \(description)")
+            case .unknown(let description):
+                fatalError("Couldn't Extract Expressions from parser, description: \(description)")
             }
         }
     }

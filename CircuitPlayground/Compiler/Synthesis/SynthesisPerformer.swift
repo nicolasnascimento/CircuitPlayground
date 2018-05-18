@@ -79,7 +79,6 @@ extension SynthesisPerformer {
         let architectureExpressionList = vhdlArchitecture.expression.list
         
         let logicDescriptors: [LogicDescriptor] = self.extractLogicDescriptors(from: architectureExpressionList)
-        
         return Architecture(name: vhdlArchitecture.name.name, globalSignals: self.availableSignals, logicDescriptors: logicDescriptors)
     }
     
@@ -205,7 +204,7 @@ extension SynthesisPerformer {
             
             // If no logic descriptor is found create a connection
             if logicDescriptors.isEmpty {
-                logicDescriptors += [ LogicDescriptor(elementType: .connection, logicOperation: .none, inputs: rightInputs, outputs: []) ]
+                logicDescriptors += [LogicDescriptor(elementType: .connection, logicOperation: .none, inputs: rightInputs, outputs: [])]
             }
             
             // In the case of assignment all we need to do is set the left signal as output of the logic descriptor in the right

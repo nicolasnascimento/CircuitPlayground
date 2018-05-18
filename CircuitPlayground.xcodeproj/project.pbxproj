@@ -30,6 +30,7 @@
 		0C29FE5C1FD57D7E0029BB42 /* GlobalSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */; };
 		0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */; };
 		0C29FE601FD57E440029BB42 /* LogicSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */; };
+		0C2CD7EF20AF3C66002A690D /* when-else-complete.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C2CD7EE20AF3C66002A690D /* when-else-complete.vhd */; };
 		0C34D71B1FD84BD9005147E7 /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C34D71A1FD84BD9005147E7 /* DTO.swift */; };
 		0C34D71D1FD85C0B005147E7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C34D71C1FD85C0B005147E7 /* CoreDataManager.swift */; };
 		0C385DA71FD0938F008FB5D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C385DA61FD0938F008FB5D7 /* AppDelegate.swift */; };
@@ -58,7 +59,7 @@
 		0C3F799B208F5F3F004AB6D4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F7999208F5F3E004AB6D4 /* Parser.swift */; };
 		0C3F79A1208F5F7A004AB6D4 /* and2.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A0208F5F7A004AB6D4 /* and2.vhd */; };
 		0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A2208F5F82004AB6D4 /* assignment.vhd */; };
-		0C3F79A7208F5F82004AB6D4 /* when-else.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* when-else.vhd */; };
+		0C3F79A7208F5F82004AB6D4 /* when-else-single.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F79A4208F5F82004AB6D4 /* when-else-single.vhd */; };
 		0C3F79A9208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */; };
 		0C3F79AD208FB070004AB6D4 /* SynthesisPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */; };
 		0C5366FF20AB1C4C00C920A3 /* constant.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C5366FE20AB1C4C00C920A3 /* constant.vhd */; };
@@ -116,6 +117,7 @@
 		0C29FE5B1FD57D7E0029BB42 /* GlobalSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSignal.swift; sourceTree = "<group>"; };
 		0C29FE5D1FD57DBD0029BB42 /* Architecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Architecture.swift; sourceTree = "<group>"; };
 		0C29FE5F1FD57E440029BB42 /* LogicSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicSpecification.swift; sourceTree = "<group>"; };
+		0C2CD7EE20AF3C66002A690D /* when-else-complete.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "when-else-complete.vhd"; sourceTree = "<group>"; };
 		0C34D71A1FD84BD9005147E7 /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
 		0C34D71C1FD85C0B005147E7 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0C385DA31FD0938F008FB5D7 /* CircuitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CircuitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +152,7 @@
 		0C3F79A0208F5F7A004AB6D4 /* and2.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and2.vhd; sourceTree = "<group>"; };
 		0C3F79A2208F5F82004AB6D4 /* assignment.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = assignment.vhd; sourceTree = "<group>"; };
 		0C3F79A3208F5F82004AB6D4 /* and.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = and.vhd; sourceTree = "<group>"; };
-		0C3F79A4208F5F82004AB6D4 /* when-else.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "when-else.vhd"; sourceTree = "<group>"; };
+		0C3F79A4208F5F82004AB6D4 /* when-else-single.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "when-else-single.vhd"; sourceTree = "<group>"; };
 		0C3F79A8208F60F7004AB6D4 /* CircuitPlaygroundCompilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPlaygroundCompilerTests.swift; sourceTree = "<group>"; };
 		0C3F79AC208FB070004AB6D4 /* SynthesisPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesisPerformer.swift; sourceTree = "<group>"; };
 		0C5366FE20AB1C4C00C920A3 /* constant.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constant.vhd; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 		0C3F799F208F5F6B004AB6D4 /* Combinational */ = {
 			isa = PBXGroup;
 			children = (
+				0C2CD7EE20AF3C66002A690D /* when-else-complete.vhd */,
 				0C5366FE20AB1C4C00C920A3 /* constant.vhd */,
 				0C0854A12093622000DE1EFC /* sample.vhd */,
 				0C74B2D120A8D27B00BB4C87 /* nand.vhd */,
@@ -497,7 +500,7 @@
 				0C74B2D220A8D27B00BB4C87 /* xor.vhd */,
 				0C3F79A3208F5F82004AB6D4 /* and.vhd */,
 				0C3F79A2208F5F82004AB6D4 /* assignment.vhd */,
-				0C3F79A4208F5F82004AB6D4 /* when-else.vhd */,
+				0C3F79A4208F5F82004AB6D4 /* when-else-single.vhd */,
 			);
 			path = Combinational;
 			sourceTree = "<group>";
@@ -613,8 +616,9 @@
 			files = (
 				0C74B2D920A8D27B00BB4C87 /* not.vhd in Resources */,
 				0C0854A02093572800DE1EFC /* and.vhd in Resources */,
-				0C3F79A7208F5F82004AB6D4 /* when-else.vhd in Resources */,
+				0C3F79A7208F5F82004AB6D4 /* when-else-single.vhd in Resources */,
 				0C74B2DB20A8D27B00BB4C87 /* or.vhd in Resources */,
+				0C2CD7EF20AF3C66002A690D /* when-else-complete.vhd in Resources */,
 				0C74B2D820A8D27B00BB4C87 /* xor.vhd in Resources */,
 				0C3F79A5208F5F82004AB6D4 /* assignment.vhd in Resources */,
 				0C74B2D620A8D27B00BB4C87 /* nor.vhd in Resources */,

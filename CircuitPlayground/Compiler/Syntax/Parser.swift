@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 struct Parser {
     var tokens: [Token]
     
@@ -22,6 +24,11 @@ struct Parser {
 
 enum ParserError: Error {
     case unknown(String)
+}
+
+enum ParserIgnoreOption {
+    case none
+    case whenElse
 }
 
 extension Parser {
@@ -43,14 +50,15 @@ extension Parser {
 // MARK: - Private
 extension Parser {
     
-    private func extractExpressionFromCurrentToken(offset: Int = 0) throws -> Expression? {
+
+    private func extractExpressionFromCurrentToken(offset: Int = 0, ignoring: ParserIgnoreOption = .none) throws -> Expression? {
         guard let token = self.currentToken(offsetBy: offset) else { return nil }
         
         // Extract first level of expression
         var expression = try self.extractLeastComplexExpressionFromCurrentToken(with: token, offset: offset)
         
         // Attemp composing expression to form a more complex one
-        if let composedExpression = try self.attempExtractingComposedExpressionFromCurrentToken(with: expression, offset: offset) {
+        if let composedExpression = try self.attempExtractingComposedExpressionFromCurrentToken(with: expression, offset: offset, ignoring: ignoring) {
             expression = composedExpression
         }
         
@@ -136,7 +144,6 @@ extension Parser {
         let seventhElement = (self.currentToken(offsetBy: offsetting + 4 + thirdElement.numberOfTokens + sixthElement.numberOfTokens)?.type as? Keyword),
         let eighthElement = (self.currentToken(offsetBy: offsetting + 5 + thirdElement.numberOfTokens + sixthElement.numberOfTokens)?.type as? Keyword),
         let ninethElement = (self.currentToken(offsetBy: offsetting + 6 + thirdElement.numberOfTokens + sixthElement.numberOfTokens)?.type as? Ponctuation) else { throw ParserError.unknown("Error parsing Process") }
-        
         
         switch (firstElement, secondElement, thirdElement, fourthElement, fifthElement, sixthElement, seventhElement, eighthElement, ninethElement) {
         case (.process, .leftParenthesis, _, .rightParenthesis, .begin, _, .end, .process, .semicolon):
@@ -348,22 +355,23 @@ extension Parser {
         
     }
     
-    private func attempExtractingComposedExpressionFromCurrentToken(with currentExpression: Expression?, offset: Int) throws -> Expression? {
+    private func attempExtractingComposedExpressionFromCurrentToken(with currentExpression: Expression?, offset: Int, ignoring: ParserIgnoreOption) throws -> Expression? {
         // The expression to be returned
-        var expression: Expression?
-        
-        if let currentExpression = currentExpression  {
-            
+        if var currentExpression = currentExpression  {
             // First, attemp to extract binary operation
             if let binaryOperation = try self.attempExtractingBinaryOperationFromCurrentToken(with: currentExpression, offset: offset) {
-                expression = binaryOperation
-            // Next, check if next token is a when clause, which signifies a when-else structure
-            } else if let whenElseClause = try self.attempExtractingWhenElseClauseFromCurrentToken(with: currentExpression, offset: offset) {
-                expression = whenElseClause
+                currentExpression = binaryOperation
             }
+            
+            // Next, check if next token is a when clause, which signifies a when-else structure
+            if ignoring != .whenElse, let whenElseClause = try self.attempExtractingWhenElseClauseFromCurrentToken(with: currentExpression, offset: offset) {
+                currentExpression = whenElseClause
+            }
+            
+            return currentExpression
+        } else {
+            return nil
         }
-        
-        return expression
     }
     
     private func attempExtractingBinaryOperationFromCurrentToken(with currentExpression: Expression, offset: Int) throws -> VHDLBinaryOperation? {
@@ -388,15 +396,18 @@ extension Parser {
         var numberOfTokens = 0//currentExpression.numberOfTokens
     
         // Assure next keyword is a when clause
-//        guard let nextTokenType = self.currentToken(offsetBy: offset + currentExpression.numberOfTokens)?.type as? Keyword, nextTokenType == .when else { return nil }
         
         // Next begin extracting all possible partial when else expressions
         var partialExpressions: [VHDLPartialWhenElse] = []
         var partialLeftExpression: Expression? = currentExpression
         while let partialExpression = try self.attempExtractingPartialWhenElseClauseFromCurrentToken(with: partialLeftExpression, offset: offset + numberOfTokens) {
             
-            // Appen new partial expression
+            // Append new partial expression
             partialExpressions.append(partialExpression)
+            
+            print("Partial Expression")
+            print(partialExpression)
+            print("-------------")
         
             // Increment number of tokens (used as offset)
             numberOfTokens += partialExpression.numberOfTokens
@@ -409,7 +420,7 @@ extension Parser {
             return nil
         }
         
-        let posssibleDefaultValue = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens)
+        let posssibleDefaultValue = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens, ignoring: .whenElse)
         if let defaultValue = posssibleDefaultValue {
             numberOfTokens += defaultValue.numberOfTokens
             
@@ -429,11 +440,14 @@ extension Parser {
     }
     
     private func attempExtractingPartialWhenElseClauseFromCurrentToken(with currentExpression: Expression?, offset: Int) throws -> VHDLPartialWhenElse? {
-        let numberOfTokens = currentExpression?.numberOfTokens ?? 0
+        
+        guard let expression = try currentExpression ?? self.extractExpressionFromCurrentToken(offset: offset, ignoring: .whenElse) else { return nil }
+        
+        
+        let numberOfTokens = expression.numberOfTokens
         
         // Assure we have expression - when - condition - else
-        guard let expression = try currentExpression ?? self.extractExpressionFromCurrentToken(offset: offset),
-        let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? Keyword, nextTokenType == .when,
+        guard let nextTokenType = self.currentToken(offsetBy: offset + numberOfTokens)?.type as? Keyword, nextTokenType == .when,
         let booleanExpression = try self.extractExpressionFromCurrentToken(offset: offset + numberOfTokens + 1),
         let elseKeyword = self.currentToken(offsetBy: offset + numberOfTokens + 1 + booleanExpression.numberOfTokens)?.type as? Keyword, elseKeyword == .else else
         { return nil }
