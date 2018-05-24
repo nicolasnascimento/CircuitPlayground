@@ -404,10 +404,6 @@ extension Parser {
             
             // Append new partial expression
             partialExpressions.append(partialExpression)
-            
-            print("Partial Expression")
-            print(partialExpression)
-            print("-------------")
         
             // Increment number of tokens (used as offset)
             numberOfTokens += partialExpression.numberOfTokens

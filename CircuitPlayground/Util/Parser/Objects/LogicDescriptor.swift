@@ -18,13 +18,13 @@ struct LogicDescriptor: Codable {
         case nor
         case xor
         case xnor
+        case mux
     }
     enum ElementType: String, Codable {
         case combinational
         case sequential
         case connection
     }
-    
     var elementType: ElementType
     var logicOperation: LogicOperation
     var inputs: [Input]

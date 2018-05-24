@@ -96,8 +96,15 @@ extension SynthesisPerformer {
         var descriptors: [LogicDescriptor] = []
         expressionList.forEach {
             // Check for binary expressions
-            if let binaryExpression = $0 as? VHDLBinaryOperation {
-                descriptors.append(contentsOf: self.extractLogicDescriptor(from: binaryExpression))
+            switch $0 {
+            case let value as VHDLBinaryOperation:
+                let logicDescriptors = self.extractLogicDescriptor(from: value)
+                descriptors.append(contentsOf: logicDescriptors)
+            case let value as VHDLWhenElse:
+                let logicDescriptos = self.extractLogicDescriptors(from: value)
+                descriptors.append(contentsOf: logicDescriptos)
+            default:
+                print("Couldn't extract logic descriptor for \(type(of:$0))")
             }
         }
         return descriptors
@@ -147,13 +154,8 @@ extension SynthesisPerformer {
         if rightInputs.isEmpty {
             let descriptors = self.extractLogicDescriptors(from: binaryExpression.rightExpression.list)
             
-            // Create temporary output for logic descriptor to be generated
-            let temporarySignal = GlobalSignal(name: "__TEMP__" + "\(self.temporarySignalAmount)", type: .standardLogic, numberOfBits: 1)
-            self.availableSignals.append(temporarySignal)
-            self.temporarySignalAmount += 1
-            
             // Link to logic descriptor output
-            let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(globalSignal: temporarySignal)]) }
+            let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
             
             // Add logic descriptor
             logicDescriptors.append(contentsOf: linkedDescriptors)
@@ -182,13 +184,8 @@ extension SynthesisPerformer {
             if leftInputs.isEmpty {
                 let descriptors = self.extractLogicDescriptors(from: binaryExpression.leftExpression.list)
     
-                // Create temporary output for logic descriptor to be generated
-                let temporarySignal = GlobalSignal(name: "__TEMP__" + "\(self.temporarySignalAmount)", type: .standardLogic, numberOfBits: 1)
-                self.availableSignals.append(temporarySignal)
-                self.temporarySignalAmount += 1
-                
                 // Link to logic descriptor output
-                let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(globalSignal: temporarySignal)]) }
+                let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
                 
                 // Add logic descriptor
                 logicDescriptors.append(contentsOf: linkedDescriptors)
@@ -223,5 +220,77 @@ extension SynthesisPerformer {
         }
         
         return logicDescriptors
+    }
+    
+    private mutating func link(from descriptors: [LogicDescriptor]) -> (logicDescriptors: [LogicDescriptor], temporarySignal: GlobalSignal) {
+        
+        // Create temporary output for logic descriptor to be generated
+        let temporarySignal = GlobalSignal(name: "__TEMP__" + "\(self.temporarySignalAmount)", type: .standardLogic, numberOfBits: 1)
+        self.availableSignals.append(temporarySignal)
+        self.temporarySignalAmount += 1
+        
+        // Link to logic descriptor output
+        let linkedDescriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: $0.outputs + [Output(globalSignal: temporarySignal)]) }
+        return (linkedDescriptors, temporarySignal)
+    }
+    
+    private mutating func extractLogicDescriptors(from whenElseExpression: VHDLWhenElse) -> [LogicDescriptor] {
+        // A multiplexer is different from a standard logic port, as it requires the inputs and selection bit
+        // We'll extract these items separately
+        
+        // Extract descriptors from partial expressions
+        var descriptors = self.extractInputs(from: whenElseExpression.partialWhelElseExpressions)
+        
+        // Extract default expression
+        if let defaultExpression = whenElseExpression.defaultValue {
+            let defaultLogicDescriptors = self.extractLogicDescriptors(from: defaultExpression.list)
+            
+            let (linkedDescriptors, _) = self.link(from: defaultLogicDescriptors)
+            
+            descriptors.append(contentsOf: linkedDescriptors)
+        }
+        
+        return descriptors
+    }
+    
+    private mutating func extractInputs(from partialWhenElseExpressions: [VHDLPartialWhenElse]) -> [LogicDescriptor] {
+        
+        let selectionBits = partialWhenElseExpressions.compactMap { (partialExpression: VHDLPartialWhenElse) -> Input? in
+            if let simpleComparision = partialExpression.booleanExpression as? VHDLBinaryOperation {
+                if let operation = simpleComparision.operator as? Relational, operation == .equal,
+                    let leftOperator = simpleComparision.leftExpression as? VHDLIdentifier,
+                    let _ = simpleComparision.rightExpression as? VHDLConstant {
+                        return self.extractInputFrom(expression: leftOperator).first
+                }
+            } else {
+                print("WARNING: When else expression has complex expression")
+            }
+            return nil
+        }
+        
+        var inputs: [Input] = []
+        partialWhenElseExpressions.forEach{
+            inputs.append(contentsOf: self.extractInputFrom(expression: $0.leftExpression))
+        }
+        
+        var logicDescriptors: [LogicDescriptor] = []
+        let options: [Input] = partialWhenElseExpressions.compactMap{ (partialExpression: VHDLPartialWhenElse) -> Input? in
+            let descriptors = self.extractLogicDescriptors(from: partialExpression.leftExpression.list)
+            
+            // Link to logic descriptor output
+            let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
+            
+            // Add logic descriptor
+            logicDescriptors.append(contentsOf: linkedDescriptors)
+            
+            // Append to inputs of logic descriptor
+            return Input(globalSignal: temporarySignal)
+        }
+
+        // Append new logic descriptor
+        logicDescriptors.append(LogicDescriptor(elementType: .connection, logicOperation: .mux, inputs: inputs + selectionBits + options, outputs: []))
+        
+        return logicDescriptors
+        
     }
 }

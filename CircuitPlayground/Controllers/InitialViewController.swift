@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "when-else-single"
+        let fileName = "when-else-complete"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)

@@ -116,6 +116,7 @@ extension EntityManager {
             case .nor: operation = .nor
             case .xor: operation = .xor
             case .xnor: operation = .xnor
+            case .mux: operation = .mux
             }
             
             let port: LogicPort = LogicPort(with: operation, coordinate: .zero, output: function.output)
