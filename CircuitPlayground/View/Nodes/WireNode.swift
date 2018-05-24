@@ -31,7 +31,7 @@ final class WireNode: SKShapeNode {
         
         // Create Connections between points
         var triangle: SKSpriteNode?
-        if( !points.isEmpty ) {
+        if !points.isEmpty {
             for i in 1..<points.count {
                 
                 let xNoise = i + 1 == points.count ? CGFloat(0) : self.hasNoise ?  CGFloat(drand48() * 15) : 0

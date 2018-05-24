@@ -255,6 +255,7 @@ extension SynthesisPerformer {
     
     private mutating func extractInputs(from partialWhenElseExpressions: [VHDLPartialWhenElse]) -> [LogicDescriptor] {
         
+        // First extract the selection bits
         let selectionBits = partialWhenElseExpressions.compactMap { (partialExpression: VHDLPartialWhenElse) -> Input? in
             if let simpleComparision = partialExpression.booleanExpression as? VHDLBinaryOperation {
                 if let operation = simpleComparision.operator as? Relational, operation == .equal,
@@ -268,13 +269,17 @@ extension SynthesisPerformer {
             return nil
         }
         
+        // Next attemp to extrac inputs in 2 steps
+        
+        // First: Simple inputs
         var inputs: [Input] = []
         partialWhenElseExpressions.forEach{
             inputs.append(contentsOf: self.extractInputFrom(expression: $0.leftExpression))
         }
         
+        // Second: Compound inputs
         var logicDescriptors: [LogicDescriptor] = []
-        let options: [Input] = partialWhenElseExpressions.compactMap{ (partialExpression: VHDLPartialWhenElse) -> Input? in
+        let options: [Input] = partialWhenElseExpressions.map{ (partialExpression: VHDLPartialWhenElse) -> Input in
             let descriptors = self.extractLogicDescriptors(from: partialExpression.leftExpression.list)
             
             // Link to logic descriptor output
@@ -289,7 +294,7 @@ extension SynthesisPerformer {
 
         // Append new logic descriptor
         logicDescriptors.append(LogicDescriptor(elementType: .connection, logicOperation: .mux, inputs: inputs + selectionBits + options, outputs: []))
-        
+
         return logicDescriptors
         
     }

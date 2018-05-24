@@ -82,7 +82,6 @@ extension CircuitDescription {
                 signals.append(signal)
             }
         }
-        
         return signals
     }
     private func extractLogicFunctions(from descriptors: [LogicDescriptor], availableInputSignals inputs: [Signal], availableOutputSignals outputs: [Signal]) -> [(inputs: [Signal], output: Signal, logicFunction: LogicFunctionDescriptor)] {
@@ -134,7 +133,7 @@ extension CircuitDescription {
                     let value = LogicFunctionDescriptor(logicDescriptor: .xnor, logicFunction: LogicFunctions.xnor)
                     mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
                 case .mux:
-                    // Note: 
+                    // Note:
                     // Because we're only drawing the operations and not performing them, pass `none` as
                     // associated logic function
                     let value = LogicFunctionDescriptor(logicDescriptor: .mux, logicFunction: LogicFunctions.none)
