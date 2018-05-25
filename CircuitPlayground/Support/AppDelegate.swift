@@ -11,15 +11,11 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
         // Insert code here to initialize your application
-        
-//        let fonts = NSFontManager.shared.availableFonts
-//        for (index, font) in fonts.enumerated() {
-//            print("\(index). \(font)")
-//        }
-        
+        NSApplication.shared.mainWindow?.makeKey()
+        NSApplication.shared.mainWindow?.setIsVisible(true)
     }
 
     // MARK: - Core Data Saving and Undo support

@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct Input: Codable {
+struct Input: Codable, Hashable {
     var name: String
+    var isSelectionBit: Bool = false
     
     init(name: String) {
         self.name = name
@@ -26,4 +27,5 @@ extension Input {
     static var constantPositive: Input { return Input(name: "VCC") }
     static var constantNegative: Input { return Input(name: "GND") }
 }
+
 

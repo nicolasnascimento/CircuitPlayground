@@ -69,6 +69,7 @@
 		0C74B2D920A8D27B00BB4C87 /* not.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D320A8D27B00BB4C87 /* not.vhd */; };
 		0C74B2DA20A8D27B00BB4C87 /* xnor.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D420A8D27B00BB4C87 /* xnor.vhd */; };
 		0C74B2DB20A8D27B00BB4C87 /* or.vhd in Resources */ = {isa = PBXBuildFile; fileRef = 0C74B2D520A8D27B00BB4C87 /* or.vhd */; };
+		0C9390BA20B89291003A86B9 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9390B920B89291003A86B9 /* Array.swift */; };
 		0CAD43F4201A35EE003AB5F1 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */; };
 		0CAD4409201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */; };
 		0CAD440B201A6DC7003AB5F1 /* NSColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */; };
@@ -162,6 +163,7 @@
 		0C74B2D320A8D27B00BB4C87 /* not.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = not.vhd; sourceTree = "<group>"; };
 		0C74B2D420A8D27B00BB4C87 /* xnor.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xnor.vhd; sourceTree = "<group>"; };
 		0C74B2D520A8D27B00BB4C87 /* or.vhd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = or.vhd; sourceTree = "<group>"; };
+		0C9390B920B89291003A86B9 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		0CAD43F3201A35ED003AB5F1 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		0CAD4408201A45DD003AB5F1 /* EntityManager+CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityManager+CircuitDescription.swift"; sourceTree = "<group>"; };
 		0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSColorExtensions.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				0C3DD4ED1FEACFAC00968EA5 /* SKNodeExtensions.swift */,
 				0C0F8D811FEAEF0B006CC411 /* SKViewExtensions.swift */,
 				0CAD440A201A6DC7003AB5F1 /* NSColorExtensions.swift */,
+				0C9390B920B89291003A86B9 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				0C385DFC1FD09772008FB5D7 /* InitialViewController.swift in Sources */,
 				0C3C6B531FFD0DB200AC7EFF /* RenderableEntity.swift in Sources */,
 				0C116CEB1FDAE0CC004B8999 /* LogicPortDrawable.swift in Sources */,
+				0C9390BA20B89291003A86B9 /* Array.swift in Sources */,
 				0C29FE5E1FD57DBD0029BB42 /* Architecture.swift in Sources */,
 				0C29FE5A1FD57CEB0029BB42 /* Output.swift in Sources */,
 				0C385E081FD0A21B008FB5D7 /* Module.swift in Sources */,

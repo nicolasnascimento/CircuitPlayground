@@ -243,11 +243,16 @@ extension SynthesisPerformer {
         
         // Extract default expression
         if let defaultExpression = whenElseExpression.defaultValue {
-            let defaultLogicDescriptors = self.extractLogicDescriptors(from: defaultExpression.list)
+            if let constant = defaultExpression as? VHDLIdentifier {
+                
+                descriptors = descriptors.map{ LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs + [Input(name: constant.name)], outputs: $0.outputs) }
+            }
             
-            let (linkedDescriptors, _) = self.link(from: defaultLogicDescriptors)
+//            let defaultLogicDescriptors = self.extractLogicDescriptors(from: defaultExpression.list)
+//            let (linkedDescriptors, _) = self.link(from: defaultLogicDescriptors)
             
-            descriptors.append(contentsOf: linkedDescriptors)
+//            descriptors.append(contentsOf: linkedDescriptors)
+            
         }
         
         return descriptors
@@ -256,19 +261,25 @@ extension SynthesisPerformer {
     private mutating func extractInputs(from partialWhenElseExpressions: [VHDLPartialWhenElse]) -> [LogicDescriptor] {
         
         // First extract the selection bits
-        let selectionBits = partialWhenElseExpressions.compactMap { (partialExpression: VHDLPartialWhenElse) -> Input? in
-            if let simpleComparision = partialExpression.booleanExpression as? VHDLBinaryOperation {
-                if let operation = simpleComparision.operator as? Relational, operation == .equal,
-                    let leftOperator = simpleComparision.leftExpression as? VHDLIdentifier,
-                    let _ = simpleComparision.rightExpression as? VHDLConstant {
-                        return self.extractInputFrom(expression: leftOperator).first
+        let selectionBits = partialWhenElseExpressions
+            .compactMap { (partialExpression: VHDLPartialWhenElse) -> Input? in
+                if let simpleComparision = partialExpression.booleanExpression as? VHDLBinaryOperation {
+                    if let operation = simpleComparision.operator as? Relational, operation == .equal,
+                        let leftOperator = simpleComparision.leftExpression as? VHDLIdentifier,
+                        let _ = simpleComparision.rightExpression as? VHDLConstant {
+                            return self.extractInputFrom(expression: leftOperator).first
+                    }
+                } else {
+                    print("WARNING: When else expression has complex expression")
                 }
-            } else {
-                print("WARNING: When else expression has complex expression")
+                return nil
             }
-            return nil
-        }
-        
+            .removingDuplicates()
+            .map{ (input: Input) -> Input in
+                var input = input
+                input.isSelectionBit = true
+                return input
+            }
         // Next attemp to extrac inputs in 2 steps
         
         // First: Simple inputs
@@ -294,7 +305,7 @@ extension SynthesisPerformer {
 
         // Append new logic descriptor
         logicDescriptors.append(LogicDescriptor(elementType: .connection, logicOperation: .mux, inputs: inputs + selectionBits + options, outputs: []))
-
+        
         return logicDescriptors
         
     }

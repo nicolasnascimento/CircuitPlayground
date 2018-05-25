@@ -8,7 +8,6 @@ entity ExampleEntity is
 		A: in std_logic;
 		B: in std_logic;
 		C: in std_logic;
-        D: in std_logic;
         E: out std_logic
 	);
 end ExampleEntity;
