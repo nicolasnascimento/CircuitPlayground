@@ -16,6 +16,9 @@ class LogicPort: RenderableEntity {
         get { return self.component(ofType: LogicPortNodeComponent.self)?.inputs ?? [] }
     }
     
+    override var height: Int { return 3 }
+    override var width: Int { return 3 }
+    
     var output: Signal {
         return self.component(ofType: LogicPortNodeComponent.self)!.output
     }

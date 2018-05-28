@@ -39,7 +39,7 @@ class GridComponent: GKComponent {
     }
     
     // MARK: - Public Properties
-    private var coordinates: [Coordinate]
+    private(set) var coordinates: [Coordinate]
     private var height: Int
     private var width: Int
     

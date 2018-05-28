@@ -15,8 +15,8 @@ class RenderableEntity: GKEntity {
         return self.component(ofType: NodeComponent.self)!
     }
     
-    let height: Int = 1
-    let width: Int = 1
+    var height: Int { return 1 }
+    var width: Int { return 1 }
     
     // MARK: - Initialization
     init(at coordinate: Coordinate) {

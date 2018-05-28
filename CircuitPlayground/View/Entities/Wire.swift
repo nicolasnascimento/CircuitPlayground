@@ -34,9 +34,7 @@ class Wire: RenderableEntity {
     }
     
     func connect(avoiding availabilityMatrix: AvailabilityMatrix) {
-        
         self.component(ofType: WireComponent.self)?.connect(avoiding: availabilityMatrix)
-        
     }
 }
 

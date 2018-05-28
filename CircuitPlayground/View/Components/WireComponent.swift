@@ -52,10 +52,10 @@ class WireComponent: GKComponent {
                 } else if row == destination.y && column == destination.x {
                     destinationNode = node
                 }
-//                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
-//                if( !(entityAtSpot is Wire) ) {
+                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
+                if( !(entityAtSpot is Wire) ) {
                     graph.add([node])
-//                }
+                }
             }
         }
         
@@ -114,11 +114,15 @@ class WireComponent: GKComponent {
                 let position = GridComponent.position(for: coordinate)
                 return CGPoint(x: position.x + xOffset, y: position.y)
             }
+
+            self.path = path.map{
+                return Coordinate(x: Int($0.position.x), y: Int($0.position.y))
+            }
         } else {
             print("Cannot create path from (\(sourceNode?.description ?? "")) to (\(destinationNode?.description ?? ""))")
         }
         
-        self.path = points.map{ Coordinate(x: Int($0.x), y: Int($0.y)) }
+        
         if( points.isEmpty ) {
             print("No Connection from \(source) to \(destination)")
         } else {
