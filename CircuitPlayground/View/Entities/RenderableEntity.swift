@@ -15,6 +15,9 @@ class RenderableEntity: GKEntity {
         return self.component(ofType: NodeComponent.self)!
     }
     
+    let height: Int = 1
+    let width: Int = 1
+    
     // MARK: - Initialization
     init(at coordinate: Coordinate) {
         super.init()
@@ -22,10 +25,10 @@ class RenderableEntity: GKEntity {
         let component = NodeComponent(node: SKNode())
         self.addComponent(component)
         
-        let coordinateComponent = GridComponent(with: coordinate)
+        let coordinateComponent = GridComponent(withBottomLeft: coordinate, height: self.height, width: self.width)
         self.addComponent(coordinateComponent)
         
-        component.node.position = coordinateComponent.cgPoint
+        component.node.position = coordinateComponent.firstCGPoint ?? .zero
     }
     
     required init?(coder aDecoder: NSCoder) {

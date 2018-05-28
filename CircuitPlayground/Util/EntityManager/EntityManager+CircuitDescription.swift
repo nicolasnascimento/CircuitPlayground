@@ -84,7 +84,7 @@ extension EntityManager {
                     let row = $0 is LogicPort ? column : row
                     
                     if spots.at(row: row*multiplier, column: column*multiplier) == nil {
-                        coordinateComponent.coordinate = Coordinate(x: column*multiplier, y: row*multiplier)
+                        coordinateComponent.set(bottomLeft: Coordinate(x: column*multiplier, y: row*multiplier))
                         spots.set(value: $0 as? RenderableEntity,row: row*multiplier, column: column*multiplier)
                         
                         shouldBreak = true
@@ -97,7 +97,7 @@ extension EntityManager {
             }
             
             // Set Correct Position
-            nodeComponent.position = coordinateComponent.cgPoint
+            nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
         }
         return spots
     }
@@ -165,9 +165,9 @@ extension EntityManager {
                 // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {
                     // Gather 3 connection coordinates
-                    let inputCoordinate = inputEntity.component(ofType: GridComponent.self)!.coordinate
-                    let outputCoordinate = outputEntity.component(ofType: GridComponent.self)!.coordinate
-                    let portCoordinate = portConnection.component(ofType: GridComponent.self)!.coordinate
+                    let inputCoordinate = inputEntity.component(ofType: GridComponent.self)?.firstCoordinate ?? .zero
+                    let outputCoordinate = outputEntity.component(ofType: GridComponent.self)?.firstCoordinate ?? .zero
+                    let portCoordinate = portConnection.component(ofType: GridComponent.self)?.firstCoordinate ?? .zero
                     
 //                    print(inputCoordinate, portCoordinate, outputCoordinate)
 

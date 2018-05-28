@@ -290,17 +290,21 @@ extension SynthesisPerformer {
         
         // Second: Compound inputs
         var logicDescriptors: [LogicDescriptor] = []
-        let options: [Input] = partialWhenElseExpressions.map{ (partialExpression: VHDLPartialWhenElse) -> Input in
+        let options: [Input] = partialWhenElseExpressions.compactMap{ (partialExpression: VHDLPartialWhenElse) -> Input? in
             let descriptors = self.extractLogicDescriptors(from: partialExpression.leftExpression.list)
             
-            // Link to logic descriptor output
-            let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
+            if descriptors.count != 0{
             
-            // Add logic descriptor
-            logicDescriptors.append(contentsOf: linkedDescriptors)
-            
-            // Append to inputs of logic descriptor
-            return Input(globalSignal: temporarySignal)
+                // Link to logic descriptor output
+                let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
+                
+                // Add logic descriptor
+                logicDescriptors.append(contentsOf: linkedDescriptors)
+                
+                // Append to inputs of logic descriptor
+                return Input(globalSignal: temporarySignal)
+            }
+            return nil
         }
 
         // Append new logic descriptor
