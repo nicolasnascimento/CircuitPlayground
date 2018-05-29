@@ -63,7 +63,7 @@ extension Environment {
 
 extension Environment {
     enum Dimensions {
-        static let size: CGSize = CGSize(side: 1024)
+        static let size: CGSize = CGSize(width: 853.3, height: 480)
     }
 }
 

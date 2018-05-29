@@ -12,7 +12,7 @@ class CircuitScene: SKScene {
     
     // MARK: - Public Properties
     let aspectRatio = 16.0/9.0
-    let defaultBackgroundColor: SKColor = .black
+    let defaultBackgroundColor: SKColor = .darkGray
     
     // MARK: - Private
     var previousScale: CGFloat = 1.0
@@ -60,9 +60,7 @@ extension CircuitScene {
     /// The node where all drawing is performed
     private var canvasNodeName: String { return "CanvasNode" }
     var canvasNode: CanvasNode? {
-        get {
-            return self.childNode(withName: canvasNodeName) as? CanvasNode
-        }
+        get { return self.childNode(withName: canvasNodeName) as? CanvasNode }
         set {
             if let newCanvasNode = newValue {
                 if( self.canvasNode != newCanvasNode ) {
@@ -79,8 +77,9 @@ extension CircuitScene {
     private func setCanvasNode() {
         
         // Calculate size respecting aspect ratio
-        let width = self.size.width
-        let canvasSize = CGSize(width: width, height: width*(1.0/self.aspectRatio))
+        let width = 853.3
+        let height = 480.0//self.size.height/*width*(1.0/self.aspectRatio)*/
+        let canvasSize = CGSize(width: width, height: height)
         
         // Create node and set properties
         let node = CanvasNode(in: canvasSize)

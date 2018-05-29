@@ -21,7 +21,7 @@ class GridComponent: GKComponent {
     static let gridDimensions: CGSize = Environment.Dimensions.size
     
     // MARK: - Static
-    static let maxDimension = CGPoint(x: 8, y: 18)
+    static let maxDimension = CGPoint(x: 10, y: 22)
     static var maximumIndividualSize: CGSize {
         let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
@@ -57,7 +57,6 @@ class GridComponent: GKComponent {
     }
     
     convenience init(withBottomLeft coordinate: Coordinate, height: Int, width: Int) {
-        
         self.init(with: GridComponent.generateCoordinates(withBottomLeft: coordinate, height: height, width: width))
     }
     
@@ -65,7 +64,6 @@ class GridComponent: GKComponent {
         self.coordinates = coordinates
         self.height = 1
         self.width = 1
-        
         super.init()
         
         self.updateWidthAndHeight(for: coordinates)
@@ -85,8 +83,12 @@ extension GridComponent {
     private static func generateCoordinates(withBottomLeft coordinate: Coordinate, height: Int, width: Int) -> [Coordinate] {
         var coordinates = [coordinate]
         let additionalHeightCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x, y: coordinate.y + $0) }
-        let additionalWidthCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
+        let additionalWidthCoordinates = Array(1..<width).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
         coordinates.append(contentsOf: additionalHeightCoordinates + additionalWidthCoordinates)
+        
+        if coordinates.count > 1 {
+            print("Generated Aditional Coordinates \(coordinates)")
+        }
         
         return coordinates
     }
@@ -97,7 +99,6 @@ extension GridComponent {
             var iterator = controlCoordinate
             var maxWidth = 1
             var maxHeight = 1
-            
             while let _ = coordinates.index(of: Coordinate(x: iterator.x + maxWidth, y: iterator.y)) { maxWidth += 1 }
             
             iterator = controlCoordinate

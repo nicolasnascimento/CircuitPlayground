@@ -24,7 +24,7 @@ class WireComponent: GKComponent {
         self.destination = destination
         self.parentNode = SKNode()
         self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
-        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
+//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
         self.parentNode.zPosition -= 2.0
         super.init()
     }
@@ -112,7 +112,7 @@ class WireComponent: GKComponent {
                 let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
                 let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
                 let position = GridComponent.position(for: coordinate)
-                return CGPoint(x: position.x + xOffset, y: position.y)
+                return CGPoint(x: position.x /*+ xOffset*/, y: position.y)
             }
 
             self.path = path.map{

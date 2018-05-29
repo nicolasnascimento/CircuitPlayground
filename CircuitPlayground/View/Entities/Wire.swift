@@ -13,15 +13,19 @@ class Wire: RenderableEntity {
     // MARK: - Public
     let source: Coordinate
     let destination: Coordinate
+    let sourceEntity: RenderableEntity
+    let destinationEntity: RenderableEntity
     
     var usedCoordinates: [Coordinate] {
         return self.component(ofType: WireComponent.self)?.path ?? []
     }
     
     // MARK: - Initialization
-    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate) {
+    init(sourceCoordinate: Coordinate, destinationCoordinate: Coordinate, sourceEntity: RenderableEntity, destinationEntity: RenderableEntity) {
         self.source = sourceCoordinate
         self.destination = destinationCoordinate
+        self.sourceEntity = sourceEntity
+        self.destinationEntity = destinationEntity
         super.init(at: .zero)
         
         // Wire

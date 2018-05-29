@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "sample"
+        let fileName = "nand"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
@@ -86,7 +86,7 @@ extension InitialViewController: SKViewDelegate {
         // Perform Initial Setup Scene
         self.setupScene()
     }
-    fileprivate func setupScene() {
+    private func setupScene() {
         // Instatiante the Scene using the bounds from the view
         let size = Environment.Dimensions.size
         let scene = CircuitScene(size: size)

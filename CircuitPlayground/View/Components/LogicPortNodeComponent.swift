@@ -19,7 +19,7 @@ class LogicPortNodeComponent: GKComponent {
     init(operation: LogicDescriptor.LogicOperation, inputs: [Signal] = [], output: Signal) {
         self.inputs = inputs
         self.output = output
-        self.logicPortNode = LogicPortNode(operation: operation)
+        self.logicPortNode = LogicPortNode(operation: operation, units: 2)
         super.init()
     }
     
