@@ -28,7 +28,7 @@ class InitialViewController: NSViewController {
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
-        print(circuitDescription)
+//        print(circuitDescription)
         // Populate entities from circuit description
         self.entityManager.populate(with: circuitDescription)
     }

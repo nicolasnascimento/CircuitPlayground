@@ -53,7 +53,7 @@ final class WireNode: SKShapeNode {
         }
         
         // Set drawing parameters
-        self.lineWidth = 2.0
+        self.lineWidth = 1.5
         self.strokeColor = .random
         
         // Draw

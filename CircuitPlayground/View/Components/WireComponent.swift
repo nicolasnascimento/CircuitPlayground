@@ -22,8 +22,8 @@ class WireComponent: GKComponent {
         self.source = source
         self.destination = destination
         self.parentNode = SKNode()
-        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
-//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
+//        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
+//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*1.0
         self.parentNode.zPosition -= 2.0
         super.init()
     }
@@ -40,6 +40,8 @@ class WireComponent: GKComponent {
         var sourceNode: GKGraphNode2D?
         var destinationNode: GKGraphNode2D?
         
+        var logicPortNodes: Set<GKGraphNode2D> = []
+        
         // Create nodes for the grid
         for row in 0..<availabilityMatrix.height {
             for column in 0..<availabilityMatrix.width {
@@ -52,12 +54,15 @@ class WireComponent: GKComponent {
                     destinationNode = node
                 }
                 let entityAtSpot = availabilityMatrix.at(row: row, column: column)
-                if( !(entityAtSpot is Wire) ) {
+                if !(entityAtSpot is Wire) {
                     graph.add([node])
+                }
+                
+                if entityAtSpot != nil {
+                    logicPortNodes.insert(node)
                 }
             }
         }
-        
         
         guard let nodes2D = graph.nodes as? [GKGraphNode2D] else { fatalError("Only GKGraphNode2D should be used in this graph") }
         // Create edges
@@ -70,25 +75,14 @@ class WireComponent: GKComponent {
                 nodes2D.closestNode(to: .south, from: node2D),
                 nodes2D.closestNode(to: .west, from: node2D),
                 nodes2D.closestNode(to: .east, from: node2D),
-                nodes2D.closestNode(to: .northeast, from: node2D),
-                nodes2D.closestNode(to: .northwest, from: node2D),
-                nodes2D.closestNode(to: .southeast, from: node2D),
-                nodes2D.closestNode(to: .southwest, from: node2D),
+//                nodes2D.closestNode(to: .northeast, from: node2D),
+//                nodes2D.closestNode(to: .northwest, from: node2D),
+//                nodes2D.closestNode(to: .southeast, from: node2D),
+//                nodes2D.closestNode(to: .southwest, from: node2D),
                 ]
             
             let pointsToConnectArray = pointsToConnectArrayNullable.compactMap{ $0?.position }
             let pointsToConnect = Set<vector_float2>(pointsToConnectArray)
-//            [
-            
-//                vector_float2(node2D.position.x - 1, node2D.position.y - 1),
-//                vector_float2(node2D.position.x + 0, node2D.position.y - 1),
-//                vector_float2(node2D.position.x + 1, node2D.position.y - 1),
-//                vector_float2(node2D.position.x - 1, node2D.position.y),
-//                vector_float2(node2D.position.x + 1, node2D.position.y),
-//                vector_float2(node2D.position.x - 1, node2D.position.y + 1),
-//                vector_float2(node2D.position.x + 0, node2D.position.y + 1),
-//                vector_float2(node2D.position.x + 1, node2D.position.y + 1),
-//            ]
             
             // [Point] -> [Node]
             var nodesToConnect: [GKGraphNode2D] = []
@@ -100,7 +94,11 @@ class WireComponent: GKComponent {
             }
             
             // Create Edges
-            let nonConnectedNodes = nodesToConnect.filter{ !node2D.connectedNodes.contains($0) }
+            let nonConnectedNodes = nodesToConnect.filter{
+                let connectionNotFormedYet = !node2D.connectedNodes.contains($0)
+                let isAllowedToConnect = !logicPortNodes.contains(node2D) || (logicPortNodes.contains(node2D) && !logicPortNodes.contains($0))
+                return connectionNotFormedYet && isAllowedToConnect
+            }
             node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
         }
         var points: [CGPoint] = []
@@ -160,19 +158,20 @@ enum Orientation {
 extension Collection where Element == GKGraphNode2D {
     
     func closestNode(to orientation: Orientation, from node: GKGraphNode2D) -> GKGraphNode2D? {
+        let maximumDistance: Float = 1.0
         switch orientation {
-        case .north: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: 1)
-        case .south: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: -1)
-        case .east: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: 0)
-        case .west: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: 0)
-        case .northeast: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: 1)
-        case .northwest: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: 1)
-        case .southeast: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: -1)
-        case .southwest: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: -1)
+        case .north: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: 1, maximumDistance: maximumDistance)
+        case .south: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: -1, maximumDistance: maximumDistance)
+        case .east: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: 0, maximumDistance: maximumDistance)
+        case .west: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: 0, maximumDistance: maximumDistance)
+        case .northeast: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: 1, maximumDistance: maximumDistance)
+        case .northwest: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: 1, maximumDistance: maximumDistance)
+        case .southeast: return self.searchNodeBasedInPosition(from: node, xIncrement: 1, yIncrement: -1, maximumDistance: maximumDistance)
+        case .southwest: return self.searchNodeBasedInPosition(from: node, xIncrement: -1, yIncrement: -1, maximumDistance: maximumDistance)
         }
     }
     
-    private func searchNodeBasedInPosition(from baseNode: GKGraphNode2D, xIncrement: Int, yIncrement: Int) -> GKGraphNode2D? {
+    private func searchNodeBasedInPosition(from baseNode: GKGraphNode2D, xIncrement: Int, yIncrement: Int, maximumDistance: Float) -> GKGraphNode2D? {
         
         // Filter array
         let controlPosition = baseNode.position
@@ -221,7 +220,11 @@ extension Collection where Element == GKGraphNode2D {
         }
         
         // Get node with the lowest distance to control point
-        return nodes.min { controlPosition.distance(to: $0.position) < controlPosition.distance(to: $1.position) }
+        if let result = nodes.min(by: { controlPosition.distance(to: $0.position) < controlPosition.distance(to: $1.position) }) {
+            return controlPosition.distance(to: result.position) <= maximumDistance ? result : nil
+        } else {
+            return nil
+        }
     }
 }
 

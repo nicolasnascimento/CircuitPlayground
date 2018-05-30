@@ -27,7 +27,7 @@ class GridComponent: GKComponent {
     static let gridDimensions: CGSize = Environment.Dimensions.size
     
     // MARK: - Static
-    static let maxDimension = CGPoint(x: 15, y: 15)
+    static let maxDimension = CGPoint(x: 18, y: 18)
     static var maximumIndividualSize: CGSize {
         let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
@@ -86,7 +86,7 @@ class GridComponent: GKComponent {
     func coordinates(for usage: UsageType) -> [Coordinate] {
         switch usage {
         case .input: return self.coordinates.sorted{ $0.x < $1.x }.sorted{ $0.y < $1.y }
-        case .output: return self.coordinates.sorted{ $0.x < $1.x }.sorted{ $0.y < $1.y }
+        case .output: return self.coordinates.sorted{ $0.x > $1.x }.sorted{ $0.y > $1.y }
         case .undefined: return self.coordinates
         }
     }
@@ -99,10 +99,6 @@ extension GridComponent {
         let additionalHeightCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x, y: coordinate.y + $0) }
         let additionalWidthCoordinates = Array(1..<width).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
         coordinates.append(contentsOf: additionalHeightCoordinates + additionalWidthCoordinates)
-        
-        if coordinates.count > 1 {
-            print("Generated Aditional Coordinates \(coordinates)")
-        }
         
         return coordinates
     }

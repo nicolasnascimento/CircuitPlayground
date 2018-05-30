@@ -17,17 +17,17 @@ final class LogicPortNode: SKSpriteNode {
     }
     
     // MARK: - Initialization
-    init(operation: LogicDescriptor.LogicOperation, units: Double) {
+    init(operation: LogicDescriptor.LogicOperation, height: Int, width: Int) {
         let texture = SKTexture(imageNamed: Environment.Images.image(for: operation))
         super.init(texture: texture, color: .clear, size: texture.size())
         
         switch operation {
-        case .none: self.resize(toFitHeight: GridComponent.maximumIndividualSize.height*0.5*CGFloat(units))
-        default: self.resize(toFitHeight: GridComponent.maximumIndividualSize.height*CGFloat(units))
+        case .none: self.resize(toFitHeight: GridComponent.maximumIndividualSize.height*0.5*CGFloat(min(height, width)))
+        default: self.resize(toFitSize: CGSize(width: GridComponent.maximumIndividualSize.width*CGFloat(width), height: GridComponent.maximumIndividualSize.height*CGFloat(height)))
             
         }
-        self.anchorPoint = CGPoint(x: 0, y: 0.1)
-        
+        self.anchorPoint = CGPoint(x: 0, y: 0.0)
+        self.alpha = 0.5
         let text = operation == .none ? "Connection" : operation.rawValue.uppercased()
         self.addLabel(for: text)
     }

@@ -36,7 +36,6 @@ class RenderableEntity: GKEntity {
     }
     
     // MARK: - Public
-    
     override func addComponent(_ component: GKComponent) {
         super.addComponent(component)
         
@@ -47,12 +46,10 @@ class RenderableEntity: GKEntity {
     }
     
     override func __removeComponent(for componentClass: Swift.AnyClass) {
-        
         // Remove node from parent
         if let node = (self.component(ofType: componentClass as! GKComponent.Type) as? RenderableComponent)?.node {
             node.removeFromParent()
         }
-        
         super.__removeComponent(for: componentClass)
     }
 }

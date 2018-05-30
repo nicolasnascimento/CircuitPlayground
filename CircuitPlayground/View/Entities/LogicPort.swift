@@ -16,23 +16,29 @@ class LogicPort: RenderableEntity {
         get { return self.component(ofType: LogicPortNodeComponent.self)?.inputs ?? [] }
     }
     
-    override var height: Int { return 4 }
-    override var width: Int { return 2 }
+    override var height: Int {
+        switch self.operation {
+        case .mux: return 4
+        default: return 3
+        }
+    }
+    override var width: Int {
+        switch self.operation {
+        default: return 2
+        }
+    }
     
     var output: Signal {
         return self.component(ofType: LogicPortNodeComponent.self)!.output
     }
     
+    private let operation: LogicDescriptor.LogicOperation
+    
     init(with operation: LogicDescriptor.LogicOperation, coordinate: Coordinate, inputs: [Signal] = [], output: Signal) {
+        self.operation = operation
         super.init(at: coordinate)
         
-        let units: Double
-        switch operation {
-        case .mux: units = 4
-        default: units = 2.8
-        }
-        
-        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation, inputs: inputs, output: output, units: units)
+        let logicPortNodeComponent = LogicPortNodeComponent(operation: operation, inputs: inputs, output: output, height: self.height, width: self.width)
         self.addComponent(logicPortNodeComponent)
         
     }

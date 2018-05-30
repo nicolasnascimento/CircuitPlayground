@@ -13,6 +13,9 @@ class InternalPin: RenderableEntity, Pin {
     // MARK: - Public
     let signal: Signal
     
+    override var height: Int { return 2 }
+    override var width: Int { return 2 }
+    
     required init(signal: Signal) {
         self.signal = signal
         super.init(at: .zero)

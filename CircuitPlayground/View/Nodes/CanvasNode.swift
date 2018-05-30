@@ -20,7 +20,7 @@ final class CanvasNode: SKSpriteNode {
         super.init(texture: nil, color: color, size: size)
         
         if Environment.debugMode {
-//            self.createGrid()
+            self.createGrid()
         }
         
     }
