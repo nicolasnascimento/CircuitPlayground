@@ -23,7 +23,7 @@ class WireComponent: GKComponent {
         self.destination = destination
         self.parentNode = SKNode()
 //        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
-//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*1.0
+//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
         self.parentNode.zPosition -= 2.0
         super.init()
     }
@@ -99,7 +99,7 @@ class WireComponent: GKComponent {
                 let isAllowedToConnect = !logicPortNodes.contains(node2D) || (logicPortNodes.contains(node2D) && !logicPortNodes.contains($0))
                 return connectionNotFormedYet && isAllowedToConnect
             }
-            node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
+            node2D.addConnections(to: nonConnectedNodes, bidirectional: true)
         }
         var points: [CGPoint] = []
         if let source = sourceNode, let destination = destinationNode {

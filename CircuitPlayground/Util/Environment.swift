@@ -45,7 +45,7 @@ extension Environment {
             case .nor: return Environment.Images.norPortImageName
             case .xor: return Environment.Images.xorPortImageName
             case .xnor: return Environment.Images.xnorPortImageName
-            case .mux: return Environment.Images.muxImageName
+            case .mux: return Environment.Images.muxImageName   
             }
         }
     }

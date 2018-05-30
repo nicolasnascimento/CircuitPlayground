@@ -27,7 +27,7 @@ class GridComponent: GKComponent {
     static let gridDimensions: CGSize = Environment.Dimensions.size
     
     // MARK: - Static
-    static let maxDimension = CGPoint(x: 18, y: 18)
+    static let maxDimension = CGPoint(x: 22, y: 22)
     static var maximumIndividualSize: CGSize {
         let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
@@ -36,10 +36,6 @@ class GridComponent: GKComponent {
     }
     
     class func position(for coordinate: Coordinate) -> CGPoint {
-//
-//        let size = GridComponent.gridDimensions
-//        let minimumHeight = size.height/GridComponent.maxDimension.y
-//        let minimumWidth = size.width/GridComponent.maxDimension.x
         return CGPoint(x: GridComponent.maximumIndividualSize.width*CGFloat(coordinate.x), y: GridComponent.maximumIndividualSize.height*CGFloat(coordinate.y))
     }
     
@@ -85,8 +81,14 @@ class GridComponent: GKComponent {
     
     func coordinates(for usage: UsageType) -> [Coordinate] {
         switch usage {
-        case .input: return self.coordinates.sorted{ $0.x < $1.x }.sorted{ $0.y < $1.y }
-        case .output: return self.coordinates.sorted{ $0.x > $1.x }.sorted{ $0.y > $1.y }
+        case .input: return self.coordinates.sorted{
+            if $0.x == $1.x { return $0.y < $1.y }
+            return $0.x < $1.x
+        }
+        case .output: return self.coordinates.sorted{
+            if $1.x == $0.x { return $1.y < $0.y }
+            return $1.x < $0.x
+        }
         case .undefined: return self.coordinates
         }
     }
@@ -96,9 +98,19 @@ class GridComponent: GKComponent {
 extension GridComponent {
     private static func generateCoordinates(withBottomLeft coordinate: Coordinate, height: Int, width: Int) -> [Coordinate] {
         var coordinates = [coordinate]
-        let additionalHeightCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x, y: coordinate.y + $0) }
-        let additionalWidthCoordinates = Array(1..<width).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
-        coordinates.append(contentsOf: additionalHeightCoordinates + additionalWidthCoordinates)
+        for i in 0..<height {
+            for j in 0..<width {
+                if i == j && i == 0 {
+                    continue
+                } else {
+                    coordinates.append(Coordinate(x: coordinate.x + j, y: coordinate.y + i))
+                }
+            }
+        }
+        
+//        let additionalHeightCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x, y: coordinate.y + $0) }
+//        let additionalWidthCoordinates = Array(1..<width).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
+//        coordinates.append(contentsOf: additionalHeightCoordinates + additionalWidthCoordinates)
         
         return coordinates
     }

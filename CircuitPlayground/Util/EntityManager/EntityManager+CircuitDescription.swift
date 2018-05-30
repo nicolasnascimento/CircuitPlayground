@@ -72,14 +72,14 @@ extension EntityManager {
             // Iteration Bounds
             let initialRow = $0 is ExitPin ? spots.height/4 : 1
             let finalRow = spots.height - 1
-            let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 2 : 1
+            let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 3 : 1
             let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
             
             // Get Spot for item
             var shouldBreak = false
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
-                    let multiplier = $0 is ExitPin ? 1 : 4
+                    let multiplier = $0 is ExitPin ? 1 : 3
                     let column = column
                     let row = $0 is LogicPort ? column : row
                     
