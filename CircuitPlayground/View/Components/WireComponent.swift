@@ -11,10 +11,9 @@ import GameplayKit
 class WireComponent: GKComponent {
     
     var parentNode: SKNode
-    
     var wireNode: WireNode!
-    
     var path: [Coordinate] = []
+    
     
     var source: Coordinate
     var destination: Coordinate
@@ -109,7 +108,7 @@ class WireComponent: GKComponent {
             guard let path = graph.findPath(from: source, to: destination) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
             
             points = path.map {
-                let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
+//                let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
                 let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
                 let position = GridComponent.position(for: coordinate)
                 return CGPoint(x: position.x /*+ xOffset*/, y: position.y)

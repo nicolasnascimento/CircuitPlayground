@@ -16,10 +16,10 @@ class LogicPortNodeComponent: GKComponent {
     var output: Signal
     
     // MARK: - Initialization
-    init(operation: LogicDescriptor.LogicOperation, inputs: [Signal] = [], output: Signal) {
+    init(operation: LogicDescriptor.LogicOperation, inputs: [Signal] = [], output: Signal, units: Double) {
         self.inputs = inputs
         self.output = output
-        self.logicPortNode = LogicPortNode(operation: operation, units: 2)
+        self.logicPortNode = LogicPortNode(operation: operation, units: units)
         super.init()
     }
     

@@ -18,10 +18,16 @@ struct Coordinate: Codable, Equatable {
 
 class GridComponent: GKComponent {
     
+    enum UsageType {
+        case input
+        case output
+        case undefined
+    }
+    
     static let gridDimensions: CGSize = Environment.Dimensions.size
     
     // MARK: - Static
-    static let maxDimension = CGPoint(x: 10, y: 22)
+    static let maxDimension = CGPoint(x: 15, y: 15)
     static var maximumIndividualSize: CGSize {
         let size = GridComponent.gridDimensions
         let minimumHeight = size.height/GridComponent.maxDimension.y
@@ -30,16 +36,16 @@ class GridComponent: GKComponent {
     }
     
     class func position(for coordinate: Coordinate) -> CGPoint {
-        
-        let size = GridComponent.gridDimensions
-        let minimumHeight = size.height/GridComponent.maxDimension.y
-        let minimumWidth = size.width/GridComponent.maxDimension.x
-        
-        return CGPoint(x: minimumWidth*CGFloat(coordinate.x), y: minimumHeight*CGFloat(coordinate.y))
+//
+//        let size = GridComponent.gridDimensions
+//        let minimumHeight = size.height/GridComponent.maxDimension.y
+//        let minimumWidth = size.width/GridComponent.maxDimension.x
+        return CGPoint(x: GridComponent.maximumIndividualSize.width*CGFloat(coordinate.x), y: GridComponent.maximumIndividualSize.height*CGFloat(coordinate.y))
     }
     
     // MARK: - Public Properties
-    private(set) var coordinates: [Coordinate]
+    private var coordinates: [Coordinate]
+    
     private var height: Int
     private var width: Int
     
@@ -69,12 +75,20 @@ class GridComponent: GKComponent {
         self.updateWidthAndHeight(for: coordinates)
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func set(bottomLeft coordinate: Coordinate) {
         self.coordinates = GridComponent.generateCoordinates(withBottomLeft: coordinate, height: self.height, width: self.width)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func coordinates(for usage: UsageType) -> [Coordinate] {
+        switch usage {
+        case .input: return self.coordinates.sorted{ $0.x < $1.x }.sorted{ $0.y < $1.y }
+        case .output: return self.coordinates.sorted{ $0.x < $1.x }.sorted{ $0.y < $1.y }
+        case .undefined: return self.coordinates
+        }
     }
 }
 

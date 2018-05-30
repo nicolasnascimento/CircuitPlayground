@@ -43,7 +43,7 @@ final class WireNode: SKShapeNode {
                     let angle = atan2(point.y - self.source.y, point.x - self.source.x)
                     triangle?.zRotation = angle > 0 ? angle : CGFloat.pi*2 + angle
                     let movement = min(GridComponent.maximumIndividualSize.height, GridComponent.maximumIndividualSize.width)*0.8
-                    
+
                     triangle?.position = CGPoint(x: self.source.x + xNoise + movement*cos(angle) + yNoise, y: self.source.y + movement*sin(angle))
                     triangle?.setScale(0.2)
                 }

@@ -20,7 +20,7 @@ final class CanvasNode: SKSpriteNode {
         super.init(texture: nil, color: color, size: size)
         
         if Environment.debugMode {
-            self.createGrid()
+//            self.createGrid()
         }
         
     }
@@ -35,12 +35,14 @@ extension CanvasNode {
         
         for i in 0..<Int(GridComponent.maxDimension.x) {
             for j in 0..<Int(GridComponent.maxDimension.y) {
-                let shapeNode = SKShapeNode(rectOf: GridComponent.maximumIndividualSize)
+                let coordinate = Coordinate(x: i, y: j)
+                let shapeNode = SKShapeNode(circleOfRadius: 2)
                 self.addChild(shapeNode)
-                shapeNode.fillColor = .clear
-                shapeNode.strokeColor = .black
-                shapeNode.alpha = 0.1
-                shapeNode.position = CGPoint(x: CGFloat(i)*GridComponent.maximumIndividualSize.width - (self.size.width - GridComponent.maximumIndividualSize.width)*0.5, y: CGFloat(j)*GridComponent.maximumIndividualSize.height - (self.size.height - GridComponent.maximumIndividualSize.height)*0.5)
+                shapeNode.fillColor = .black
+                shapeNode.alpha = 0.2
+                shapeNode.position = GridComponent.position(for: coordinate)//CGPoint(x: CGFloat(i)*GridComponent.maximumIndividualSize.width - (self.size.width - GridComponent.maximumIndividualSize.width)*0.5, y: CGFloat(j)*GridComponent.maximumIndividualSize.height - (self.size.height - GridComponent.maximumIndividualSize.height)*0.5)
+                shapeNode.position.y -= self.size.height*0.5
+                shapeNode.position.x -= self.size.width*0.5
             }
         }
         

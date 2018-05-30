@@ -77,8 +77,8 @@ extension CircuitScene {
     private func setCanvasNode() {
         
         // Calculate size respecting aspect ratio
-        let width = 853.3
-        let height = 480.0//self.size.height/*width*(1.0/self.aspectRatio)*/
+        let width = Environment.Dimensions.size.width
+        let height = Environment.Dimensions.size.height//self.size.height/*width*(1.0/self.aspectRatio)*/
         let canvasSize = CGSize(width: width, height: height)
         
         // Create node and set properties

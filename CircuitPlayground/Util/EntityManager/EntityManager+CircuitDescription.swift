@@ -79,13 +79,13 @@ extension EntityManager {
             var shouldBreak = false
             for column in initialColumn...finalColumn {
                 for row in initialRow...finalRow {
-                    let multiplier = $0 is ExitPin ? 1 : 2
+                    let multiplier = $0 is ExitPin ? 1 : 3
                     let column = column
                     let row = $0 is LogicPort ? column : row
                     
                     if spots.at(row: row*multiplier, column: column*multiplier) == nil {
                         coordinateComponent.set(bottomLeft: Coordinate(x: column*multiplier, y: row*multiplier))
-                        for coordinate in coordinateComponent.coordinates {
+                        for coordinate in coordinateComponent.coordinates(for: .undefined) {
                             spots.set(value: $0 as? RenderableEntity, row: coordinate.y, column: coordinate.x)
                         }
                         
@@ -165,8 +165,8 @@ extension EntityManager {
                 // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {
                     // Gather 3 connection coordinates
-                    let inputCoordinate = self.nextAvailableCoordinate(for: inputEntity, currentWires: wires) /*inputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
-                    var portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires) /*portConnection.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    let inputCoordinate = self.nextAvailableCoordinate(for: inputEntity, currentWires: wires, usage: .output) /*inputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    var portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires, usage: .input) /*portConnection.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
                     
 //                    if( !(inputEntity is InternalPin) ) {
                     if !self.wireExists(from: inputEntity, to: portConnection, currentWires: wires) {
@@ -186,8 +186,8 @@ extension EntityManager {
 //                    }
                     
                     
-                    portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires) ?? .zero
-                    let outputCoordinate = self.nextAvailableCoordinate(for: outputEntity, currentWires: wires) /* outputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires, usage: .output) ?? .zero
+                    let outputCoordinate = self.nextAvailableCoordinate(for: outputEntity, currentWires: wires, usage: .input) /* outputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
                     
                     // Port -> Output Pin
                     if( !outputConnected && !self.wireExists(from: portConnection, to: outputEntity, currentWires: wires) ) {
@@ -198,7 +198,7 @@ extension EntityManager {
                         print("output coordinates: ", outputWire.usedCoordinates)
                         
                         // Update availability Matrix
-                        let outputUsedCoordinates: [Coordinate] = outputEntity is EntryPin ? Array<Coordinate>(outputWire.usedCoordinates.dropFirst()) : outputEntity is ExitPin ? Array<Coordinate>(outputWire.usedCoordinates.dropLast()) : outputWire.usedCoordinates
+                        let outputUsedCoordinates: [Coordinate] = outputEntity is EntryPin ? Array<Coordinate>(outputWire.usedCoordinates.dropFirst()) : outputEntity is ExitPin ? Array<Coordinate>(outputWire.usedCoordinates.dropLast().dropFirst()) : outputWire.usedCoordinates
                         outputUsedCoordinates.forEach{
                             availabilityMatrix.set(value: outputWire, row: $0.y, column: $0.x)
                         }
@@ -212,11 +212,12 @@ extension EntityManager {
         return wires
     }
     
-    private func nextAvailableCoordinate(for entity: RenderableEntity, currentWires: [Wire]) -> Coordinate? {
+    private func nextAvailableCoordinate(for entity: RenderableEntity, currentWires: [Wire], usage: GridComponent.UsageType) -> Coordinate? {
         
+        let coordinates = entity.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
         if entity is LogicPort {
-            for coordinate in entity.component(ofType: GridComponent.self)?.coordinates ?? [] {
-                let entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates.index(of: coordinate) != nil })
+            for coordinate in coordinates {
+                let entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates(for: usage).index(of: coordinate) != nil })
                 
                 // If no entities at coordinate, simple return the coordinate
                 if entitiesInCoordinate.isEmpty {
@@ -224,7 +225,9 @@ extension EntityManager {
                 } else {
                     // Check available coordinate in entity and return one that is not being used
                     for entityInCoordinate in entitiesInCoordinate {
-                        for coordinate in entityInCoordinate.component(ofType: GridComponent.self)?.coordinates ?? [] {
+                        let coordinates = entityInCoordinate.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
+                        
+                        for coordinate in coordinates {
                             if currentWires.filter({ ($0.source == coordinate || $0.destination == coordinate) }).isEmpty {
                                 return coordinate
                             }
@@ -233,7 +236,7 @@ extension EntityManager {
                     
                 }
             }
-        } else if let coordinate = entity.component(ofType: GridComponent.self)?.firstCoordinate {
+        } else if let coordinate = coordinates.first {
             return coordinate
         }
         return nil
