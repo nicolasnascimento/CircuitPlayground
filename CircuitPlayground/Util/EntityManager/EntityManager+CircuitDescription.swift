@@ -54,8 +54,7 @@ extension EntityManager {
             // Remove temporary pins
             internalPins.filter({ $0.signal.associatedId.contains("__TEMP__") }).forEach(self.remove)
             
-        default:
-            fatalError("Multiple Module Populate function not implemented yet")
+        default: fatalError("Multiple Module Populate function not implemented yet")
         }
     }
     
@@ -63,44 +62,142 @@ extension EntityManager {
         
         // A matrix which will be used to control positions which are already taken
         var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
-        
-        self.entities.forEach {
-            
-            // Get minimum required components
-            guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
-            
-            // Iteration Bounds
-            let initialRow = $0 is ExitPin ? spots.height/4 : 1
-            let finalRow = spots.height - 1
-            let initialColumn = $0 is EntryPin ?  0 : $0 is ExitPin ? spots.width - 3 : 1
-            let finalColumn = $0 is EntryPin ? 0 : spots.width - 1
-            
-            // Get Spot for item
-            var shouldBreak = false
-            for column in initialColumn...finalColumn {
-                for row in initialRow...finalRow {
-                    let multiplier = $0 is ExitPin ? 1 : 3
-                    let column = column
-                    let row = $0 is LogicPort ? column : row
-                    
-                    if spots.at(row: row*multiplier, column: column*multiplier) == nil {
-                        coordinateComponent.set(bottomLeft: Coordinate(x: column*multiplier, y: row*multiplier))
-                        for coordinate in coordinateComponent.coordinates(for: .undefined) {
-                            spots.set(value: $0 as? RenderableEntity, row: coordinate.y, column: coordinate.x)
-                        }
-                        
-                        shouldBreak = true
-                        break
+
+        // Reference coordinates
+        let spacing = 1
+        let maxX = Int(GridComponent.maxDimension.x) - spacing
+        let maxY = Int(GridComponent.maxDimension.y) - spacing
+        let minX = spacing
+        let minY = spacing
+
+        // Place entries
+        let entriesToPlace = self.entities.filter{ $0 is EntryPin } as! [EntryPin]
+        var entryPreferedPorts: [RenderableEntity: [LogicPort]] = [:]
+        var deltaY = (maxY - minY)/entriesToPlace.count
+        entriesToPlace.enumerated().forEach { index, entry in
+
+            guard let nodeComponent = entry.component(ofType: NodeComponent.self), let coordinateComponent = entry.component(ofType: GridComponent.self) else  { return }
+
+            let coordinate = Coordinate(x: minX, y: minY + deltaY*index)
+            coordinateComponent.set(bottomLeft: coordinate)
+            for coordinate in coordinateComponent.coordinates(for: .undefined) {
+                spots.set(value: entry, row: coordinate.y, column: coordinate.x)
+            }
+
+            nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
+
+            // Map port to place close
+            entryPreferedPorts[entry] = self.entities.filter{
+                if let logicPort = $0 as? LogicPort {
+                    if logicPort.inputs.contains(where: { $0.associatedId == entry.signal.associatedId }) {
+                        return true
                     }
                 }
-                if( shouldBreak ) {
-                    break
+                return false
+            } as? [LogicPort]
+        }
+
+        // Place ports
+        let deltaX = (maxX - minX)/self.entities.count
+        while !entryPreferedPorts.isEmpty {
+
+            // Create a copy and remove all elements from the general buffer
+            // This way, as we positionate ports, we only need to perform iterations if
+            // There are ports in the portsToPlace array
+            let portsToPlaceCopy = entryPreferedPorts
+            entryPreferedPorts.removeAll()
+
+            for item in portsToPlaceCopy {
+
+                var preferedY = item.key.component(ofType: GridComponent.self)!.firstCoordinate!.y
+                let preferedX = minX + deltaX
+
+                // Posionate ports which are not already positionated
+                for port in item.value where port.component(ofType: GridComponent.self)?.firstCoordinate == .zero {
+                    guard let nodeComponent = port.component(ofType: NodeComponent.self), let coordinateComponent = port.component(ofType: GridComponent.self) else  { continue }
+
+                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += port.height }
+
+                    let preferedCoordinate = Coordinate(x: preferedX, y: preferedY)
+                    coordinateComponent.set(bottomLeft: preferedCoordinate)
+                    nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
+                    for coordinate in coordinateComponent.coordinates(for: .undefined) {
+                        spots.set(value: port, row: coordinate.y, column: coordinate.x)
+                    }
+
+
+                    // Populate Entry Prefered Port Array
+                    entryPreferedPorts[port] = self.entities.filter{
+                        if let logicPort = $0 as? LogicPort {
+                            if logicPort.inputs.contains(where: { $0.associatedId == port.output.associatedId }){
+                                return true
+                            }
+                        }else if let internalPin = $0 as? InternalPin {
+                            if internalPin.signal.associatedId == port.output.associatedId {
+                                return true
+                            }
+                        }
+                        return false
+                    } as? [LogicPort]
                 }
             }
-            
-            // Set Correct Position
-            nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
         }
+
+
+        let exitsToPlace = self.entities.filter({ $0 is ExitPin }) as! [ExitPin]
+        deltaY = (maxY - minY)/exitsToPlace.count
+        exitsToPlace.enumerated().forEach{ index, exit in
+
+            guard let nodeComponent = exit.component(ofType: NodeComponent.self), let coordinateComponent = exit.component(ofType: GridComponent.self) else  { return }
+
+            let coordinate = Coordinate(x: maxX, y: minY + deltaY*index)
+            coordinateComponent.set(bottomLeft: coordinate)
+            for coordinate in coordinateComponent.coordinates(for: .undefined) {
+                spots.set(value: exit, row: coordinate.y, column: coordinate.x)
+            }
+
+            nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
+
+        }
+        
+        
+//        self.entities.forEach {
+//
+//            // Get minimum required components
+//            guard let nodeComponent = $0.component(ofType: NodeComponent.self), let coordinateComponent = $0.component(ofType: GridComponent.self) else  { return }
+//
+//            // Iteration Bounds
+//            let initialRow = $0 is ExitPin ? spots.height/4 : 1
+//            let finalRow = spots.height - 1
+//            let initialColumn = $0 is EntryPin ? 1 : $0 is ExitPin ? spots.width - 3 : 3
+//            let finalColumn = $0 is EntryPin ? 1 : spots.width - 1
+//
+//            // Get Spot for item
+//            var shouldBreak = false
+//            for column in initialColumn...finalColumn {
+//                for row in initialRow...finalRow {
+//                    let multiplier = $0 is ExitPin ? 1 : 3
+//                    let column = column
+//                    let row = $0 is LogicPort ? column : row
+//
+//                    if spots.at(row: row*multiplier, column: column*multiplier) == nil {
+//                        coordinateComponent.set(bottomLeft: Coordinate(x: column*multiplier, y: row*multiplier))
+//                        for coordinate in coordinateComponent.coordinates(for: .undefined) {
+//                            spots.set(value: $0 as? RenderableEntity, row: coordinate.y, column: coordinate.x)
+//                        }
+//
+//                        shouldBreak = true
+//                        break
+//                    }
+//                }
+//                if( shouldBreak ) {
+//                    break
+//                }
+//            }
+//
+//            // Set Correct Position
+//            nodeComponent.position = coordinateComponent.firstCGPoint ?? .zero
+//        }
         return spots
     }
     

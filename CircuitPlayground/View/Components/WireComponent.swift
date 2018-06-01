@@ -57,8 +57,8 @@ class WireComponent: GKComponent {
                 if !(entityAtSpot is Wire) {
                     graph.add([node])
                 }
-                
-                if entityAtSpot != nil {
+            
+                if entityAtSpot is LogicPort {
                     logicPortNodes.insert(node)
                 }
             }
@@ -158,7 +158,7 @@ enum Orientation {
 extension Collection where Element == GKGraphNode2D {
     
     func closestNode(to orientation: Orientation, from node: GKGraphNode2D) -> GKGraphNode2D? {
-        let maximumDistance: Float = 1.0
+        let maximumDistance: Float = Float(2.0).squareRoot()//1.0
         switch orientation {
         case .north: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: 1, maximumDistance: maximumDistance)
         case .south: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: -1, maximumDistance: maximumDistance)

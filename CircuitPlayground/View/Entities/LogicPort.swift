@@ -19,7 +19,7 @@ class LogicPort: RenderableEntity {
     override var height: Int {
         switch self.operation {
         case .mux: return 4
-        default: return 4
+        default: return 2
         }
     }
     override var width: Int {

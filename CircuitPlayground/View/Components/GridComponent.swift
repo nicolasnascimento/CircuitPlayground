@@ -107,11 +107,6 @@ extension GridComponent {
                 }
             }
         }
-        
-//        let additionalHeightCoordinates = Array(1..<height).map{ Coordinate(x: coordinate.x, y: coordinate.y + $0) }
-//        let additionalWidthCoordinates = Array(1..<width).map{ Coordinate(x: coordinate.x + $0, y: coordinate.y) }
-//        coordinates.append(contentsOf: additionalHeightCoordinates + additionalWidthCoordinates)
-        
         return coordinates
     }
     

@@ -27,7 +27,6 @@ final class LogicPortNode: SKSpriteNode {
             
         }
         self.anchorPoint = CGPoint(x: 0, y: 0.0)
-        self.alpha = 0.5
         let text = operation == .none ? "Connection" : operation.rawValue.uppercased()
         self.addLabel(for: text)
     }

@@ -61,7 +61,7 @@ extension CircuitDescription {
                     let signal = SingleBitSignal(associatedId: $0.name, value: .negative)
                     outputs.append(signal)
                 case .standardLogicVector:
-                    let bits = [StandardLogicValue].init(repeating: .negative, count: $0.numberOfBits)
+                    let bits = [StandardLogicValue](repeating: .negative, count: $0.numberOfBits)
                     let signal = MultiBitSignal(associatedId: $0.name, numberOfBits: $0.numberOfBits, bits: bits)
                     outputs.append(signal)
                 }
@@ -77,7 +77,7 @@ extension CircuitDescription {
                 let signal = SingleBitSignal(associatedId: $0.name, value: .negative)
                 signals.append(signal)
             case .standardLogicVector:
-                let bits = [StandardLogicValue].init(repeating: .negative, count: $0.numberOfBits)
+                let bits = [StandardLogicValue](repeating: .negative, count: $0.numberOfBits)
                 let signal = MultiBitSignal(associatedId: $0.name, numberOfBits: $0.numberOfBits, bits: bits)
                 signals.append(signal)
             }
