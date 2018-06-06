@@ -26,7 +26,7 @@ begin
 
 	-- connect 'temp' to 'C
 	-- temp2 <= temp and A;
-    temp2 <= '1' and A;
+    temp2 <= A and '1';
 
     C <= temp2 and temp;
 

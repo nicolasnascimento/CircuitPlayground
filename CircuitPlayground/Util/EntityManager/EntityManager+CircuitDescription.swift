@@ -63,7 +63,7 @@ extension EntityManager {
         // A matrix which will be used to control positions which are already taken
         var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
 
-        // Reference coordinates
+//        // Reference coordinates
         let spacing = 1
         let maxX = Int(GridComponent.maxDimension.x) - spacing
         let maxY = Int(GridComponent.maxDimension.y) - spacing
@@ -72,7 +72,7 @@ extension EntityManager {
 
         // Place entries
         let entriesToPlace = self.entities.filter{ $0 is EntryPin } as! [EntryPin]
-        var entryPreferedPorts: [RenderableEntity: [LogicPort]] = [:]
+        var entryPreferedPorts: [RenderableEntity: [RenderableEntity]] = [:]
         var deltaY = (maxY - minY)/entriesToPlace.count
         entriesToPlace.enumerated().forEach { index, entry in
 
@@ -98,7 +98,8 @@ extension EntityManager {
         }
 
         // Place ports
-        let deltaX = (maxX - minX)/self.entities.count
+        let increment = (maxX - minX)/self.entities.count
+        var deltaX = 3*increment
         while !entryPreferedPorts.isEmpty {
 
             // Create a copy and remove all elements from the general buffer
@@ -111,12 +112,13 @@ extension EntityManager {
 
                 var preferedY = item.key.component(ofType: GridComponent.self)!.firstCoordinate!.y
                 let preferedX = minX + deltaX
+                deltaX += 3*increment
 
                 // Posionate ports which are not already positionated
                 for port in item.value where port.component(ofType: GridComponent.self)?.firstCoordinate == .zero {
                     guard let nodeComponent = port.component(ofType: NodeComponent.self), let coordinateComponent = port.component(ofType: GridComponent.self) else  { continue }
 
-                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += port.height }
+                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += 4 }
 
                     let preferedCoordinate = Coordinate(x: preferedX, y: preferedY)
                     coordinateComponent.set(bottomLeft: preferedCoordinate)
@@ -124,21 +126,22 @@ extension EntityManager {
                     for coordinate in coordinateComponent.coordinates(for: .undefined) {
                         spots.set(value: port, row: coordinate.y, column: coordinate.x)
                     }
-
+                    
+                    let portOutput = port.component(ofType: LogicPortNodeComponent.self)?.output ?? port.component(ofType: PinComponent.self)?.signal
 
                     // Populate Entry Prefered Port Array
                     entryPreferedPorts[port] = self.entities.filter{
-                        if let logicPort = $0 as? LogicPort {
-                            if logicPort.inputs.contains(where: { $0.associatedId == port.output.associatedId }){
+                        if let logicPort = $0 as? LogicPort, let portOutput = portOutput {
+                            if logicPort.inputs.contains(where: { $0.associatedId == portOutput.associatedId }){
                                 return true
                             }
-                        }else if let internalPin = $0 as? InternalPin {
-                            if internalPin.signal.associatedId == port.output.associatedId {
+                        } else if let internalPin = $0 as? InternalPin, let portOutput = portOutput  {
+                            if internalPin.signal.associatedId == portOutput.associatedId {
                                 return true
                             }
                         }
                         return false
-                    } as? [LogicPort]
+                    } as? [RenderableEntity]
                 }
             }
         }
