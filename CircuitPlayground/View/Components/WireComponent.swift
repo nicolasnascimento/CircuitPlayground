@@ -35,36 +35,47 @@ class WireComponent: GKComponent {
     func connect(avoiding availabilityMatrix: AvailabilityMatrix)  {
         
         // The graph which will be used for
-        let graph = GKGraph([])
+        let graph = GKGridGraph.init(fromGridStartingAt: .init(0, 0), width: Int32(availabilityMatrix.width), height: Int32(availabilityMatrix.height), diagonalsAllowed: false)//GKGraph([])
         
-        var sourceNode: GKGraphNode2D?
-        var destinationNode: GKGraphNode2D?
-        
-        var logicPortNodes: Set<GKGraphNode2D> = []
+        let sourceNode: GKGridGraphNode? = graph.nodes?.filter{ ($0 as! GKGridGraphNode).gridPosition.x == source.x && ($0 as! GKGridGraphNode).gridPosition.y == source.y }.first as? GKGridGraphNode
+        let destinationNode: GKGridGraphNode? = graph.nodes?.filter{ ($0 as! GKGridGraphNode).gridPosition.x == destination.x && ($0 as! GKGridGraphNode).gridPosition.y == destination.y }.first as? GKGridGraphNode
+        var logicPortNodes: Set<GKGridGraphNode> = []
         
         // Create nodes for the grid
-        for row in 0..<availabilityMatrix.height {
-            for column in 0..<availabilityMatrix.width {
-                let node = GKGraphNode2D()
-                node.position.x = Float(column)
-                node.position.y = Float(row)
-                if row == source.y && column == source.x {
-                    sourceNode = node
-                } else if row == destination.y && column == destination.x {
-                    destinationNode = node
-                }
-                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
-                if !(entityAtSpot is Wire) {
-                    graph.add([node])
-                }
+        
+        for node in graph.nodes as? [GKGridGraphNode] ?? [] {
+            let entityAtSpot = availabilityMatrix.at(row: Int(node.gridPosition.y), column: Int(node.gridPosition.x))
             
-                if entityAtSpot is LogicPort {
-                    logicPortNodes.insert(node)
-                }
+//            if !(entityAtSpot is Wire) {
+//                graph.remove([node])
+//            }
+            if let entityAtSpot = entityAtSpot as? LogicPort {
+                logicPortNodes.insert(node)
             }
         }
         
-        guard let nodes2D = graph.nodes as? [GKGraphNode2D] else { fatalError("Only GKGraphNode2D should be used in this graph") }
+//        for row in 0..<availabilityMatrix.height {
+//            for column in 0..<availabilityMatrix.width {
+//                let node = GKGraphNode2D()
+//                node.position.x = Float(column)
+//                node.position.y = Float(row)
+//                if row == source.y && column == source.x {
+//                    sourceNode = node
+//                } else if row == destination.y && column == destination.x {
+//                    destinationNode = node
+//                }
+//                let entityAtSpot = availabilityMatrix.at(row: row, column: column)
+////                if !(entityAtSpot is Wire) {
+//                    graph.add([node])
+////                }
+//
+//                if entityAtSpot is LogicPort {
+//                    logicPortNodes.insert(node)
+//                }
+//            }
+//        }
+        
+        guard let nodes2D = graph.nodes as? [GKGridGraphNode] else { fatalError("Only GKGraphNode2D should be used in this graph") }
         // Create edges
         for node2D in nodes2D {
             
@@ -81,14 +92,14 @@ class WireComponent: GKComponent {
 //                nodes2D.closestNode(to: .southwest, from: node2D),
                 ]
             
-            let pointsToConnectArray = pointsToConnectArrayNullable.compactMap{ $0?.position }
-            let pointsToConnect = Set<vector_float2>(pointsToConnectArray)
+            let pointsToConnectArray = pointsToConnectArrayNullable.compactMap{ $0?.gridPosition }
+            let pointsToConnect = Set<vector_int2>(pointsToConnectArray)
             
             // [Point] -> [Node]
-            var nodesToConnect: [GKGraphNode2D] = []
+            var nodesToConnect: [GKGridGraphNode] = []
             
-            for aNode in graph.nodes?.compactMap({ $0 as? GKGraphNode2D }) ?? [] {
-                if let _ = pointsToConnect.index(of: aNode.position) {
+            for aNode in graph.nodes?.compactMap({ $0 as? GKGridGraphNode }) ?? [] {
+                if let _ = pointsToConnect.index(of: aNode.gridPosition) {
                     nodesToConnect.append(aNode)
                 }
             }
@@ -103,17 +114,17 @@ class WireComponent: GKComponent {
         }
         var points: [CGPoint] = []
         if let source = sourceNode, let destination = destinationNode {
-            guard let path = graph.findPath(from: source, to: destination) as? [GKGraphNode2D] else { fatalError("GKGraphNode2D should be used here") }
+            guard let path = graph.findPath(from: source, to: destination) as? [GKGridGraphNode] else { fatalError("GKGraphNode2D should be used here") }
             
             points = path.map {
 //                let xOffset: CGFloat = $0 == path.last ? -GridComponent.maximumIndividualSize.width*0.3 : 0.0
-                let coordinate = Coordinate(x: Int($0.position.x), y: Int($0.position.y))
+                let coordinate = Coordinate(x: Int($0.gridPosition.x), y: Int($0.gridPosition.y))
                 let position = GridComponent.position(for: coordinate)
                 return CGPoint(x: position.x /*+ xOffset*/, y: position.y)
             }
 
             self.path = path.map{
-                return Coordinate(x: Int($0.position.x), y: Int($0.position.y))
+                return Coordinate(x: Int($0.gridPosition.x), y: Int($0.gridPosition.y))
             }
         } else {
             print("Cannot create path from (\(sourceNode?.description ?? "")) to (\(destinationNode?.description ?? ""))")
@@ -155,9 +166,9 @@ enum Orientation {
     case southwest
 }
 
-extension Collection where Element == GKGraphNode2D {
+extension Collection where Element == GKGridGraphNode {
     
-    func closestNode(to orientation: Orientation, from node: GKGraphNode2D) -> GKGraphNode2D? {
+    func closestNode(to orientation: Orientation, from node: GKGridGraphNode) -> GKGridGraphNode? {
         let maximumDistance: Float = Float(2.0).squareRoot()//1.0
         switch orientation {
         case .north: return self.searchNodeBasedInPosition(from: node, xIncrement: 0, yIncrement: 1, maximumDistance: maximumDistance)
@@ -171,17 +182,17 @@ extension Collection where Element == GKGraphNode2D {
         }
     }
     
-    private func searchNodeBasedInPosition(from baseNode: GKGraphNode2D, xIncrement: Int, yIncrement: Int, maximumDistance: Float) -> GKGraphNode2D? {
+    private func searchNodeBasedInPosition(from baseNode: GKGridGraphNode, xIncrement: Int, yIncrement: Int, maximumDistance: Float) -> GKGridGraphNode? {
         
         // Filter array
-        let controlPosition = baseNode.position
+        let controlPosition = baseNode.gridPosition
         let nodes = self.filter{
                 
             // Avoid returning self
             if( $0 != baseNode ) {
                
                 // Normalize position centering in the control position
-                let offsetVector = vector2($0.position.x - controlPosition.x ,$0.position.y - controlPosition.y)
+                let offsetVector = vector2($0.gridPosition.x - controlPosition.x ,$0.gridPosition.y - controlPosition.y)
                 
                 // To check it, we'll use a simple math trick
                 // First Check if there's an integer multipler that can get us from the control point to the $0.position
@@ -220,8 +231,8 @@ extension Collection where Element == GKGraphNode2D {
         }
         
         // Get node with the lowest distance to control point
-        if let result = nodes.min(by: { controlPosition.distance(to: $0.position) < controlPosition.distance(to: $1.position) }) {
-            return controlPosition.distance(to: result.position) <= maximumDistance ? result : nil
+        if let result = nodes.min(by: { controlPosition.distance(to: $0.gridPosition) < controlPosition.distance(to: $1.gridPosition) }) {
+            return controlPosition.distance(to: result.gridPosition) <= maximumDistance ? result : nil
         } else {
             return nil
         }
@@ -233,6 +244,12 @@ extension vector_float2 {
     func distance(to point: vector_float2) -> Float {
         let deltaX = self.x - point.x
         let deltaY = self.y - point.y
-        return sqrt(deltaX*deltaX + deltaY*deltaY)
+        return Float(sqrt(deltaX*deltaX + deltaY*deltaY))
+    }
+    
+    func distance(to point: vector_int2) -> Float {
+        let deltaX = self.doubleX - point.doubleX
+        let deltaY = self.doubleY - point.doubleY
+        return Float(sqrt(deltaX*deltaX + deltaY*deltaY))
     }
 }
