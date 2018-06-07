@@ -63,7 +63,7 @@ extension EntityManager {
         // A matrix which will be used to control positions which are already taken
         var spots = AvailabilityMatrix(width: Int(GridComponent.maxDimension.x), height: Int(GridComponent.maxDimension.y))
 
-//        // Reference coordinates
+        // Reference coordinates
         let spacing = 1
         let maxX = Int(GridComponent.maxDimension.x) - spacing
         let maxY = Int(GridComponent.maxDimension.y) - spacing
@@ -99,7 +99,7 @@ extension EntityManager {
 
         // Place ports
         let increment = (maxX - minX)/self.entities.count
-        var deltaX = 3*increment
+        var deltaX = 2*increment
         while !entryPreferedPorts.isEmpty {
 
             // Create a copy and remove all elements from the general buffer
@@ -112,13 +112,13 @@ extension EntityManager {
 
                 var preferedY = item.key.component(ofType: GridComponent.self)!.firstCoordinate!.y
                 let preferedX = minX + deltaX
-                deltaX += 3*increment
+                deltaX += increment
 
                 // Posionate ports which are not already positionated
                 for port in item.value where port.component(ofType: GridComponent.self)?.firstCoordinate == .zero {
                     guard let nodeComponent = port.component(ofType: NodeComponent.self), let coordinateComponent = port.component(ofType: GridComponent.self) else  { continue }
 
-                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += 4 }
+                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += 4*port.height }
 
                     let preferedCoordinate = Coordinate(x: preferedX, y: preferedY)
                     coordinateComponent.set(bottomLeft: preferedCoordinate)
@@ -126,7 +126,7 @@ extension EntityManager {
                     for coordinate in coordinateComponent.coordinates(for: .undefined) {
                         spots.set(value: port, row: coordinate.y, column: coordinate.x)
                     }
-                    
+
                     let portOutput = port.component(ofType: LogicPortNodeComponent.self)?.output ?? port.component(ofType: PinComponent.self)?.signal
 
                     // Populate Entry Prefered Port Array
@@ -249,7 +249,7 @@ extension EntityManager {
         var availabilityMatrix = availabilityMatrix
         
         // Uses entries as starting points first
-        for pin in pins {
+        for pin in pins.reversed() {
             
             // Check which ports are using the current entry as input
             let portConnections = ports.filter{ port in

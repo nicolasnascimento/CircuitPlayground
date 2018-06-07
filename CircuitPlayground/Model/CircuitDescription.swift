@@ -109,29 +109,37 @@ extension CircuitDescription {
                 
                 switch $0.logicOperation {
                 case .and:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: LogicFunctions.and)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .and, logicFunction: LogicFunctions.and)))
                 case .or:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: LogicFunctions.or)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .or, logicFunction: LogicFunctions.or)))
                 case .none:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: LogicFunctions.none)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .none, logicFunction: LogicFunctions.none)))
                 case .not:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: LogicFunctions.not)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .not, logicFunction: LogicFunctions.not)))
                 case .nand:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .nand, logicFunction: LogicFunctions.nand)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .nand, logicFunction: LogicFunctions.nand)))
                 case .nor:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .nor, logicFunction: LogicFunctions.nor)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .nor, logicFunction: LogicFunctions.nor)))
                 case .xor:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .xor, logicFunction: LogicFunctions.xor)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .xor, logicFunction: LogicFunctions.xor)))
                 case .xnor:
-                    let value = LogicFunctionDescriptor(logicDescriptor: .xnor, logicFunction: LogicFunctions.xnor)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .xnor, logicFunction: LogicFunctions.xnor)))
                 case .mux:
                     // Note:
                     // Because we're only drawing the operations and not performing them, pass `none` as

@@ -26,8 +26,8 @@ begin
 
 	-- connect 'temp' to 'C
 	-- temp2 <= temp and A;
-    temp2 <= A and '1';
+    temp2 <= A and B;
 
-    C <= temp2 and temp;
+    C <= temp2 xor temp;
 
 end architecture ; -- ExampleArchitecture

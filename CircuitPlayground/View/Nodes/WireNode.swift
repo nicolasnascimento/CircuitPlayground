@@ -16,8 +16,10 @@ final class WireNode: SKShapeNode {
     // The source and destination points to create the WireNode from
     var source: CGPoint
     var destination: CGPoint
+    var points: [CGPoint]
     
     init(points: [CGPoint]) {
+        self.points = points
         self.source = points.first ?? .zero
         self.destination = points.last ?? .zero
         
