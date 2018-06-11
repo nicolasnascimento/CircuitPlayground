@@ -22,8 +22,8 @@ class WireComponent: GKComponent {
         self.source = source
         self.destination = destination
         self.parentNode = SKNode()
-//        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
-//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
+        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
+        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
         self.parentNode.zPosition -= 2.0
         super.init()
     }
@@ -46,10 +46,10 @@ class WireComponent: GKComponent {
         for node in graph.nodes as? [GKGridGraphNode] ?? [] {
             let entityAtSpot = availabilityMatrix.at(row: Int(node.gridPosition.y), column: Int(node.gridPosition.x))
             
-//            if !(entityAtSpot is Wire) {
-//                graph.remove([node])
-//            }
-            if let entityAtSpot = entityAtSpot as? LogicPort {
+            if entityAtSpot is Wire {
+                graph.remove([node])
+            }
+            if entityAtSpot is LogicPort {
                 logicPortNodes.insert(node)
             }
         }
@@ -110,7 +110,7 @@ class WireComponent: GKComponent {
                 let isAllowedToConnect = !logicPortNodes.contains(node2D) || (logicPortNodes.contains(node2D) && !logicPortNodes.contains($0))
                 return connectionNotFormedYet && isAllowedToConnect
             }
-            node2D.addConnections(to: nonConnectedNodes, bidirectional: true)
+            node2D.addConnections(to: nonConnectedNodes, bidirectional: false)
         }
         var points: [CGPoint] = []
         if let source = sourceNode, let destination = destinationNode {

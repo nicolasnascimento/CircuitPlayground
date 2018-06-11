@@ -25,7 +25,6 @@ begin
 		else
 			B <= '1';
 		end if;
-
 	end process;
 
 end architecture ; -- ExampleArchitecture

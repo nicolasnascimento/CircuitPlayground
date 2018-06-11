@@ -103,12 +103,16 @@ extension SynthesisPerformer {
             case let value as VHDLWhenElse:
                 let logicDescriptos = self.extractLogicDescriptors(from: value)
                 descriptors.append(contentsOf: logicDescriptos)
+            case let value as VHDLProcess:
+                let logicDescriptors = self.extractLogicDescriptors(from: value)
+                descriptors.append(contentsOf: logicDescriptors)
             default:
                 print("Couldn't extract logic descriptor for \(type(of:$0))")
             }
         }
         return descriptors
     }
+    
     private func extractInputFrom(expression: Expression) -> [Input] {
         // Attemp extracting identifier
         if let identifier = expression as? VHDLIdentifier {

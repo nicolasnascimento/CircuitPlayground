@@ -118,7 +118,7 @@ extension EntityManager {
                 for port in item.value where port.component(ofType: GridComponent.self)?.firstCoordinate == .zero {
                     guard let nodeComponent = port.component(ofType: NodeComponent.self), let coordinateComponent = port.component(ofType: GridComponent.self) else  { continue }
 
-                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += 4*port.height }
+                    while let _ = spots.at(row: preferedY, column: preferedX) { preferedY += 2*port.height }
 
                     let preferedCoordinate = Coordinate(x: preferedX, y: preferedY)
                     coordinateComponent.set(bottomLeft: preferedCoordinate)
@@ -135,8 +135,8 @@ extension EntityManager {
                             if logicPort.inputs.contains(where: { $0.associatedId == portOutput.associatedId }){
                                 return true
                             }
-                        } else if let internalPin = $0 as? InternalPin, let portOutput = portOutput  {
-                            if internalPin.signal.associatedId == portOutput.associatedId {
+                        } else if let pin = $0 as? Pin, let portOutput = portOutput  {
+                            if pin.signal.associatedId == portOutput.associatedId {
                                 return true
                             }
                         }
@@ -274,8 +274,8 @@ extension EntityManager {
                 // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {
                     // Gather 3 connection coordinates
-                    let inputCoordinate = self.nextAvailableCoordinate(for: inputEntity, currentWires: wires, usage: .output) /*inputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
-                    var portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires, usage: .input) /*portConnection.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    let inputCoordinate = self.nextAvailableCoordinate(for: inputEntity, entityToBeConnected: portConnection, currentWires: wires, usage: .output) /*inputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    var portCoordinate = self.nextAvailableCoordinate(for: portConnection, entityToBeConnected: inputEntity, currentWires: wires, usage: .input) /*portConnection.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
                     
                     if !self.wireExists(from: inputEntity, to: portConnection, currentWires: wires) {
                     
@@ -296,8 +296,8 @@ extension EntityManager {
                         }
                     }
                     
-                    portCoordinate = self.nextAvailableCoordinate(for: portConnection, currentWires: wires, usage: .output) ?? .zero
-                    let outputCoordinate = self.nextAvailableCoordinate(for: outputEntity, currentWires: wires, usage: .input) /* outputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
+                    portCoordinate = self.nextAvailableCoordinate(for: portConnection, entityToBeConnected: outputEntity, currentWires: wires, usage: .output) ?? .zero
+                    let outputCoordinate = self.nextAvailableCoordinate(for: outputEntity, entityToBeConnected: portConnection, currentWires: wires, usage: .input) /* outputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
                     
                     // Port -> Output Pin
                     if( !outputConnected && !self.wireExists(from: portConnection, to: outputEntity, currentWires: wires) ) {
@@ -325,26 +325,33 @@ extension EntityManager {
         return wires
     }
     
-    private func nextAvailableCoordinate(for entity: RenderableEntity, currentWires: [Wire], usage: GridComponent.UsageType) -> Coordinate? {
+    private func nextAvailableCoordinate(for entityConnecting: RenderableEntity, entityToBeConnected: RenderableEntity, currentWires: [Wire], usage: GridComponent.UsageType) -> Coordinate? {
         
-        let coordinates = entity.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
-        if entity is LogicPort {
+        let coordinates = entityConnecting.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
+        if entityConnecting is LogicPort {
             for coordinate in coordinates {
-                let entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates(for: usage).index(of: coordinate) != nil })
+                var entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates(for: usage).index(of: coordinate) != nil })
                 
                 // If no entities at coordinate, simple return the coordinate
                 if entitiesInCoordinate.isEmpty {
                     return coordinate
                 } else {
                     // Check available coordinate in entity and return one that is not being used
+                    var availableCoordinates: [Coordinate] = []
                     for entityInCoordinate in entitiesInCoordinate {
                         let coordinates = entityInCoordinate.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
                         for coordinate in coordinates {
                             if currentWires.filter({ ($0.source == coordinate || $0.destination == coordinate) }).isEmpty {
-                                return coordinate
+                                availableCoordinates.append(coordinate)
                             }
                         }
                     }
+                    // Because we're going to calculate distance, simple use the first coordinate
+                    let targetCoordinate = entityToBeConnected.component(ofType: GridComponent.self)!.firstCoordinate!
+                    availableCoordinates.sort {
+                        return $0.distance(to: targetCoordinate) < $1.distance(to: targetCoordinate)
+                    }
+                    return availableCoordinates.first
                     
                 }
             }

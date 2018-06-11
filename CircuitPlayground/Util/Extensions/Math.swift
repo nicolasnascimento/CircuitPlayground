@@ -67,6 +67,11 @@ extension vector_int2: Point {
     var doubleY: Double { return Double(self.y) }
 }
 
+extension Coordinate: Point {
+    var doubleX: Double { return Double(self.x) }
+    var doubleY: Double { return Double(self.y) }
+}
+
 
 
 //func distance<T>(from to other: T) -> Double {

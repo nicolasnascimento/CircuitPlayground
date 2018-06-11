@@ -24,7 +24,7 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "sample"
+        let fileName = "and2"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
@@ -122,12 +122,10 @@ extension InitialViewController {
         
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "vhd") else { fatalError("Couldn't From url from path \(fileName)") }
         
-        print(url)
         guard let data = try? Data.init(contentsOf: url) else { fatalError("Couldn't extract data from path \(url)") }
         guard let textFromFile = String(data: data, encoding: .utf8) else { fatalError("Couldn't Extract Text From File") }
         var lexer = Lexer(input: textFromFile)
         let tokens = lexer.lex()
-    
         var parser = Parser(tokens: tokens)
         
         do {
