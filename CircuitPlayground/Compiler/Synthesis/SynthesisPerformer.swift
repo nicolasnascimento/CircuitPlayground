@@ -113,6 +113,38 @@ extension SynthesisPerformer {
         return descriptors
     }
     
+    private mutating func extractLogicDescriptors(from vhdlProcess: VHDLProcess) -> [LogicDescriptor] {
+        
+        switch vhdlProcess.expression {
+        case let value as VHDLIf: return self.extractLogicDescriptors(from: value)
+        case let value as VHDLIfElse: return self.extractLogicDescriptors(from: value)
+        default:
+            print("WARNING: Couldn't extract any expression from sequential expression: \(vhdlProcess.expression)")
+            return []
+        }
+    }
+    
+    // An If expression, in general, is used to describe multiplexed expressions
+    // Though there's always the chance of 'Infering a Latch'
+    private mutating func extractLogicDescriptors(from vhdlIf: VHDLIf) -> [LogicDescriptor] {
+        
+        let descriptors = self.extractLogicDescriptors(from: vhdlIf.onTrueExpression.list)
+        
+        // Link to logic descriptor output
+        let (linkedDescriptors, _) = self.link(from: descriptors)
+        
+
+//        linked
+        
+        return linkedDescriptors
+    }
+    
+    // An If else expression, in general, is used to describe multiplexed expressions
+    // Thought
+    private func extractLogicDescriptors(from vhdlIfElse: VHDLIfElse) -> [LogicDescriptor] {
+        
+    }
+    
     private func extractInputFrom(expression: Expression) -> [Input] {
         // Attemp extracting identifier
         if let identifier = expression as? VHDLIdentifier {
