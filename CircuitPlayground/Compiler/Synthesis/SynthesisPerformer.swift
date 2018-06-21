@@ -92,25 +92,16 @@ extension SynthesisPerformer {
     }
     
     private mutating func extractLogicDescriptors(from expressionList: [Expression]) -> [LogicDescriptor] {
-       
-        var descriptors: [LogicDescriptor] = []
-        expressionList.forEach {
+        
+        return expressionList.reduce([]) {
             // Check for binary expressions
-            switch $0 {
-            case let value as VHDLBinaryOperation:
-                let logicDescriptors = self.extractLogicDescriptor(from: value)
-                descriptors.append(contentsOf: logicDescriptors)
-            case let value as VHDLWhenElse:
-                let logicDescriptos = self.extractLogicDescriptors(from: value)
-                descriptors.append(contentsOf: logicDescriptos)
-            case let value as VHDLProcess:
-                let logicDescriptors = self.extractLogicDescriptors(from: value)
-                descriptors.append(contentsOf: logicDescriptors)
-            default:
-                print("Couldn't extract logic descriptor for \(type(of:$0))")
+            switch $1 {
+            case let value as VHDLBinaryOperation: return $0 + self.extractLogicDescriptor(from: value)
+            case let value as VHDLWhenElse: return $0 + self.extractLogicDescriptors(from: value)
+            case let value as VHDLProcess: return $0 + self.extractLogicDescriptors(from: value)
+            default: return $0
             }
         }
-        return descriptors
     }
     
     private mutating func extractLogicDescriptors(from vhdlProcess: VHDLProcess) -> [LogicDescriptor] {
@@ -128,21 +119,58 @@ extension SynthesisPerformer {
     // Though there's always the chance of 'Infering a Latch'
     private mutating func extractLogicDescriptors(from vhdlIf: VHDLIf) -> [LogicDescriptor] {
         
-        let descriptors = self.extractLogicDescriptors(from: vhdlIf.onTrueExpression.list)
+//        let descriptors = self.extractLogicDescriptors(from: vhdlIf.onTrueExpression.list)
+//
+//        // Link to logic descriptor output
+//        let (linkedDescriptors, temporarySignal) = self.link(from: descriptors)
+//
+//        let muxDescriptor = LogicDescriptor(elementType: .combinational, logicOperation: .mux, inputs: [Input(globalSignal: temporarySignal)], outputs: [])
+//
+//        return [muxDescriptor] + linkedDescriptors
         
-        // Link to logic descriptor output
-        let (linkedDescriptors, _) = self.link(from: descriptors)
-        
-
-//        linked
-        
-        return linkedDescriptors
+        return []
     }
     
     // An If else expression, in general, is used to describe multiplexed expressions
     // Thought
-    private func extractLogicDescriptors(from vhdlIfElse: VHDLIfElse) -> [LogicDescriptor] {
+    private mutating func extractLogicDescriptors(from vhdlIfElse: VHDLIfElse) -> [LogicDescriptor] {
         
+        // Assure we're using a boolean expression in the comparision statement
+        guard let booleanExpression = vhdlIfElse.booleanExpression as? VHDLBinaryOperation, booleanExpression.operator is Relational else {
+            print("WARNING: If else expression doesn't have a boolean operation")
+            return []
+        }
+    
+        // Extract on true logic descriptors
+        var onTrueLogicDescriptors = self.extractLogicDescriptors(from: vhdlIfElse.onTrueExpression.list)
+        
+        // Extract outputs as we will need to rewire inputs into the temporary variable
+        let outputs: [Output] = onTrueLogicDescriptors.reduce([]) { $0 + $1.outputs }
+        
+        // Remove Outputs
+        onTrueLogicDescriptors = onTrueLogicDescriptors.deattachingOutputs()
+        
+        // Extract on false logic descriptors
+        let onFalseLogicDescriptors = self.extractLogicDescriptors(from: vhdlIfElse.onFalseExpression.list)
+        
+        // Extract Boolean Expression
+        let booleanLogicDescritors = self.extractLogicDescriptor(from: booleanExpression)
+        
+        // Link to logic descriptor output
+        let (onTrueLinkedLogicDescriptors, temporaryOnTrueSignal) = self.link(from: onTrueLogicDescriptors.deattachingOutputs())
+        let (onFalseLinkedLogicDescriptors, temporaryOnFalseSignal) = self.link(from: onFalseLogicDescriptors.deattachingOutputs())
+        let (booleanLinkedLogicDescriptors, temporaryBooleanSignal) = self.link(from: booleanLogicDescritors)
+        
+        // Check if both 'True' and 'False' expressions assign the same variable
+        if onTrueLogicDescriptors.checkIfOutputsAreEqual(to: onFalseLogicDescriptors) {
+            
+            let inputs: [Input] = [Input(globalSignal: temporaryOnTrueSignal), Input(globalSignal: temporaryOnFalseSignal), Input(globalSignal: temporaryBooleanSignal)]
+            let muxDescriptor = LogicDescriptor(elementType: .combinational, logicOperation: .mux, inputs: inputs, outputs: outputs)
+            
+            return [muxDescriptor] + booleanLinkedLogicDescriptors + onTrueLinkedLogicDescriptors  + onFalseLinkedLogicDescriptors
+        } else {
+            fatalError("Should Infer a Latch Here")
+        }
     }
     
     private func extractInputFrom(expression: Expression) -> [Input] {
@@ -157,10 +185,9 @@ extension SynthesisPerformer {
             
             switch constant.rawType {
             case .bit(let value):
-                if value {
-                    return [Input.constantPositive]
-                } else {
-                    return [Input.constantNegative]
+                switch value {
+                case true: return [Input.constantPositive]
+                case false: return [Input.constantNegative]
                 }
             default: break
             }
@@ -248,8 +275,15 @@ extension SynthesisPerformer {
                 let outputs = leftInputs.map{ Output(name: $0.name) }
                 return LogicDescriptor(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: outputs)
             }
+        case let value as /*is*/ Relational:
+            let descriptor: LogicDescriptor
+            switch value {
+            case .equal: descriptor = LogicDescriptor(elementType: .combinational, logicOperation: .xnor, inputs: leftInputs + rightInputs, outputs: [])
+            case .different: descriptor = LogicDescriptor(elementType: .combinational, logicOperation: .xor, inputs: leftInputs + rightInputs, outputs: [])
+            default: fatalError("Relational operation \(value) not implemented")
+            }
+            logicDescriptors.append(descriptor)
         case /*let value as*/ is Shift: break
-        case /*let value as*/ is Relational: break
         case /*let value as*/ is Miscelaneous: break
         case /*let value as*/ is Math: break
         default: break

@@ -18,13 +18,13 @@ class LogicPort: RenderableEntity {
     
     override var height: Int {
         switch self.operation {
-        case .mux: return Int(GridComponent.maxDimension.y)/8
+        case .mux: return Int(GridComponent.maxDimension.y)/5
         default: return Int(GridComponent.maxDimension.y)/12
         }
     }
     override var width: Int {
         switch self.operation {
-        default: return Int(GridComponent.maxDimension.x)/10
+        default: return Int(GridComponent.maxDimension.x)/11
         }
     }
     

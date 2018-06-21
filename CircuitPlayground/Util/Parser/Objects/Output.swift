@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Output: Codable {
+struct Output: Hashable, Codable {
     var name: String
 }
 

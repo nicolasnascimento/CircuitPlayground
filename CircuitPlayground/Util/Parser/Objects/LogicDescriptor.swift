@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct LogicDescriptor: Codable {
-    enum LogicOperation: String, Codable {
+struct LogicDescriptor: Equatable, Codable {
+    enum LogicOperation: String, Hashable, Codable {
         case and
         case or
         case none
@@ -20,7 +20,7 @@ struct LogicDescriptor: Codable {
         case xnor
         case mux
     }
-    enum ElementType: String, Codable {
+    enum ElementType: String, Equatable, Codable {
         case combinational
         case sequential
         case connection
@@ -29,4 +29,21 @@ struct LogicDescriptor: Codable {
     var logicOperation: LogicOperation
     var inputs: [Input]
     var outputs: [Output]
+}
+
+
+extension Collection where Element == LogicDescriptor{
+    /// Returns true if every outputs that is contained in the elements of the Collection
+    /// are also present
+    func checkIfOutputsAreEqual(to other: [Element]) -> Bool {
+        for element in self {
+            if !other.filter({ $0 == element }).isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+    func deattachingOutputs() -> [Element] {
+        return self.map{ Element(elementType: $0.elementType, logicOperation: $0.logicOperation, inputs: $0.inputs, outputs: []) }
+    }
 }

@@ -116,7 +116,7 @@ extension CircuitScene {
             switch event.momentumPhase {
             case .ended:
                 self.handlingMomentum = false
-                canvasNode.center()
+//                canvasNode.center()
             default:
                 break
             }
@@ -130,13 +130,13 @@ extension CircuitScene {
             if let next = nextEvent {
                 if( next.momentumPhase != .began ) {
                     self.handlingMomentum = false
-                    canvasNode.center()
+//                    canvasNode.center()
                 } else {
                     self.handlingMomentum = true
                 }
             } else {
                 self.handlingMomentum = false
-                canvasNode.center()
+//                canvasNode.center()
             }
         }
     }

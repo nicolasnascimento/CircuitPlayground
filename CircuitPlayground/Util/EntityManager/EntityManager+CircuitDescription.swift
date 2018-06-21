@@ -258,7 +258,7 @@ extension EntityManager {
                 }).isEmpty ? false : true
             }
             
-            print("pin: \(pin.signal.associatedId), connections: \(portConnections.count)")
+//            print("pin: \(pin.signal.associatedId), connections: \(portConnections.count)")
             
             // Because there will be multiple input and a single output, We'll use a flag to indicate wheter the port has already been connected to its output
             var outputConnected: Bool = false
@@ -266,13 +266,15 @@ extension EntityManager {
             // Get input and output entity for each connection
             for portConnection in portConnections {
                 
-                print("connection: \(portConnections)")
+//                print("connection: \(portConnection)")
                 
                 let outputEntity = entities.filter{ $0.signal.associatedId == portConnection.output.associatedId }.first!
                 let inputEntities = entities.filter({ entry in portConnection.inputs.index(where: { $0.associatedId == entry.signal.associatedId }) != nil })
                 
                 // Create 2 Wires ( Pin -> Port & Port -> Output )
                 for inputEntity in inputEntities {
+                    
+                    
                     // Gather 3 connection coordinates
                     let inputCoordinate = self.nextAvailableCoordinate(for: inputEntity, entityToBeConnected: portConnection, currentWires: wires, usage: .output) /*inputEntity.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
                     var portCoordinate = self.nextAvailableCoordinate(for: portConnection, entityToBeConnected: inputEntity, currentWires: wires, usage: .input) /*portConnection.component(ofType: GridComponent.self)?.firstCoordinate*/ ?? .zero
@@ -330,7 +332,7 @@ extension EntityManager {
         let coordinates = entityConnecting.component(ofType: GridComponent.self)?.coordinates(for: usage) ?? []
         if entityConnecting is LogicPort {
             for coordinate in coordinates {
-                var entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates(for: usage).index(of: coordinate) != nil })
+                let entitiesInCoordinate = self.entities.filter({ $0.component(ofType: GridComponent.self)?.coordinates(for: usage).index(of: coordinate) != nil })
                 
                 // If no entities at coordinate, simple return the coordinate
                 if entitiesInCoordinate.isEmpty {

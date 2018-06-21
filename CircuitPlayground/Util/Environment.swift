@@ -22,7 +22,7 @@ enum Environment {
 }
 
 // MARK: - Images
-extension Environment {
+extension Environment {    
     enum Images {
         static let andPortImageName:    String = "And-Gate"
         static let orPortImageName:     String = "Or-Gate"

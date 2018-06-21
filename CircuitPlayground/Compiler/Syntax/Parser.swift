@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 struct Parser {
     var tokens: [Token]
     
@@ -252,7 +250,6 @@ extension Parser {
             
         default: throw ParserError.unknown("Error parsing Architecture")
         }
-        
     }
     
     private func extractEntityFromCurrentToken() throws -> VHDLEntity {
@@ -285,8 +282,6 @@ extension Parser {
             return VHDLPort(portKeyword: .port, leftParenthesisKeyword: .leftParenthesis, signals: thirdElement, rightParethesis: .rightParenthesis, semicolon: .semicolon)
         default: throw ParserError.unknown("Error parsing Port")
         }
-        
-        
     }
     
     private func extractExternalSignalDeclarationListFromCurrentToken(with offset: Int) throws -> VHDLExternalSignalDeclarationList? {

@@ -13,7 +13,8 @@ end ExampleEntity;
 -- Define the basic architecture
 architecture ExampleArchitecture of ExampleEntity is
 
--- Define Global Signals
+    -- Define Global Signals
+    signal temp: std_logic;
 
 begin
 
@@ -23,7 +24,7 @@ begin
 		if A = '1' then
 			B <= A;
 		else
-			B <= '1';
+			B <= A;
 		end if;
 	end process;
 

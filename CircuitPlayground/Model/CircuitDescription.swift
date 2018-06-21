@@ -144,8 +144,9 @@ extension CircuitDescription {
                     // Note:
                     // Because we're only drawing the operations and not performing them, pass `none` as
                     // associated logic function
-                    let value = LogicFunctionDescriptor(logicDescriptor: .mux, logicFunction: LogicFunctions.none)
-                    mapping.append((inputs: associatedInputs, output: associatedOutput, logicFunction: value))
+                    mapping.append((inputs: associatedInputs,
+                                    output: associatedOutput,
+                                    logicFunction: LogicFunctionDescriptor(logicDescriptor: .mux, logicFunction: LogicFunctions.none)))
                 }
             }
         }

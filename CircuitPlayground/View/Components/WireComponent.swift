@@ -22,8 +22,8 @@ class WireComponent: GKComponent {
         self.source = source
         self.destination = destination
         self.parentNode = SKNode()
-        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
-        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
+//        self.parentNode.position.y += GridComponent.maximumIndividualSize.height*0.5
+//        self.parentNode.position.x += GridComponent.maximumIndividualSize.width*0.5
         self.parentNode.zPosition -= 2.0
         super.init()
     }

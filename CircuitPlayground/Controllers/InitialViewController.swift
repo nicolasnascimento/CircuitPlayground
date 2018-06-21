@@ -24,11 +24,11 @@ class InitialViewController: NSViewController {
     
         self.initialize()
         
-        let fileName = "and2"
+        let fileName = "sample"
         let specification = self.generateSpecification(readingFrom: fileName)
         
         let circuitDescription = CircuitDescription(singleCircuitSpecification: specification)
-//        print(circuitDescription)
+        
         // Populate entities from circuit description
         self.entityManager.populate(with: circuitDescription)
     }
